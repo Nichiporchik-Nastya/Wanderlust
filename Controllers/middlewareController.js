@@ -35,6 +35,7 @@ class middlewareController {
             console.log(e);
         }
     }
+
 }
 
 module.exports = new middlewareController();
