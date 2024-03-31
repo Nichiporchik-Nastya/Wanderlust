@@ -1,4 +1,5 @@
 const db = require('../db');
+const Users = require("../db/models/index").Users;
 
 class authController {
     async registration(req, res) {
@@ -15,8 +16,8 @@ class authController {
     }
 
     async login(req, res) {
+        const { email, password } = req.body;
         try {
-            const { email, password } = req.body;
             db.query(`SELECT * FROM users WHERE email = '${email}'`, (error, results) => {
                 if (error) throw error;
                 if (results.length > 0) {
@@ -45,6 +46,9 @@ class authController {
                     // res.redirect('../');
                 }
             });
+        // console.log(await Users.create({
+        //     email, salt:123, role: 1, password: "123"
+        // }));
         } catch (e) {
             res.send('Incorrect Username');
         }
