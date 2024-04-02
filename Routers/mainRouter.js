@@ -5,8 +5,11 @@ const middlewareController = require('../Controllers/middlewareController');
 const {body} = require('express-validator');
 const UserModel = require("../Models/userModel");
 
-router.get('/dashbord', middlewareController.checkSession, controller.dashbord);
+router.get('/dashbord', middlewareController.checkSession, middlewareController.checkAdmin, controller.dashbord);
 router.get('/', controller.index);
+
+router.get('/guide-dashbord', controller.guideDashbord);
+
 
 router.post('/api/admin/registration', [
     body('name').isLength({ min: 5 }).withMessage('Имя пользователя должно содержать не менее 5 символов'),

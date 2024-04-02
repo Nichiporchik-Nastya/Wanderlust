@@ -14,6 +14,15 @@ class mainController {
         }
     }
 
+    async guideDashbord(req, res) {
+        try {
+            const user = req.session.user;
+            res.render('./guideDashbord', { data: user });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     async index(req, res) {
         try {
             res.render('index');

@@ -1,15 +1,10 @@
-const db = require('../db');
+const UserModel = require("../Models/userModel");
 
 class middlewareController {
 
     async checkSession(req, res, next) {
         try {
             if (req.session.user) {
-                db.query(`SELECT * FROM users WHERE id = "${req.session.user.id}"`, (error, results) => {
-                    req.session.user = results[0];
-                    if (error) throw error;
-                    // res.send(results);
-                });
                 next();
             }
             else {
@@ -23,9 +18,14 @@ class middlewareController {
 
     async checkAdmin(req, res, next) {
         try {
+            const { email } = req.session.user;
+            let result = await UserModel.getRole(email);
 
-            if (req.session.role == "ADMIN") {
+            if (result == 1) {
                 next();
+            } 
+            else if (result == 2) {
+                res.redirect('/guide-dashbord');
             }
             else {
                 res.redirect('/');
