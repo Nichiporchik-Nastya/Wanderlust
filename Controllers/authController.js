@@ -1,20 +1,7 @@
 const UserModel = require("../Models/userModel");
-const {validationResult} = require('express-validator');
+const { validationResult } = require('express-validator');
 
 class authController {
-    // async registration(req, res) {
-    //     try {
-    //         const { name, login, email } = req.body;
-
-    //         db.query(`INSERT INTO users (name, login, email) VALUES ("${name}", "${login}", "${email}")`, (error, results) => {
-    //             if (error) throw error;
-    //             res.send('User registered successfully!');
-    //         });
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
-
     async registration(req, res) {
         try {
             const errors = validationResult(req);
@@ -40,37 +27,18 @@ class authController {
             }
             else {
                 const { email, password } = req.body;
-                // let emailExist = await UserModel.checkExistingEmails(email);
-                // if (emailExist) {
-                //     let passwordCorrect = await UserModel.checkPasswordCorrect(email, password);
-                //     if (passwordCorrect) {
-                        req.session.user = await UserModel.getByEmail(email);
-                        res.redirect('/dashbord');
-                //     }
-                //     else {
-                //         res.send("неверный пароль");
-                //     }
-                // }
-                // else {
-                //     res.send("неверная почта");
-                // }
+                req.session.user = await UserModel.getByEmail(email);
 
-                // let result = await UserModel.create(req.body);
-                // res.status(200).send(result);
+                return res.status(200).json({});
             }
         } catch (e) {
-            // res.send(e);
-            console.log(e);
-            // consle.log('Не верно указаны почта и/или пароль');
+            res.send(e);
         }
     }
 
     async logout(req, res) {
         try {
-            // res.send(req.session);
-            const login = req.session.user.login;
-            // console.log(login);
-            if (login) {
+            if (req.session.user) {
                 req.session.user = null;
                 res.redirect('/');
             }
@@ -90,15 +58,6 @@ class authController {
             console.log(e);
         }
     }
-
-    // async dashbord(req, res) {
-    //     try {
-    //         res.send("dashbord.html");
-
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
 }
 
 module.exports = new authController();
