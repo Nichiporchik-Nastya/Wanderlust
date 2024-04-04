@@ -3,7 +3,8 @@
 
 const express = require('express');
 const fileUpload = require('express-fileupload');
-const middlewareController = require('./Controllers/middlewareController');
+// const middlewareController = require('./Controllers/middlewareController');
+const bcrypt = require('bcrypt');
 const PORT = process.env.PORT || 4000;
 
 const bodyParser = require('body-parser');
@@ -38,8 +39,11 @@ app.use("/", mainRouter);
 
 const start = () => {
     try {
-        app.listen(PORT, () =>
-            console.log(`server started on port ${PORT}`)
+        app.listen(PORT, () =>{
+            console.log(`server started on port ${PORT}`);
+            // console.log(bcrypt.hash(123 + '123', 3));
+        }
+            
         );
     } catch (e) {
         console.log(e);

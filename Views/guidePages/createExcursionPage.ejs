@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать экскурсию</title>
+    <link rel="stylesheet" href="/public/css/normalize.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+</head>
+
+<body>
+
+    <div class="container login-container">
+
+        <form class="login-form" onsubmit="CreateExcursionSubmit(event)">
+            <h2>Создание новой экскурсии</h2>
+
+
+            <div class="accordion__wrap">
+                    <ul class="accordion__list">
+                        <li class="accordion__item">
+                            <div class="accordion__title-block">
+                                <h4 class="accordion__title">Основная информация</h4>
+                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                            </div>
+                            <div class="accordion__text-block is_open">
+                                <div class="box-input">
+                                    <input type="text" class="long-field" required>
+                                    <label>Название экскурсии</label>
+                                    <!-- <div class="box-input__error-text email-error"></div> -->
+                                    <p class="input-help-text">Развёрнутое название</p>
+                                </div>
+
+
+                                <div class="box-input">
+                                    <textarea class="long-field" required></textarea>
+                                    <label>Описание экскурсии</label>
+                                    <!-- <div class="box-input__error-text password-error"></div> -->
+                                    <p class="input-help-text">Что увидят и узнают путешественники в рамках экскурсии?
+                                        Опишите свою
+                                        экскурсию так, чтобы туристам захотелось поехать!</p>
+                                </div>
+
+                                <div class="box-input">
+                                    <input type="number" class="long-field" required max="12" min="1">
+                                    <label>Длительность экскурсии</label>
+                                    <!-- <div class="box-input__error-text password-error"></div> -->
+                                    <p class="input-help-text">Введите длительность экскурсии в часах</p>
+                                </div>
+
+                                <div class="input-wrap">
+                                    <h4 class="box-input__title">Формат</h4>
+                                    <div class="radio-input">
+                                        <input type="radio" name="format" id="pop" value="1" checked>
+                                        <label for="pop">Популярности</label>
+                                    </div>
+                                    <div class="radio-input">
+                                        <input type="radio" name="format" id="new" value="2">
+                                        <label for="new">Новизне</label>
+                                    </div>
+                                    <div class="radio-input">
+                                        <input type="radio" name="format" id="alph" value="3">
+                                        <label for="alph">Алфавиту</label>
+                                    </div>
+                                </div>
+                                <div class="input-wrap">
+                                    <h4 class="box-input__title">Тип</h4>
+                                    <div class="radio-input">
+                                        <input type="radio" name="type" id="pop" value="1" checked>
+                                        <label for="pop">Популярности</label>
+                                    </div>
+                                    <div class="radio-input">
+                                        <input type="radio" name="type" id="new" value="2">
+                                        <label for="new">Новизне</label>
+                                    </div>
+                                    <div class="radio-input">
+                                        <input type="radio" name="type" id="alph" value="3">
+                                        <label for="alph">Алфавиту</label>
+                                    </div>
+                                </div>
+                                <div class="input-block-wrap">
+                                    <h4 class="box-input__title">Тема</h4>
+                                    <div class="radio-input">
+                                        <input type="radio" name="theme" id="pop" value="1" checked>
+                                        <label for="pop">Популярности</label>
+                                    </div>
+                                    <div class="radio-input">
+                                        <input type="radio" name="theme" id="new" value="2">
+                                        <label for="new">Новизне</label>
+                                    </div>
+                                    <div class="radio-input">
+                                        <input type="radio" name="theme" id="alph" value="3">
+                                        <label for="alph">Алфавиту</label>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="accordion__item">
+                            <div class="accordion__title-block">
+                                <h4 class="accordion__title">Маршрут</h4>
+                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                            </div>
+                            <div class="accordion__text-block is_open">
+                                ввод
+                            </div>
+                        </li>
+                        <li class="accordion__item">
+                            <div class="accordion__title-block">
+                                <h4 class="accordion__title">Где найти источники изображений?</h4>
+                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                            </div>
+                            <div class="accordion__text-block is_open">
+                                ввод
+                            </div>
+                        </li>
+                        <li class="accordion__item">
+                            <div class="accordion__title-block">
+                                <h4 class="accordion__title">Как с&nbsp;нами связаться?</h4>
+                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                            </div>
+                            <div class="accordion__text-block is_open">
+                                ввод
+                            </div>
+                        </li>
+                    </ul>
+                <!-- <div class="soderj_wrapper">
+                    <ol class="soderj">
+                        <li>Общая информация</li>
+                        <li>Маршрут</li>
+                        <li>Расписание</li>
+                        <li>Фотографии</li>
+                        <li>Стоимость</li>
+                        <li>Дополнительно</li>
+                    </ol>
+                </div> -->
+            </div>
+
+
+
+
+
+
+
+            <input type="submit" class="btn" value="Создать">
+
+        </form>
+
+        <!-- <div class="paragraph-wrap">
+        <p class="paragraph">
+            Вход доступен только для гидов
+        </p>
+        <p class="paragraph">
+            Если у вас есть соответствующие опыт, знания и желание ими поделиться, приглашаем вас стать частью
+            нашей
+            большой команды энтузиастов. Присылайте своё резюме по адресу
+            <a href="mailto:hr@wanderlust.ru">hr@wanderlust.ru</a>
+        </p>
+    </div> -->
+    </div>
+
+    <script>
+        const answer = document.querySelectorAll(".accordion__text-block");
+        const questions = document.querySelectorAll(".accordion__item");
+        const answer_btns = document.querySelectorAll(".accordion__arrow");
+
+        questions.forEach((question, index) => {
+            question.addEventListener('click', () => {
+                // questions.forEach((q, i) => {
+                //     answer[i].classList.remove('is_open');
+                //     answer_btns[i].classList.remove('close');
+                // });
+                answer[index].classList.toggle('is_open');
+                answer_btns[index].classList.toggle('close');
+            });
+        });
+    </script>
+    <script src="/public/js/createExcursion.js"></script>

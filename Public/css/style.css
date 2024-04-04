@@ -4,6 +4,7 @@
   --light-green: #C0DFB6;
   --border-color: #E2EEDE;
   --light-text: #B5B7B4;
+  --dark-text: #464646;
   --radius: 5px;
 }
 
@@ -25,12 +26,12 @@
   font-weight: normal;
 }
 
-body{
+body {
   font-family: "SegoeUI", sans-serif;
   font-size: 16px;
 }
 
-header{
+header {
   display: flex;
   justify-content: space-between;
   padding: 10px 0;
@@ -38,7 +39,7 @@ header{
   border-bottom: 1px solid var(--light-green);
 }
 
-.btn{
+.btn {
   border-radius: var(--radius);
   background-color: var(--main-green);
   color: white;
@@ -48,33 +49,33 @@ header{
   transition: .2s ease;
 }
 
-.btn:hover{
+.btn:hover {
   background-color: var(--hover-green);
 }
 
-.secondary-btn{
+.secondary-btn {
   border: 2px solid var(--main-green);
   color: black;
   background-color: white;
 }
 
-.container{
+.container {
   width: 1214px;
   margin: 0 auto;
 }
 
-header.container{
+header.container {
   width: 1456px;
 }
 
-.login-container{
+.login-container {
   margin-top: 120px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-h2{
+h2 {
   font-size: 36px;
   font-weight: bold;
   text-transform: uppercase;
@@ -85,28 +86,28 @@ a[href^="mailto:"] {
   color: var(--main-green);
 }
 
-a[href^="mailto:"]:hover{
+a[href^="mailto:"]:hover {
   text-decoration: underline;
 }
 
-.paragraph{
+.paragraph {
   margin-bottom: 14px;
   max-width: 800px;
   line-height: 130%;
 }
 
-header nav{
+header nav {
   display: flex;
   align-items: center;
   column-gap: 24px;
 }
 
-.nav-nemu{
+.nav-nemu {
   display: flex;
   column-gap: 40px;
 }
 
-.nav-nemu__item{
+.nav-nemu__item {
   text-transform: uppercase;
   align-items: center;
   display: flex;
@@ -114,11 +115,11 @@ header nav{
   cursor: pointer;
 }
 
-.nav-nemu__item:hover{
+.nav-nemu__item:hover {
   font-weight: bold;
 }
 
-.search-bar{
+.search-bar {
   display: flex;
   border: 2px solid var(--border-color);
   border-radius: var(--radius);
@@ -130,14 +131,14 @@ header nav{
 
 
 
-.btn-block{
+.btn-block {
   display: flex;
   column-gap: 24px;
   align-items: center;
 }
 
 /*Формы*/
-.login-form{
+.login-form {
   display: flex;
   flex-direction: column;
   row-gap: 20px;
@@ -145,43 +146,63 @@ header nav{
 }
 
 .box-input {
-	position: relative;
+  position: relative;
 }
 
-input{
+input,
+textarea {
   font-size: 16px;
+  resize: none;
 }
 
-.box-input input {
-	border: 2px solid var(--border-color);
-	padding: 10px 12px;
+.box-input input,
+.box-input textarea {
+  border: 2px solid var(--border-color);
+  padding: 10px 12px;
   width: 300px;
   border-radius: var(--radius);
 }
 
+input.long-field,
+textarea.long-field {
+  width: 600px;
+}
+
 .box-input label {
-	position: absolute;
-	top: 0;
-	left: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
   margin: 12px 10px;
-	color: var(--light-text);
-	transition: .5s;
-	pointer-events: none;
+  color: var(--light-text);
+  transition: .5s;
+  pointer-events: none;
   background-color: white;
 }
 
 .box-input input:focus~label,
-.box-input input:valid~label{
-	font-size: 14px;
-	top: -24px;
+.box-input textarea:focus~label,
+.box-input input:valid~label,
+.box-input textarea:valid~label
+
+/* .date-input:not(:valid)~label */
+  {
+  font-size: 14px;
+  top: -24px;
   padding: 6px;
+  color: black
 }
 
-.box-input__error-text{
+.box-input__error-text {
   font-size: 14px;
   color: red;
   margin-top: 6px;
   /* display: none; */
+}
+
+.box-input__title {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 16px;
 }
 
 input:-webkit-autofill,
@@ -193,6 +214,144 @@ input:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+.input-help-text {
+  color: var(--dark-text);
+  margin-top: 8px;
+  line-height: 120%;
+}
+
+
+input[type='radio'],
+input[type='checkbox'] {
+  position: relative;
+  margin-right: 5px;
+  height: 15px;
+  width: 15px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  outline: none;
+}
+
+input[type='radio']::before,
+input[type='checkbox']::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  border: 2px solid var(--border-color);
+}
+
+input[type='radio']:checked::after,
+input[type='checkbox']:checked::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: var(--main-green);
+  transform: translate(-50%, -50%);
+  visibility: visible;
+}
+
+input[type='checkbox']::before,
+input[type='checkbox']:checked::after {
+  border-radius: 3px;
+}
+
+.radio-input {
+  margin-bottom: 12px;
+}
+
+
+/*--------FAQ------------------*/
+
+.accordion__wrap {
+  display: flex;
+  justify-content: space-between;
+}
+
+.accordion__list {
+  /* width: 60%; */
+}
+
+.accordion__item {
+  border-top: 2px solid var(--border-color);
+  padding: 10px 0px;
+}
+
+.soderj_wrapper {
+  width: 40%;
+  /* padding-top: 30px;
+  padding-left: 5%; */
+}
+
+.accordion__text-block {
+  transform: scaleY(0);
+  opacity: 0;
+  transition: all 0.2s ease;
+  position: absolute;
+  transform-origin: top;
+  display: flex;
+  flex-direction: column;
+  row-gap: 40px;
+}
+
+.is_open {
+  transform: scaleY(1);
+  opacity: 1;
+  position: relative;
+}
+
+.accordion__title {
+  font-size: 21px;
+  bottom: 0;
+  padding: 2% 0% 2% 0%;
+  pointer-events: none;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.show_answer {
+  transform: rotate(180deg);
+  transition: transform 0.2s linear;
+}
+
+.close {
+  transform: rotate(180deg);
+}
+
+.accordion__title-block {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.accordion__title-block:active {
+  transform: translateY(1px);
+}
+
+.soderj{
+  color: var(--main-green);
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 120%;
+}
+
+
+
+
+
+
+
 
 
 
@@ -201,7 +360,7 @@ input:-webkit-autofill:focus {
     max-width: 680px;
   }
 
-  
+
 }
 
 @media (max-width: 680px) {
@@ -212,7 +371,4 @@ input:-webkit-autofill:focus {
   }
 }
 
-@media (max-width: 360px) {
-  
-}
-
+@media (max-width: 360px) {}

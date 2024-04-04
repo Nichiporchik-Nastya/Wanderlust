@@ -1,8 +1,9 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */ // это js doc нотация, нет типизации по умолчанию, так как это обычный js файл и эта директива добавляет типизацию
+
+/** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+  up: (queryInterface, Sequelize) => {
+    return queryInterface.createTable('Excursions', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -10,37 +11,48 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       name: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       description: {
         type: Sequelize.STRING
       },
-      role: {
+      typeId: {
         allowNull: false,
         references: {
-          model: { tableName: 'Roles' },
+          model: { tableName: 'Types' },
           key: 'id'
         },
         type: Sequelize.INTEGER
       },
-      email: {
+      formatId: {
         allowNull: false,
-        type: Sequelize.STRING
+        references: {
+          model: { tableName: 'Formats' },
+          key: 'id'
+        },
+        type: Sequelize.INTEGER
       },
-      lastLogged: {
+      themeId: {
         allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: new Date()
+        references: {
+          model: { tableName: 'Themes' },
+          key: 'id'
+        },
+        type: Sequelize.INTEGER
       },
-      imgSRC: {
-        type: Sequelize.STRING
-      },
-      salt: {
+      adultCost: {
         allowNull: false,
         type: Sequelize.INTEGER
       },
-      password: {
+      childCost: {
+        type: Sequelize.INTEGER
+      },
+      duration: {
         allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      extraInfo: {
         type: Sequelize.STRING
       },
       createdAt: {
@@ -55,7 +67,7 @@ module.exports = {
       }
     });
   },
-  async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Users');
+  down: (queryInterface, Sequelize) => {
+    return queryInterface.dropTable('Excursions');
   }
-};
+}

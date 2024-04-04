@@ -15,7 +15,7 @@ router.post('/api/admin/registration', [
     body('name').isLength({ min: 5 }).withMessage('Имя пользователя должно содержать не менее 5 символов'),
     body('email').isEmail().withMessage('Введите корректный адрес электронной почты'),
     body('email').custom(async (value, { req }) => {
-        let emailExist = await UserModel.checkExistingEmails(value);
+        let emailExist = await UserModel.getByEmail(value);
         if (emailExist) {
           throw new Error('Пользователь с такой почтой уже зарегистрирован');
         }
@@ -32,6 +32,10 @@ router.post('/api/admin/registration', [
 
 router.get('/admin/registration', (req, res)=>{
     res.render('adminPages/registrationPage');
+});
+
+router.get('/excursions/create', (req, res)=>{
+  res.render('guidePages/createExcursionPage');
 });
 
 module.exports = router;
