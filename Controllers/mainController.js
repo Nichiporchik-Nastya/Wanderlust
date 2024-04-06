@@ -1,6 +1,7 @@
 const path = require('path');
 const { validationResult } = require('express-validator');
 const UserModel = require("../Models/userModel");
+const ExcursionModel = require('../Models/excursionModel');
 
 
 
@@ -18,6 +19,16 @@ class mainController {
         try {
             const user = req.session.user;
             res.render('./guideDashbord', { data: user });
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async createExcursion(req, res) {
+        try {
+            // console.log(req.body);
+            let result = await ExcursionModel.create(req.body);
+            res.status(200).send(result);
         } catch (e) {
             console.log(e);
         }
