@@ -3,49 +3,28 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Excursions', {
+    return queryInterface.createTable('ThemeExcursions', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      description: {
-        type: Sequelize.STRING
-      },
-      typeId: {
+      themeId: {
         allowNull: false,
         references: {
-          model: { tableName: 'Types' },
+          model: { tableName: 'Themes' },
           key: 'id'
         },
         type: Sequelize.INTEGER
       },
-      formatId: {
+      excursionId: {
         allowNull: false,
         references: {
-          model: { tableName: 'Formats' },
+          model: { tableName: 'Excursions' },
           key: 'id'
         },
         type: Sequelize.INTEGER
-      },
-      adultCost: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      childCost: {
-        type: Sequelize.INTEGER
-      },
-      duration: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      extraInfo: {
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -60,6 +39,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Excursions');
+    return queryInterface.dropTable('ThemeExcursions');
   }
 }

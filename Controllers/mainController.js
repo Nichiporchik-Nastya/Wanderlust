@@ -26,7 +26,6 @@ class mainController {
 
     async createExcursion(req, res) {
         try {
-            // console.log(req.body);
             let result = await ExcursionModel.create(req.body);
             res.status(200).send(result);
         } catch (e) {

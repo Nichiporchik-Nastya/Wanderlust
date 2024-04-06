@@ -16,8 +16,6 @@ module.exports = (sequelize, DataTypes) => {
   DaysExcursions.init({
     dayNumber: DataTypes.INTEGER,
     excursionId: DataTypes.INTEGER,
-    duration: DataTypes.INTEGER,
-    extraInfo: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'DaysExcursions',

@@ -15,7 +15,7 @@
 
     <div class="container login-container">
 
-        <form  onsubmit="CreateExcursionSubmit(event)">
+        <form onsubmit="CreateExcursionSubmit(event)">
             <h2>Создание новой экскурсии</h2>
 
 
@@ -98,7 +98,7 @@
                                     <div class="many-inputs__wrap">
                                         <% data.themes.forEach(item=> { %>
                                             <div class="radio-input">
-                                                <input type="checkbox" name="themeId" id="theme-<%= item.id; %>"
+                                                <input type="checkbox" name="themes" id="theme-<%= item.id; %>"
                                                     value="<%= item.id; %>">
                                                 <label for="theme-<%= item.id; %>">
                                                     <%= item.name; %>
@@ -110,7 +110,7 @@
                             </div>
                         </div>
                     </li>
-                     <li class="accordion__item long-field">
+                    <li class="accordion__item long-field">
                         <div class="accordion__title-block">
                             <div class="accordion__title-content">
                                 <h4 class="accordion__title">Расписание</h4>
@@ -132,26 +132,25 @@
                                 <h4 class="box-input__title">Время начала экскурсий</h4>
 
                                 <div class="box-input">
-                                    <input type="time" name="time" id="time">
+                                    <input type="time" name="time" id="time" value="11:00" step="300"> <!-- 5 минут-->
+                                    <div class="box-input__error-text" id="time-error"></div>
                                     <div class="tags-wrap">
                                         <p>Выбрано:</p>
-                                        <div class="tags">
-                                            <div class="tag">11:00</div>
-                                            <div class="tag">11:00</div>
+                                        <div class="tags" id="time-tags">
                                         </div>
                                     </div>
 
                                 </div>
                             </div>
 
-                            <div class="btn secondary-btn btn-with-icon">
+                            <div class="btn secondary-btn btn-with-icon" id="add-time-btn">
                                 <img src="/Public/icons/add-time.svg">
-                                Выбрать экскурию
+                                Добавить время
                             </div>
 
                         </div>
                     </li>
-                     <!-- <li class="accordion__item long-field">
+                    <!-- <li class="accordion__item long-field">
                         <div class="accordion__title-block">
                             <div class="accordion__title-content">
                                 <h4 class="accordion__title">Фотографии</h4>
@@ -216,7 +215,7 @@
                             </div>
 
                         </div>
-                    </li> 
+                    </li>
                 </ul>
             </div>
 
@@ -246,9 +245,13 @@
     </div>
 
     <script>
-        const answer = document.querySelectorAll(".accordion__text-block");
-        const questions = document.querySelectorAll(".accordion__title-block");
-        const answer_btns = document.querySelectorAll(".accordion__arrow");
+        let answer = document.querySelectorAll(".accordion__text-block"),
+            questions = document.querySelectorAll(".accordion__title-block"),
+            answer_btns = document.querySelectorAll(".accordion__arrow"),
+            addTimeBtn = document.querySelector("#add-time-btn"),
+            timeInput = document.getElementById("time"),
+            timeError = document.querySelector("#time-error")
+            ;
 
         questions.forEach((question, index) => {
             question.addEventListener('click', () => {
@@ -277,12 +280,53 @@
 
             document.getElementById("weekdays").innerHTML +=
                 `<div class="radio-input">
-                <input type="checkbox" name="weekday" id="weekday-${i}" value="${i}">
+                <input type="checkbox" name="dayNumber" id="weekday-${i}" value="${i}">
                     <label for="weekday-${i}">
                         ${nextday}
                     </label>
             </div>`;
         }
+
+        let startTimes = [], timeTags = [], i = 0;
+
+        addTimeBtn.addEventListener('click', () => {
+
+            if (timeInput.value) {
+
+                if (startTimes.length >= 3) {
+                    timeError.innerHTML = "Максимально допустимое количество: 3";
+                } 
+                else {
+                    if (startTimes.includes(timeInput.value)) {
+                        timeError.innerHTML = "Время начала экскурсий не должно повторяться";
+                    } 
+                    else {
+                        timeError.innerHTML = "";
+                        let time = timeInput.value;
+
+                        document.getElementById("time-tags").innerHTML += `<div class="tag time-tag" data-index="${i++}">${time}</div>`;
+                        startTimes.push(time);
+
+                        timeTags = document.querySelectorAll(".time-tag");
+                        timeTags.forEach(tag => {
+                            tag.addEventListener('click', () => {
+                                tag.remove();
+                                let tagIndex = tag.dataset.index;
+
+                                startTimes.splice(tagIndex, 1);
+                            });
+                        });
+
+                        timeInput.value = " ";
+                        
+                    }
+                }
+            } else {
+                timeError.innerHTML = "Введите значение";
+            }
+        });
+
+
 
 
     </script>
