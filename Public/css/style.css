@@ -213,7 +213,7 @@ textarea {
   width: 100%;
 }
 
-.box-input label {
+.box-input label{
   position: absolute;
   top: 0;
   left: 0;
@@ -226,10 +226,8 @@ textarea {
 
 .box-input input:focus~label,
 .box-input textarea:focus~label,
-.box-input input:valid~label,
-.box-input textarea:valid~label
-
-/* .date-input:not(:valid)~label */
+.box-input input:not(:placeholder-shown)~label,
+.box-input textarea:not(:placeholder-shown)~label
   {
   font-size: 14px;
   top: -24px;

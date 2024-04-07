@@ -32,8 +32,9 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Название экскурсии</h4>
                                 <div class="box-input">
-                                    <input type="text" name="name" required value="test">
+                                    <input type="text" name="name" placeholder=" ">
                                     <label>Название экскурсии</label>
+                                    <div class="box-input__error-text name-error"></div>
                                     <p class="input-help-text">Развёрнутое название</p>
                                 </div>
                             </div>
@@ -41,8 +42,9 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Описание экскурсии</h4>
                                 <div class="box-input">
-                                    <textarea required name="description">test</textarea>
+                                    <textarea name="description" placeholder=" "></textarea>
                                     <label>Описание экскурсии</label>
+                                    <div class="box-input__error-text description-error"></div>
                                     <p class="input-help-text">Что увидят и узнают путешественники в рамках экскурсии?
                                         Опишите свою
                                         экскурсию так, чтобы туристам захотелось поехать!</p>
@@ -52,8 +54,8 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Дополнительная информация</h4>
                                 <div class="box-input">
-                                    <textarea required name="extraInfo">test</textarea>
-                                    <label>Описание экскурсии</label>
+                                    <textarea name="extraInfo" placeholder=" "></textarea>
+                                    <label>Дополнительная информация</label>
                                     <p class="input-help-text">Что ещё взять с собой?</p>
                                 </div>
                             </div>
@@ -61,8 +63,9 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Длительность экскурсии</h4>
                                 <div class="box-input">
-                                    <input type="number" name="duration" required max="12" min="1" value="6">
+                                    <input type="number" name="duration" placeholder=" ">
                                     <label>Длительность экскурсии</label>
+                                    <div class="box-input__error-text duration-error"></div>
                                     <p class="input-help-text">Введите длительность экскурсии в часах</p>
                                 </div>
                             </div>
@@ -74,10 +77,11 @@
                                     <% data.formats.forEach(item=> { %>
                                         <div class="radio-input">
                                             <input type="radio" name="formatId" id="format-<%= item.id; %>"
-                                                value="<%= item.id; %>" required checked>
+                                                value="<%= item.id; %>" checked>
                                             <label for="format-<%= item.id; %>">
                                                 <%= item.name; %>
                                             </label>
+                                            <div class="box-input__error-text formatId-error"></div>
                                         </div>
                                         <% }); %>
                                 </div>
@@ -86,10 +90,11 @@
                                     <% data.types.forEach(item=> { %>
                                         <div class="radio-input">
                                             <input type="radio" name="typeId" id="type-<%= item.id; %>"
-                                                value="<%= item.id; %>" required checked>
+                                                value="<%= item.id; %>"  checked>
                                             <label for="type-<%= item.id; %>">
                                                 <%= item.name; %>
                                             </label>
+                                            <div class="box-input__error-text typeId-error"></div>
                                         </div>
                                         <% }); %>
                                 </div>
@@ -105,6 +110,7 @@
                                                 </label>
                                             </div>
                                             <% }); %>
+                                            <div class="box-input__error-text themes-error"></div>
                                     </div>
                                 </div>
                             </div>
@@ -126,14 +132,15 @@
                                 <h4 class="box-input__title">Дни недели</h4>
                                 <div class="many-inputs__wrap" id="weekdays">
                                 </div>
+                                <div class="box-input__error-text dayNumber-error"></div>
                             </div>
 
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Время начала экскурсий</h4>
 
                                 <div class="box-input">
-                                    <input type="time" name="time" id="time" value="11:00" step="300"> <!-- 5 минут-->
-                                    <div class="box-input__error-text" id="time-error"></div>
+                                    <input type="time" name="startTimes"  id="time" step="300"> <!-- 5 минут-->
+                                    <div class="box-input__error-text startTimes-error" id="time-error"></div>
                                     <div class="tags-wrap">
                                         <p>Выбрано:</p>
                                         <div class="tags" id="time-tags">
@@ -200,15 +207,16 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Взрослый</h4>
                                 <div class="box-input">
-                                    <input type="number" name="adultCost" required value="5421">
+                                    <input type="number" name="adultCost" placeholder=" ">
                                     <label>Введите стоимость</label>
+                                    <div class="box-input__error-text adultCost-error"></div>
                                 </div>
                             </div>
 
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Детский</h4>
                                 <div class="box-input">
-                                    <input type="number" name="childCost" value="652">
+                                    <input type="number" name="childCost" placeholder=" ">
                                     <label>Введите стоимость</label>
                                     <p class="input-help-text">Можно не заполнять, если не предусмотрено </p>
                                 </div>
@@ -295,6 +303,7 @@
 
                 if (startTimes.length >= 3) {
                     timeError.innerHTML = "Максимально допустимое количество: 3";
+                    timeInput.value = " ";
                 } 
                 else {
                     if (startTimes.includes(timeInput.value)) {

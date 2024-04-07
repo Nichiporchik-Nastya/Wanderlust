@@ -6,7 +6,7 @@ async function CreateExcursionSubmit(event) {
     startTimes.forEach(time => {
         formData.append("startTimes", time);
     });
-    
+
     // for (let [key, value] of formData.entries()) {
     //     console.log(key, value); 
     // }
@@ -17,7 +17,19 @@ async function CreateExcursionSubmit(event) {
     });
 
     let result = await response.json();
-    if (result.errors) {
-        console.log(result.errors[0]);
+    if (result?.errors) {
+
+        // console.log(result.errors);
+
+        document.querySelectorAll(".box-input__error-text").forEach(err => {
+            err.innerText = "";
+        });
+
+        result.errors.forEach(error => {
+            document.querySelector(`.${error.path}-error`).innerText = error.msg;
+        });
+        emailErrArr = [], passwordErrArr = []
+
+
     } else console.log("Экскурсия создана");
 }

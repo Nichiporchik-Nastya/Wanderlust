@@ -15,12 +15,6 @@ class ExcursionModel {
             let id = await Excursions.create(body);
             id = id.id;
 
-            // await ThemeExcursions.create({ themeId: 1, excursionId: 5 })
-            // await DaysExcursions.create({ dayNumber: 1, excursionId: 5 });
-            // await StartTimes.create({ time: "10:00", excursionId: 5 });
-
-            console.log(234567);
-
             if (Array.isArray(body.themes)) {
                 await body.themes.forEach(theme => {
                     ThemeExcursions.create({ themeId: theme, excursionId: id });
@@ -44,6 +38,8 @@ class ExcursionModel {
             } else {
                 StartTimes.create({ time: body.startTimes, excursionId: id });
             }
+
+            console.log(id);
 
             return true;
 
