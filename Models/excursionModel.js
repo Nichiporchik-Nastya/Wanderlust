@@ -21,28 +21,29 @@ class ExcursionModel {
 
             console.log(234567);
 
-            // if(typeof body.dayNumber == "string"){
-            //     body.dayNumber = [body.dayNumber];
-            // }
+            if (Array.isArray(body.themes)) {
+                await body.themes.forEach(theme => {
+                    ThemeExcursions.create({ themeId: theme, excursionId: id });
+                });
+            } else {
+                ThemeExcursions.create({ themeId: body.themes, excursionId: id });
+            }
 
-            // if(typeof body.startTimes == "string"){
-            //     body.startTimes = [body.startTimes];
-            // }
+            if (Array.isArray(body.dayNumber)) {
+                await body.dayNumber.forEach(day => {
+                    DaysExcursions.create({ dayNumber: day, excursionId: id });
+                });
+            } else {
+                DaysExcursions.create({ dayNumber: body.dayNumber, excursionId: id });
+            }
 
-            // console.log(typeof body.startTimes);
-
-            await body.themes.forEach(theme => {
-                ThemeExcursions.create({ themeId: theme, excursionId: id });
-            });
-
-            await body.dayNumber.forEach(day => {
-                DaysExcursions.create({ dayNumber: day, excursionId: id });
-            });
-
-            await body.startTimes.forEach(time => {
-                StartTimes.create({ time: time, excursionId: id });
-                // console.log(time);
-            });
+            if (Array.isArray(body.startTimes)) {
+                await body.startTimes.forEach(time => {
+                    StartTimes.create({ time: time, excursionId: id });
+                });
+            } else {
+                StartTimes.create({ time: body.startTimes, excursionId: id });
+            }
 
             return true;
 
