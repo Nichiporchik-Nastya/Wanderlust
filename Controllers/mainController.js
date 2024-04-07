@@ -35,8 +35,10 @@ class mainController {
 
                 // console.log(req.body);
 
-                let result = await ExcursionModel.create(req.body);
-                return res.status(200).send(result);
+                let result = await ExcursionModel.create(req.body, req.files);
+                res.status(200).send(result);
+
+                
 
                 // return res.status(200).json({});
             }
@@ -72,6 +74,11 @@ class mainController {
             console.log(e);
         }
     }
+
+    
+
+    
+
 }
 
 module.exports = new mainController();
