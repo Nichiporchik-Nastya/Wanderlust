@@ -12,8 +12,14 @@ const ThemeExcursions = require("../db/models/index").ThemeExcursions;
 class ExcursionModel {
     async create(body) {
         try {
-            // let id = await Excursions.create(body);
-            // id = id.id;
+            let id = await Excursions.create(body);
+            id = id.id;
+
+            // await ThemeExcursions.create({ themeId: 1, excursionId: 5 })
+            // await DaysExcursions.create({ dayNumber: 1, excursionId: 5 });
+            // await StartTimes.create({ time: "10:00", excursionId: 5 });
+
+            console.log(234567);
 
             // if(typeof body.dayNumber == "string"){
             //     body.dayNumber = [body.dayNumber];
@@ -23,16 +29,19 @@ class ExcursionModel {
             //     body.startTimes = [body.startTimes];
             // }
 
+            // console.log(typeof body.startTimes);
+
             await body.themes.forEach(theme => {
-                 ThemeExcursions.create({ themeId: theme, excursionId: 5 });
+                ThemeExcursions.create({ themeId: theme, excursionId: id });
             });
 
             await body.dayNumber.forEach(day => {
-                DaysExcursions.create({ dayNumber: day, excursionId: 5 });
+                DaysExcursions.create({ dayNumber: day, excursionId: id });
             });
 
             await body.startTimes.forEach(time => {
-                StartTimes.create({ time: time, excursionId: 5 });
+                StartTimes.create({ time: time, excursionId: id });
+                // console.log(time);
             });
 
             return true;

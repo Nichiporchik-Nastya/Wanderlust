@@ -74,7 +74,7 @@
                                     <% data.formats.forEach(item=> { %>
                                         <div class="radio-input">
                                             <input type="radio" name="formatId" id="format-<%= item.id; %>"
-                                                value="<%= item.id; %>" required>
+                                                value="<%= item.id; %>" required checked>
                                             <label for="format-<%= item.id; %>">
                                                 <%= item.name; %>
                                             </label>
@@ -86,7 +86,7 @@
                                     <% data.types.forEach(item=> { %>
                                         <div class="radio-input">
                                             <input type="radio" name="typeId" id="type-<%= item.id; %>"
-                                                value="<%= item.id; %>" required>
+                                                value="<%= item.id; %>" required checked>
                                             <label for="type-<%= item.id; %>">
                                                 <%= item.name; %>
                                             </label>
@@ -99,7 +99,7 @@
                                         <% data.themes.forEach(item=> { %>
                                             <div class="radio-input">
                                                 <input type="checkbox" name="themes" id="theme-<%= item.id; %>"
-                                                    value="<%= item.id; %>">
+                                                    value="<%= item.id; %>" checked>
                                                 <label for="theme-<%= item.id; %>">
                                                     <%= item.name; %>
                                                 </label>
@@ -280,51 +280,51 @@
 
             document.getElementById("weekdays").innerHTML +=
                 `<div class="radio-input">
-                <input type="checkbox" name="dayNumber" id="weekday-${i}" value="${i}">
+                <input type="checkbox" name="dayNumber" id="weekday-${i}" value="${i}" checked>
                     <label for="weekday-${i}">
                         ${nextday}
                     </label>
             </div>`;
         }
 
-        let startTimes = [], timeTags = [], i = 0;
+        let startTimes = ["10:00", "20:00"], timeTags = [], i = 0;
 
-        addTimeBtn.addEventListener('click', () => {
+        // addTimeBtn.addEventListener('click', () => {
 
-            if (timeInput.value) {
+        //     if (timeInput.value) {
 
-                if (startTimes.length >= 3) {
-                    timeError.innerHTML = "Максимально допустимое количество: 3";
-                } 
-                else {
-                    if (startTimes.includes(timeInput.value)) {
-                        timeError.innerHTML = "Время начала экскурсий не должно повторяться";
-                    } 
-                    else {
-                        timeError.innerHTML = "";
-                        let time = timeInput.value;
+        //         if (startTimes.length >= 3) {
+        //             timeError.innerHTML = "Максимально допустимое количество: 3";
+        //         } 
+        //         else {
+        //             if (startTimes.includes(timeInput.value)) {
+        //                 timeError.innerHTML = "Время начала экскурсий не должно повторяться";
+        //             } 
+        //             else {
+        //                 timeError.innerHTML = "";
+        //                 let time = timeInput.value;
 
-                        document.getElementById("time-tags").innerHTML += `<div class="tag time-tag" data-index="${i++}">${time}</div>`;
-                        startTimes.push(time);
+        //                 document.getElementById("time-tags").innerHTML += `<div class="tag time-tag" data-index="${i++}">${time}</div>`;
+        //                 startTimes.push(time);
 
-                        timeTags = document.querySelectorAll(".time-tag");
-                        timeTags.forEach(tag => {
-                            tag.addEventListener('click', () => {
-                                tag.remove();
-                                let tagIndex = tag.dataset.index;
+        //                 timeTags = document.querySelectorAll(".time-tag");
+        //                 timeTags.forEach(tag => {
+        //                     tag.addEventListener('click', () => {
+        //                         tag.remove();
+        //                         let tagIndex = tag.dataset.index;
 
-                                startTimes.splice(tagIndex, 1);
-                            });
-                        });
+        //                         startTimes.splice(tagIndex, 1);
+        //                     });
+        //                 });
 
-                        timeInput.value = " ";
+        //                 timeInput.value = " ";
                         
-                    }
-                }
-            } else {
-                timeError.innerHTML = "Введите значение";
-            }
-        });
+        //             }
+        //         }
+        //     } else {
+        //         timeError.innerHTML = "Введите значение";
+        //     }
+        // });
 
 
 
