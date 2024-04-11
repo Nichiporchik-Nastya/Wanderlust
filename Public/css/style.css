@@ -138,13 +138,13 @@ a[href^="mailto:"]:hover {
   text-decoration: underline;
 }
 
-.paragraph{
+.paragraph {
   margin-bottom: 14px;
   max-width: 800px;
   line-height: 130%;
 }
 
-p{
+p {
   line-height: 130%;
 }
 
@@ -346,11 +346,11 @@ label {
 
 
 
-.slide img {
+.slide-img {
   pointer-events: none;
   object-fit: cover;
-  height: 100%;
-  width: 100%;
+  max-height: 100%;
+  max-width: 100%;
 }
 
 .slider {
@@ -391,6 +391,20 @@ label {
   height: 100%;
   border-radius: var(--radius);
   overflow: hidden;
+  position: relative;
+}
+
+.slide:hover .img-open-btn{
+  opacity: 1;
+}
+
+.img-open-btn{
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+  cursor: pointer;
+  opacity: 0;
+  transition: display .2s ease-out;
 }
 
 .slider-arrows {
@@ -411,6 +425,42 @@ label {
 .prev.disabled {
   opacity: .25;
   pointer-events: none;
+}
+
+.modal-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  width: 100vw;
+  height: 100vh;
+  z-index: 20;
+  display: none;
+}
+
+.close-modal-btn{
+  position: absolute;
+  z-index: 2;
+  right: 30px;
+  top: 16px;
+  cursor: pointer;
+}
+
+.modal-open {
+  display: flex;
+}
+
+.img-place{
+  /* background-color: #fff; */
+  border-radius: var(--radius);
+  /* padding: 24px; */
+  max-width: 99vw;
+  max-height: 95vh;
+  width: fit-content;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
+  margin: 1% auto;
 }
 
 /*--------testimonials--------*/
@@ -610,7 +660,7 @@ h5 {
   max-width: 50%;
 }
 
-.order-form{
+.order-form {
   row-gap: 32px;
 }
 
@@ -722,7 +772,7 @@ h5 {
   cursor: default;
 }
 
-.start-time__wrapper{
+.start-time__wrapper {
   display: flex;
   gap: 8px;
 }
@@ -754,7 +804,7 @@ h5 {
 }
 
 .client-count__name {
-font-size: 18px;
+  font-size: 18px;
 }
 
 .client-count__item-wrap {
@@ -765,12 +815,12 @@ font-size: 18px;
 
 .client-count__plus,
 .client-count__count,
-.client-count__minus{
+.client-count__minus {
   font-size: 21px;
 }
 
 .client-count__plus:hover,
-.client-count__minus:hover{
+.client-count__minus:hover {
   color: var(--main-green);
   cursor: pointer;
 }
@@ -779,7 +829,7 @@ font-size: 18px;
   color: var(--light-text);
 }
 
-.client-count__wrapper{
+.client-count__wrapper {
   display: flex;
   flex-direction: column;
   row-gap: 20px;
@@ -791,13 +841,13 @@ font-size: 18px;
   max-width: 700px;
 }
 
-.final-cost{
+.final-cost {
   font-weight: bold;
   font-size: 21px;
   margin-bottom: 16px;
 }
 
-.extra-info{
+.extra-info {
   color: var(--light-text);
 }
 
