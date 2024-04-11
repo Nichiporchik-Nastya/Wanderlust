@@ -1,22 +1,26 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wanderlust</title>
+    <title>Войти</title>
     <link rel="stylesheet" href="/public/css/normalize.css">
     <link rel="stylesheet" href="/public/css/style.css">
-
 </head>
+
 <body>
+    <%- include('./partials/header'); %>
 
-    это index ejs
+        <div class="container two-part-container">
 
-    <a class="btn" href="/auth/login">Войти</a>
+            <a class="btn" href="/auth/login">Войти</a>
+        </div>
 
 
-    <!-- <form action="http://localhost:4000/auth/registration" method="post">
+
+        <!-- <form action="http://localhost:4000/auth/registration" method="post">
 
         <label for="name">Username:</label>
         <input type="text" id="name" name="name" value="test">
@@ -31,7 +35,7 @@
 
     </form> -->
 
-    <!-- <form action="http://localhost:4000/auth/login" method="post">
+        <!-- <form action="http://localhost:4000/auth/login" method="post">
 
         <label for="login">Login:</label>
         <input type="text" id="login" name="login" value="test2">
@@ -42,7 +46,8 @@
         <input type="submit" value="Отправить">
 
     </form> -->
-    
-    <script src="./index.js"></script>
+
+        <script src="./index.js"></script>
 </body>
+
 </html>

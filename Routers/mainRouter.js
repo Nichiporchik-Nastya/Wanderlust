@@ -55,6 +55,10 @@ router.get('/excursions/create', async (req, res) => {
   res.render('guidePages/createExcursionPage', { data: excursionStructure });
 });
 
+router.get('/excursions/show', (req, res) => {
+  res.render('excursionPage');
+});
+
 
 
 module.exports = router;

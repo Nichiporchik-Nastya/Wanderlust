@@ -1,6 +1,3 @@
-// const { body } = require("express-validator");
-const bcrypt = require('bcrypt');
-
 const Excursions = require("../db/models/index").Excursions;
 const Formats = require("../db/models/index").Formats;
 const Types = require("../db/models/index").Types;
@@ -8,12 +5,26 @@ const Themes = require("../db/models/index").Themes;
 const DaysExcursions = require("../db/models/index").DaysExcursions;
 const StartTimes = require("../db/models/index").StartTimes;
 const ThemeExcursions = require("../db/models/index").ThemeExcursions;
+const ImagesExcursions = require("../db/models/index").ImagesExcursions;
 
 class ExcursionModel {
-    async create(body) {
+    async create(body, files) {
         try {
+
+            // console.log(files.photos[0]);
+
             let id = await Excursions.create(body);
             id = id.id;
+
+            if (Array.isArray(files.photos)) {
+                await files.photos.forEach(file => {
+                    ImagesExcursions.create({ imgSRC: '/public/guideImages/' + Math.random() + file.name, excursionId: id });
+                    file.mv('public/guideImages/' + Math.random() + file.name);
+                });
+            } else {
+                ImagesExcursions.create({ imgSRC: '/public/guideImages/' + Math.random() + files.photos.name, excursionId: id });
+                files.photos.mv('public/guideImages/' + Math.random() + files.photos.name);
+            }
 
             if (Array.isArray(body.themes)) {
                 await body.themes.forEach(theme => {
@@ -39,7 +50,7 @@ class ExcursionModel {
                 StartTimes.create({ time: body.startTimes, excursionId: id });
             }
 
-            console.log(id);
+
 
             return true;
 

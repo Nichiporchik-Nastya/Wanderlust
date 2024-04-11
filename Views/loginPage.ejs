@@ -13,18 +13,18 @@
 <body>
     <%- include('./partials/header'); %>
 
-        <div class="container login-container">
+        <div class="container two-part-container">
 
             <form class="login-form" onsubmit="LoginSubmit(event)">
                 <h2>Вход</h2>
                 <div class="box-input">
-                    <input type="email" name="email" id="email" class="input" required>
+                    <input type="email" name="email" id="email" class="input" placeholder=" ">
                     <label>Адрес электронной почты</label>
                     <div class="box-input__error-text email-error"></div>
                 </div>
 
                 <div class="box-input">
-                    <input type="password" name="password" id="password" class="input" required>
+                    <input type="password" name="password" id="password" class="input" placeholder=" ">
                     <label>Пароль</label>
                     <div class="box-input__error-text password-error"></div>
                 </div>

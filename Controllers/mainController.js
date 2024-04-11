@@ -18,7 +18,7 @@ class mainController {
     async guideDashbord(req, res) {
         try {
             const user = req.session.user;
-            res.render('./guideDashbord', { data: user });
+            res.render('guidePages/dashbord', { data: user });
         } catch (e) {
             console.log(e);
         }

@@ -22,7 +22,6 @@ async function LoginSubmit(event) {
         });
         emailErrArr = [], passwordErrArr = []
     } else {
-        console.log(result);
         window.location.href = "/dashbord";
     }
 }
