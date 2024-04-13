@@ -1,0 +1,17 @@
+<!-- <div class="modal-wrapper modal-open">
+
+            <div class="close-part"></div>
+            <div class="modal-btns">
+                <img class="close-modal-btn" src="/Public/icons/white-cross.svg" alt="">
+                <img src="/Public/icons/left-arrow-white.svg" alt="" class="prev-modal-btn">
+                <img src="/Public/icons/right-arrow-white.svg" alt="" class="next-modal-btn">
+            </div>
+            <div class="img-place">
+                <div class="clickable-parts">
+                    <div class="prev-part"></div>
+                    <div class="next-part"></div>
+                </div>
+                <img class="slide-img modal-img" src="<% data.imgs[0] %>" alt="">
+            </div>
+            
+        </div> -->

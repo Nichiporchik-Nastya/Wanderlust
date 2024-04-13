@@ -1,3 +1,5 @@
+const { where, Op } = require("sequelize");
+
 const Excursions = require("../db/models/index").Excursions;
 const Formats = require("../db/models/index").Formats;
 const Types = require("../db/models/index").Types;
@@ -68,6 +70,42 @@ class ExcursionModel {
         }
         return structure;
     };
+
+    async delete(id){
+        await ImagesExcursions.destroy({where:{excursionId:id}});
+        await ThemeExcursions.destroy({where:{excursionId:id}});
+        await DaysExcursions.destroy({where:{excursionId:id}});
+        await StartTimes.destroy({where:{excursionId:id}});
+        //Reviews & Orders
+        return await Excursions.destroy({where:{id}});
+    }
+
+    async search(str, fromCost, toCost, orderTitle = 'created_at', order = 'ASC', themes, formats){//имя поля и направление сортировки
+        return await ExcursionModel.findAll({
+            where:{
+                [Op.or]:{
+                    name:{
+                        [Op.like]: `%${str}%`,
+                    },
+                    description:{
+                        [Op.like]: `%${str}%`,
+                    }
+                },
+                adultCost:{
+                    [Op.between]: [fromCost, toCost]
+                },
+                formatId:{
+                    [Op.in]: formats
+                },
+                themeId:{
+                    [Op.in]: themes
+                }
+            },
+            order:[
+                [orderTitle, order]
+            ]
+        })
+    }
 
 
 

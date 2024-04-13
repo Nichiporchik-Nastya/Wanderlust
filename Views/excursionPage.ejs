@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Войти</title>
+    <title>Экскурсия</title>
     <link rel="stylesheet" href="/public/css/normalize.css">
     <link rel="stylesheet" href="/public/css/style.css">
 </head>
@@ -13,91 +13,123 @@
 <body>
     <%- include('./partials/header'); %>
 
+
+        <div class="main-images__wrapper container">
+            <img class="main-images__item main-images__item1" src="/Public/guideImages/ColonneMorris.JPG" alt="">
+            <img class="main-images__item main-images__item2" src="/Public/guideImages/ColonneMorris.JPG" alt="">
+            <img class="main-images__item main-images__item3" src="/Public/guideImages/ColonneMorris.JPG" alt="">
+            <img class="main-images__item main-images__item4" src="/Public/guideImages/ColonneMorris.JPG" alt="">
+        </div>
         <div class="container two-part-container">
+            <h2 class="first-container-part">Знакомство с Минском: обзорная групповая экскурсия</h2>
+
+            <div class="share-block">
+                <div class="tertiary-btn btn-with-icon share-btn">
+                    <img src="/Public/icons/share-network.svg">
+                    Поделиться
+                </div>
+
+                <div class="social-icons">
+                    <div class="ya-share2" data-curtain data-shape="normal"
+                        data-services="vkontakte,odnoklassniki,telegram,viber" data-copy="extraItem"
+                        data-title="Название экскурсии" data-image="/Public/guideImages/optimize.webp"
+                        data-description="Вот так экскурсия" data-url="/excursions/show/excursion"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="container two-part-container">
+
+
 
             <div class="first-container-part">
 
-                <div class="accordion__wrap">
-                    <ul class="accordion__list">
-                        <li class="accordion__item">
-                            <div class="accordion__title-block">
-                                <div class="accordion__title-content">
-                                    <h4 class="accordion__title">Описание экскурсии</h4>
-                                    <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                <div class="accordeon-tabs__wrapper">
+                    <a href="#description" onclick="scrollToBlock()" class="accordeon-tabs__tab">Описание</a>
+                    <a href="#route" onclick="scrollToBlock()" class="accordeon-tabs__tab">маршрут</a>
+                    <a href="#gallery" onclick="scrollToBlock()" class="accordeon-tabs__tab">фотографии</a>
+                    <a href="#testimonials" onclick="scrollToBlock()" class="accordeon-tabs__tab">отзывы</a>
+                </div>
+                <ul class="accordion__list">
+                    <li class="accordion__item" id="description">
+                        <div class="accordion__title-block">
+                            <div class="accordion__title-content">
+                                <h4 class="accordion__title">Описание экскурсии</h4>
+                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                            </div>
+                        </div>
+
+                        <div class="accordion__text-block">
+                            <div class="paragraph-wrap">
+                                <p class="paragraph">
+                                    Ежедневная групповая или индивидуальная экскурсия по Минску на автобусе
+                                    от ЖД вокзала с лучшими гидами. Во время поездки вы познакомитесь
+                                    с самыми
+                                    интересными достопримечательностями города — столицы Республики
+                                    Беларусь.
+                                </p>
+                                <p class="paragraph">
+                                    Широкие проспекты и уютные улицы, историческая часть старого Минска,
+                                    Ратуша
+                                    и Остров
+                                    слез. Экскурсия занимает 3,5 часа и предусматривает 4 выхода из автобуса
+                                    с пешими
+                                    прогулками. После экскурсии вам будет легко ориентироваться в городе,
+                                    гид ответит
+                                    на любые вопросы и расскажет о лучших кафе и магазинах Минска.
+                                </p>
+                            </div>
+                            <div class="extreme-points">
+                                <div class="extreme-points__item">
+                                    <h5 class="extreme-points__title">Место встречи</h5>
+                                    <p class="extreme-points__text">ЖД Вокзал</p>
+                                </div>
+                                <div class="extreme-points__item">
+                                    <h5 class="extreme-points__title">Место окончания</h5>
+                                    <p class="extreme-points__text">пл. Свободы 2а (Ратуша), у скульптуры
+                                        ВОЙТ
+                                    </p>
+                                </div>
+                                <div class="tertiary-btn btn-with-icon">
+                                    <img src="/Public/icons/map-pin.svg">
+                                    Показать на карте
                                 </div>
                             </div>
+                            <div class="excursion-type-block">
+                                <img src="/Public/icons/group.svg">
+                                <p class="paragraph"><strong>Групповые экскурсии </strong>— гид формирует
+                                    группу.
+                                    Вместе с вами будут
+                                    другие туристы. <br> Приблизительно 12-30 человек.</p>
+                            </div>
+                        </div>
 
-                            <div class="accordion__text-block">
-                                <div class="paragraph-wrap">
-                                    <p class="paragraph">
-                                        Ежедневная групповая или индивидуальная экскурсия по Минску на автобусе
-                                        от ЖД вокзала с лучшими гидами. Во время поездки вы познакомитесь
-                                        с самыми
-                                        интересными достопримечательностями города — столицы Республики
-                                        Беларусь.
-                                    </p>
-                                    <p class="paragraph">
-                                        Широкие проспекты и уютные улицы, историческая часть старого Минска,
-                                        Ратуша
-                                        и Остров
-                                        слез. Экскурсия занимает 3,5 часа и предусматривает 4 выхода из автобуса
-                                        с пешими
-                                        прогулками. После экскурсии вам будет легко ориентироваться в городе,
-                                        гид ответит
-                                        на любые вопросы и расскажет о лучших кафе и магазинах Минска.
-                                    </p>
-                                </div>
-                                <div class="extreme-points">
-                                    <div class="extreme-points__item">
-                                        <h5 class="extreme-points__title">Место встречи</h5>
-                                        <p class="extreme-points__text">ЖД Вокзал</p>
-                                    </div>
-                                    <div class="extreme-points__item">
-                                        <h5 class="extreme-points__title">Место окончания</h5>
-                                        <p class="extreme-points__text">пл. Свободы 2а (Ратуша), у скульптуры
-                                            ВОЙТ
-                                        </p>
-                                    </div>
-                                    <div class="btn secondary-btn btn-with-icon" id="add-time-btn">
-                                        <img src="/Public/icons/map-pin.svg">
-                                        Показать на карте
-                                    </div>
-                                </div>
-                                <div class="excursion-type-block">
-                                    <img src="/Public/icons/group.svg">
-                                    <p class="paragraph"><strong>Групповые экскурсии </strong>— гид формирует
-                                        группу.
-                                        Вместе с вами будут
-                                        другие туристы. <br> Приблизительно 12-30 человек.</p>
-                                </div>
+                    </li>
+                    <li class="accordion__item" id="route">
+                        <div class="accordion__title-block">
+                            <div class="accordion__title-content">
+                                <h4 class="accordion__title">Подробный маршрут</h4>
+                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                            </div>
+                        </div>
+
+                        <div class="accordion__text-block ">
+                            <div class="paragraph-wrap">
+                                <p class="paragraph">
+                                    Вы побываете на площади Свободы — нашем историческом центре, сердце
+                                    города.
+                                    Здесь вашему взору откроются: Кафедральный собор Святого Духа, костёл
+                                    Пресвятой Девы Марии, Ратуша, Гостиный двор, комплекс бывших униатских
+                                    монастырей, прекрасные скульптурные композиции.
+                                </p>
+                                <p class="paragraph">
+                                    В кафедральном соборе Святого Духа у вас будет возможность увидеть самую
+                                    ценную православную святыню Беларуси — древнейшую икону Минской Божьей
+                                    Матери.
+                                </p>
                             </div>
 
-                        </li>
-                        <li class="accordion__item">
-                            <div class="accordion__title-block">
-                                <div class="accordion__title-content">
-                                    <h4 class="accordion__title">Подробный маршрут</h4>
-                                    <img class="accordion__arrow" src="/Public/icons/arrow.svg">
-                                </div>
-                            </div>
-
-                            <div class="accordion__text-block ">
-                                <div class="paragraph-wrap">
-                                    <p class="paragraph">
-                                        Вы побываете на площади Свободы — нашем историческом центре, сердце
-                                        города.
-                                        Здесь вашему взору откроются: Кафедральный собор Святого Духа, костёл
-                                        Пресвятой Девы Марии, Ратуша, Гостиный двор, комплекс бывших униатских
-                                        монастырей, прекрасные скульптурные композиции.
-                                    </p>
-                                    <p class="paragraph">
-                                        В кафедральном соборе Святого Духа у вас будет возможность увидеть самую
-                                        ценную православную святыню Беларуси — древнейшую икону Минской Божьей
-                                        Матери.
-                                    </p>
-                                </div>
-
-                                <!-- <div class="slider">
+                            <!-- <div class="slider">
                                     <div class="slider-list">
                                         <div class="slider-track">
                                             <div class="slide ">
@@ -131,77 +163,93 @@
 
 
 
-                                <div class="paragraph-wrap">
-                                    <p class="paragraph">
-                                        На площади Независимости вы посетите один из самых красивых костёлов
-                                        Беларуси — костёл Святых Симеона и Елены, увидите Дом Правительства
-                                        со скульптурой Ленина у главного входа, бывшие доходные дома, минскую
-                                        мэрию,
-                                        фонтан с тремя аистами, два университета.
-                                    </p>
-                                    <p class="paragraph">
-                                        Главная и самая красивая улица города — проспект Независимости — поразит
-                                        обилием достопримечательностей. Задуманная 215 лет назад как объездная
-                                        дорога вдоль города сегодня она начинается из самого центра.
-                                    </p>
-                                    <p class="paragraph">
-                                        Проспект является прекрасным примером единого архитектурного ансамбля,
-                                        построенного в стиле сталинского ампира. Каждое здание здесь — словно
-                                        дворец, очаровывающий минчан и гостей столицы. Вы познакомитесь
-                                        со зданиями
-                                        КГБ, Главпочтамта, гостиницы Минск, Национального банка, ГУМа.
-                                    </p>
-                                </div>
-
+                            <div class="paragraph-wrap">
+                                <p class="paragraph">
+                                    На площади Независимости вы посетите один из самых красивых костёлов
+                                    Беларуси — костёл Святых Симеона и Елены, увидите Дом Правительства
+                                    со скульптурой Ленина у главного входа, бывшие доходные дома, минскую
+                                    мэрию,
+                                    фонтан с тремя аистами, два университета.
+                                </p>
+                                <p class="paragraph">
+                                    Главная и самая красивая улица города — проспект Независимости — поразит
+                                    обилием достопримечательностей. Задуманная 215 лет назад как объездная
+                                    дорога вдоль города сегодня она начинается из самого центра.
+                                </p>
+                                <p class="paragraph">
+                                    Проспект является прекрасным примером единого архитектурного ансамбля,
+                                    построенного в стиле сталинского ампира. Каждое здание здесь — словно
+                                    дворец, очаровывающий минчан и гостей столицы. Вы познакомитесь
+                                    со зданиями
+                                    КГБ, Главпочтамта, гостиницы Минск, Национального банка, ГУМа.
+                                </p>
                             </div>
 
-                        </li>
-                        <li class="accordion__item">
-                            <div class="accordion__title-block">
-                                <div class="accordion__title-content">
-                                    <h4 class="accordion__title">Фотографии</h4>
-                                    <img class="accordion__arrow" src="/Public/icons/arrow.svg">
-                                </div>
+                        </div>
+
+                    </li>
+                    <li class="accordion__item" id="gallery">
+                        <div class="accordion__title-block">
+                            <div class="accordion__title-content">
+                                <h4 class="accordion__title">Фотографии</h4>
+                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
                             </div>
+                        </div>
 
-                            <div class="accordion__text-block">
-                                <div class="slider">
-                                    <div class="slider-list">
-                                        <div class="slider-track">
-                                            <div class="slide ">
-                                                <img src="/Public/guideImages/идея мокапа.jpeg" alt="">
+                        <div class="accordion__text-block">
+                            <div class="slider">
+                                <div class="slider-list">
+                                    <div class="slider-track">
+                                        <div class="slide ">
+                                            <img class="img-open-btn" src="/Public/icons/GlassPlus.svg" alt="">
+                                            <img class="slide-img" src="/Public/guideImages/идея мокапа.jpeg" alt="">
 
-                                            </div>
-                                            <div class="slide ">
-                                                <img src="/Public/guideImages/ColonneMorris.JPG" alt="">
+                                        </div>
+                                        <div class="slide ">
+                                            <img class="img-open-btn" src="/Public/icons/GlassPlus.svg" alt="">
+                                            <img class="slide-img" src="/Public/guideImages/ColonneMorris.JPG" alt="">
 
-                                            </div>
-                                            <div class="slide ">
-                                                <img src="/Public/guideImages/optimize.webp" alt="">
+                                        </div>
+                                        <div class="slide">
+                                            <img class="img-open-btn" src="/Public/icons/GlassPlus.svg" alt="">
+                                            <img class="slide-img" src="/Public/guideImages/optimize.webp" alt="">
 
-                                            </div>
-                                            <div class="slide ">
-                                                <img src="/Public/guideImages/nypl.digitalcollections.510d47e1-0c52-a3d9-e040-e00a18064a99.001.w.jpg"
-                                                    alt="">
+                                        </div>
+                                        <div class="slide ">
+                                            <img class="img-open-btn" src="/Public/icons/GlassPlus.svg" alt="">
+                                            <img class="slide-img"
+                                                src="/Public/guideImages/nypl.digitalcollections.510d47e1-0c52-a3d9-e040-e00a18064a99.001.w.jpg"
+                                                alt="">
 
-                                            </div>
-                                            <div class="slide ">
-                                                <img src="/Public/guideImages/0.022009037737057202shape_21.png" alt="">
+                                        </div>
+                                        <div class="slide ">
+                                            <img class="img-open-btn" src="/Public/icons/GlassPlus.svg" alt="">
+                                            <img class="slide-img"
+                                                src="/Public/guideImages/0.022009037737057202shape_21.png" alt="">
 
-                                            </div>
                                         </div>
                                     </div>
-                                    <div class="slider-arrows">
-                                        <button type="button" class="prev">&larr;</button>
-                                        <button type="button" class="next">&rarr;</button>
-                                    </div>
                                 </div>
+                                <div class="slider-arrows">
+                                    <div type="button" class="prev disabled"> </div>
+                                    <div type="button" class="next"> </div>
+                                </div>
+
+                                <!-- <div class="slider-arrows">
+                                    <div type="button" class="prev">
+                                        <img src="/Public/icons/left-arrow.svg" alt="">
+                                    </div>
+                                    <button type="button" class="next">
+                                        <img src="/Public/icons/right-arrow.svg" alt="">
+                                    </button>
+                                </div> -->
                             </div>
+                        </div>
 
 
-                        </li>
+                    </li>
 
-                        <!-- <li class="accordion__item">
+                    <!-- <li class="accordion__item" id="testimonials">
                             <div class="accordion__title-block">
                                 <div class="accordion__title-content">
                                     <h4 class="accordion__title">Отзывы</h4>
@@ -272,12 +320,12 @@
 
 
                         </li> -->
-                    </ul>
-                </div>
+                </ul>
+                <!-- </div> -->
 
 
 
-                <form class="order-form" onsubmit="OrderSubmit(event)">
+                <form class="order-form" id="order-form" onsubmit="OrderSubmit(event)">
                     <h3>Забронировать экскурсию</h3>
 
 
@@ -373,7 +421,7 @@
                     </div>
 
 
-                    
+
 
 
 
@@ -386,18 +434,93 @@
                     </div>
                 </form>
             </div>
+            <div class="second-container-part">
+                <aside class="excursion-extra-info">
+                    <div class="excursion-extra-info__item">
+                        <div class="excursion-extra-info__group">
+                            <div class="visitors-number">
+                                Посетили: <span>75</span> <span>чел.</span>
+                            </div>
+                            <div class="reviews-number">
+                                Отзывы: <img src="/Public/icons/Star.svg" alt="">
+                                <span>4,7</span> <span class="extra-info">(51)</span>
+                            </div>
+                        </div>
+                        <div class="excursion-extra-info__group">
+                            <div class="cost">
+                                <span>150</span> Br
+                            </div>
+                            <div class="duration">
+                                <span>3,5</span> <span>часа</span>
+                            </div>
+                        </div>
+                        <a href="#order-form" onclick="scrollToBlock" class="btn">Забронировать</a>
+                    </div>
+                    <div class="excursion-extra-info__item">
+                        <div class="excursion-extra-info__group">
+                            <h5 class="h5">Тип</h5>
+                            <div class="type-block">
+                                <span>Групповая</span>
+                                <img class="question-icon" src="/Public/icons/Question.svg" alt="">
+                                <div class="tooltip">Групповые экскурсии — гид формирует группу. Вместе с вами будут
+                                    другие туристы. 12–30 человек</div>
+                            </div>
 
-
-
-
-
-
-            <div class="second-container-part">frgfh</div>
+                        </div>
+                        <div class="excursion-extra-info__group">
+                            <h5 class="h5">Формат</h5>
+                            <p class="">На транспорте (автобус)</p>
+                        </div>
+                    </div>
+                    <div class="excursion-extra-info__item">
+                        <div style="display: flex; align-items: center;">
+                            <img class="guide-img" src="/Public/guideImages/ColonneMorris.JPG" alt="">
+                            <div class="excursion-extra-info__group">
+                                <div class="guide-name h5">Лебедев Александр</div>
+                                <div class="guide-info extra-info">Опыт 5 лет</div>
+                            </div>
+                        </div>
+                        <div class="btn secondary-btn">Подробнее</div>
+                    </div>
+                </aside>
+            </div>
         </div>
+
+        <script>
+            let accordeonTabs = document.querySelectorAll('.accordeon-tabs__tab');
+            accordeonTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    accordeonTabs.forEach(elemnt => {
+                        elemnt.classList.remove('active');
+                    });
+                    tab.classList.add('active');
+                });
+            });
+
+            let questionIcon = document.querySelector('.question-icon'),
+                tooltip = document.querySelector('.tooltip');
+            questionIcon.addEventListener('mouseenter', () => {
+                tooltip.classList.add('visible');
+            });
+            questionIcon.addEventListener('mouseleave', () => {
+                tooltip.classList.remove('visible');
+            });
+
+            let socialIcons = document.querySelector('.social-icons'),
+                shareBtn = document.querySelector('.share-btn');
+
+            shareBtn.addEventListener('click', () => {
+                socialIcons.classList.add('socials-open');
+            });
+
+        </script>
+
+        <script src="/public/js/anchorScroll.js"></script>
         <script src="/public/js/calendar.js"></script>
-        <script src="/public/js/accordeon.js"></script>
+        <script src="/public/js/accordion.js"></script>
         <script src="/public/js/slider.js"></script>
-        <script src="/public/js/order.js"></script>
+        <script src="https://yastatic.net/share2/share.js"></script>
+        <!-- <script src="/public/js/order.js"></script> -->
 </body>
 
 </html>

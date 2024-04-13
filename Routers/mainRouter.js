@@ -35,20 +35,20 @@ router.get('/admin/registration', (req, res) => {
   res.render('adminPages/registrationPage');
 });
 
-router.post('/api/excursions/create', 
-[
-  body('name').not().isEmpty().withMessage('Заполните поле'),
-  body('description').not().isEmpty().withMessage('Заполните поле'),
-  body('duration').not().isEmpty().withMessage('Заполните поле'),
-  body('duration').isLength({ min: 1, max: 12 }).withMessage('Длительность экскурсии должна быть в пределах от 1 до 12'),
-  body('adultCost').not().isEmpty().withMessage('Заполните поле'),
-  body('formatId').not().isEmpty().withMessage('Заполните поле'),
-  body('typeId').not().isEmpty().withMessage('Заполните поле'),
-  body('themes').not().isEmpty().withMessage('Выберите одно или несколько значений'),
-  body('dayNumber').not().isEmpty().withMessage('Выберите одно или несколько значений'),
-  body('startTimes').not().isEmpty().withMessage('Заполните поле'),
-], 
-controller.createExcursion);
+router.post('/api/excursions/create',
+  [
+    body('name').not().isEmpty().withMessage('Заполните поле'),
+    body('description').not().isEmpty().withMessage('Заполните поле'),
+    body('duration').not().isEmpty().withMessage('Заполните поле'),
+    body('duration').isLength({ min: 1, max: 12 }).withMessage('Длительность экскурсии должна быть в пределах от 1 до 12'),
+    body('adultCost').not().isEmpty().withMessage('Заполните поле'),
+    body('formatId').not().isEmpty().withMessage('Заполните поле'),
+    body('typeId').not().isEmpty().withMessage('Заполните поле'),
+    body('themes').not().isEmpty().withMessage('Выберите одно или несколько значений'),
+    body('dayNumber').not().isEmpty().withMessage('Выберите одно или несколько значений'),
+    body('startTimes').not().isEmpty().withMessage('Заполните поле'),
+  ],
+  controller.createExcursion);
 
 router.get('/excursions/create', async (req, res) => {
   const excursionStructure = await excursionModel.getStructure();
@@ -56,7 +56,12 @@ router.get('/excursions/create', async (req, res) => {
 });
 
 router.get('/excursions/show', (req, res) => {
-  res.render('excursionPage');
+  res.render('excursionPage'), {
+    data: {
+      imgs: ['/Public/guideImages/идея мокапа.jpeg', '/Public/guideImages/optimize.webp'],
+      curImgIndex: 0,
+    }
+  };
 });
 
 

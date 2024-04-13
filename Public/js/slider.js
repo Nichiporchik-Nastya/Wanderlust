@@ -2,7 +2,16 @@ let slider = document.querySelector('.slider'),
   sliderList = slider.querySelector('.slider-list'),
   sliderTrack = slider.querySelector('.slider-track'),
   slides = slider.querySelectorAll('.slide'),
+  imgSlides = document.querySelectorAll('.slide-img'),
   arrows = slider.querySelector('.slider-arrows'),
+  modalWrapper = document.querySelector('.modal-wrapper'),
+  closePart = document.querySelector('.close-part'),
+  nextPart = document.querySelector('.next-part'),
+  prevPart = document.querySelector('.prev-part'),
+  imgPlace = document.querySelector('.img-place'),
+  modalImg = document.querySelector('.modal-img'),
+  imgOpenBtns = document.querySelectorAll('.img-open-btn'),
+  closeModalBtn = document.querySelector('.close-modal-btn'),
   prev = arrows.children[0],
   next = arrows.children[1],
   slideWidth = slides[0].offsetWidth,
@@ -24,10 +33,10 @@ let slider = document.querySelector('.slider'),
   trfRegExp = /([-0-9.]+(?=px))/,
   swipeStartTime,
   swipeEndTime,
-  getEvent = function() {
+  getEvent = function () {
     return (event.type.search('touch') !== -1) ? event.touches[0] : event;
   },
-  slide = function() {
+  slide = function () {
     if (transition) {
       sliderTrack.style.transition = 'transform .5s';
     }
@@ -36,13 +45,13 @@ let slider = document.querySelector('.slider'),
     prev.classList.toggle('disabled', slideIndex === 0);
     next.classList.toggle('disabled', slideIndex === --slides.length);
   },
-  swipeStart = function() {
+  swipeStart = function () {
     let evt = getEvent();
 
     if (allowSwipe) {
 
       swipeStartTime = Date.now();
-      
+
       transition = true;
 
       nextTrf = (slideIndex + 1) * -slideWidth;
@@ -62,7 +71,7 @@ let slider = document.querySelector('.slider'),
       sliderList.classList.add('grabbing');
     }
   },
-  swipeAction = function() {
+  swipeAction = function () {
 
     let evt = getEvent(),
       style = sliderTrack.style.transform,
@@ -113,7 +122,7 @@ let slider = document.querySelector('.slider'),
     }
 
   },
-  swipeEnd = function() {
+  swipeEnd = function () {
     posFinal = posInit - posX1;
 
     isScroll = false;
@@ -149,7 +158,7 @@ let slider = document.querySelector('.slider'),
     }
 
   },
-  setTransform = function(transform, comapreTransform) {
+  setTransform = function (transform, comapreTransform) {
     if (transform >= comapreTransform) {
       if (transform > comapreTransform) {
         sliderTrack.style.transform = `translate3d(${comapreTransform}px, 0px, 0px)`;
@@ -157,7 +166,7 @@ let slider = document.querySelector('.slider'),
     }
     allowSwipe = false;
   },
-  reachEdge = function() {
+  reachEdge = function () {
     transition = false;
     swipeEnd();
     allowSwipe = true;
@@ -170,7 +179,7 @@ sliderTrack.addEventListener('transitionend', () => allowSwipe = true);
 slider.addEventListener('touchstart', swipeStart);
 slider.addEventListener('mousedown', swipeStart);
 
-arrows.addEventListener('click', function() {
+arrows.addEventListener('click', function () {
   let target = event.target;
 
   if (target.classList.contains('next')) {
@@ -183,3 +192,32 @@ arrows.addEventListener('click', function() {
 
   slide();
 });
+
+imgOpenBtns.forEach(imgSlide => {
+  imgSlide.addEventListener('click', () => {
+    imgPlace.innerHTML = imgSlide.parentElement.innerHTML;
+    modalWrapper.classList.add('modal-open');
+  });
+});
+
+// closeModalBtn.addEventListener('click', () => {
+//   modalWrapper.classList.remove('modal-open');
+// });
+
+// modalWrapper.addEventListener('click', () => {
+//   modalWrapper.classList.remove('modal-open');
+// });
+
+/////////////////**///// */
+
+// closePart.addEventListener('click', () => {
+//   modalWrapper.classList.remove('modal-open');
+// });
+
+// nextPart.addEventListener('click', () => {
+//   curImgIndex++;
+//   modalImg.src = imgs[curImgIndex];
+// });
+
+// prevPart.addEventListener('click', () => {
+// });

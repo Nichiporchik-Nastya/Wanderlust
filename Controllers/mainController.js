@@ -75,7 +75,32 @@ class mainController {
         }
     }
 
-    
+    async deleteExcursion(req, res) {
+        try {
+            const errors = validationResult(req);
+
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+            else {
+
+                // console.log(req.body);
+
+                let result = await ExcursionModel.create(req.body, req.files);
+                res.status(200).send(result);
+
+                
+
+                // return res.status(200).json({});
+            }
+
+
+
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     
 
