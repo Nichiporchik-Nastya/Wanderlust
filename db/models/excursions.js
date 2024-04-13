@@ -21,7 +21,9 @@ module.exports = (sequelize, DataTypes) => {
     adultCost: DataTypes.INTEGER,
     childCost: DataTypes.INTEGER,
     duration: DataTypes.INTEGER,
-    extraInfo: DataTypes.STRING
+    extraInfo: DataTypes.STRING,
+    startLocation: DataTypes.STRING,
+    endLocation: DataTypes.STRING,
   }, {
     sequelize,
     modelName: 'Excursions',

@@ -2,7 +2,7 @@ const Router = require('express');
 const router = new Router();
 const controller = require('../Controllers/mainController');
 const middlewareController = require('../Controllers/middlewareController');
-const { body } = require('express-validator');
+const { body} = require('express-validator');
 const UserModel = require("../Models/userModel");
 const excursionModel = require('../Models/excursionModel');
 
@@ -47,6 +47,8 @@ router.post('/api/excursions/create',
     body('themes').not().isEmpty().withMessage('Выберите одно или несколько значений'),
     body('dayNumber').not().isEmpty().withMessage('Выберите одно или несколько значений'),
     body('startTimes').not().isEmpty().withMessage('Заполните поле'),
+    body('startLocation').not().isEmpty().withMessage('Заполните поле'),
+    body('endLocation').not().isEmpty().withMessage('Заполните поле'),
   ],
   controller.createExcursion);
 
@@ -55,14 +57,14 @@ router.get('/excursions/create', async (req, res) => {
   res.render('guidePages/createExcursionPage', { data: excursionStructure });
 });
 
-router.get('/excursions/show', (req, res) => {
-  res.render('excursionPage'), {
-    data: {
-      imgs: ['/Public/guideImages/идея мокапа.jpeg', '/Public/guideImages/optimize.webp'],
-      curImgIndex: 0,
-    }
-  };
-});
+// router.get('/excursions/show/:id', (req, res) => {
+//   res.render('excursionPage', {
+//     data: "hjkl"
+//   });
+// });
+
+router.get('/excursions/show/:id', controller.showExcursion);
+
 
 
 

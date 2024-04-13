@@ -3,57 +3,47 @@
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('Excursions', {
+    return queryInterface.createTable('Orders', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      name: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      description: {
-        type: Sequelize.STRING
-      },
-      typeId: {
+      excursionId: {
         allowNull: false,
         references: {
-          model: { tableName: 'Types' },
+          model: { tableName: 'Excursions' },
           key: 'id'
         },
         type: Sequelize.INTEGER
       },
-      formatId: {
+      clientName: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      clientPhone: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
+      numberOfAdults: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      numberOfChildren: {
+        type: Sequelize.INTEGER
+      },
+      day: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
+      startTimeId: {
         allowNull: false,
         references: {
-          model: { tableName: 'Formats' },
+          model: { tableName: 'StartTimes' },
           key: 'id'
         },
         type: Sequelize.INTEGER
-      },
-      adultCost: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      childCost: {
-        type: Sequelize.INTEGER
-      },
-      duration: {
-        allowNull: false,
-        type: Sequelize.INTEGER
-      },
-      extraInfo: {
-        type: Sequelize.STRING
-      },
-      startLocation: {
-        allowNull: false,
-        type: Sequelize.STRING
-      },
-      endLocation: {
-        allowNull: false,
-        type: Sequelize.STRING
       },
       createdAt: {
         allowNull: false,
@@ -68,6 +58,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('Excursions');
+    return queryInterface.dropTable('Orders');
   }
 }

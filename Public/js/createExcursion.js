@@ -10,6 +10,10 @@ async function CreateExcursionSubmit(event) {
         formData.append("startTimes", time);
     });
 
+    fileList.forEach(file => {
+        formData.append("photos", file);
+    });
+
     if(formData.get("childCost") == ""){
         formData.delete("childCost");
     }

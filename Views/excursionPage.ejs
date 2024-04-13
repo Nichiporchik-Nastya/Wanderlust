@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Экскурсия</title>
     <link rel="stylesheet" href="/public/css/normalize.css">
+    <link rel="stylesheet" href="/public/css/header-style.css">
     <link rel="stylesheet" href="/public/css/style.css">
 </head>
 
@@ -15,13 +16,15 @@
 
 
         <div class="main-images__wrapper container">
-            <img class="main-images__item main-images__item1" src="/Public/guideImages/ColonneMorris.JPG" alt="">
-            <img class="main-images__item main-images__item2" src="/Public/guideImages/ColonneMorris.JPG" alt="">
-            <img class="main-images__item main-images__item3" src="/Public/guideImages/ColonneMorris.JPG" alt="">
-            <img class="main-images__item main-images__item4" src="/Public/guideImages/ColonneMorris.JPG" alt="">
+            <% for(i = 0; i < 4; i++) {%>
+                <img class="main-images__item main-images__item<%= i %>"
+                    src="<%= data.imagesExcursionsData[i].imgSRC %>" alt="">
+                <% } %>
         </div>
         <div class="container two-part-container">
-            <h2 class="first-container-part">Знакомство с Минском: обзорная групповая экскурсия</h2>
+            <h2 class="first-container-part">
+                <%= data.excursionData.name %>
+            </h2>
 
             <div class="share-block">
                 <div class="tertiary-btn btn-with-icon share-btn">
@@ -32,18 +35,14 @@
                 <div class="social-icons">
                     <div class="ya-share2" data-curtain data-shape="normal"
                         data-services="vkontakte,odnoklassniki,telegram,viber" data-copy="extraItem"
-                        data-title="Название экскурсии" data-image="/Public/guideImages/optimize.webp"
-                        data-description="Вот так экскурсия" data-url="/excursions/show/excursion"></div>
+                        data-title="<%= data.excursionData.name %>" data-image="<%= data.imagesExcursionsData[0].imgSRC %>"
+                        data-description="Вот так экскурсия" data-url="/excursions/show/<%= data.excursionData.id %>"></div>
                 </div>
             </div>
         </div>
 
         <div class="container two-part-container">
-
-
-
             <div class="first-container-part">
-
                 <div class="accordeon-tabs__wrapper">
                     <a href="#description" onclick="scrollToBlock()" class="accordeon-tabs__tab">Описание</a>
                     <a href="#route" onclick="scrollToBlock()" class="accordeon-tabs__tab">маршрут</a>
@@ -61,46 +60,44 @@
 
                         <div class="accordion__text-block">
                             <div class="paragraph-wrap">
-                                <p class="paragraph">
-                                    Ежедневная групповая или индивидуальная экскурсия по Минску на автобусе
-                                    от ЖД вокзала с лучшими гидами. Во время поездки вы познакомитесь
-                                    с самыми
-                                    интересными достопримечательностями города — столицы Республики
-                                    Беларусь.
-                                </p>
-                                <p class="paragraph">
-                                    Широкие проспекты и уютные улицы, историческая часть старого Минска,
-                                    Ратуша
-                                    и Остров
-                                    слез. Экскурсия занимает 3,5 часа и предусматривает 4 выхода из автобуса
-                                    с пешими
-                                    прогулками. После экскурсии вам будет легко ориентироваться в городе,
-                                    гид ответит
-                                    на любые вопросы и расскажет о лучших кафе и магазинах Минска.
+                                <% let array = data.excursionData.description.split("."), size = 3, subarrays = []; %>
+                                <% console.log(array) %>
+                                <% for (let i = 0; i < Math.ceil(array.length / size); i++) { %>
+                                    <% subarrays[i] = array.slice(i * size, i * size + size); %>
+                                  <% } %>
+                                  <% subarrays.forEach(arr =>  { %>
+                                    <p class="paragraph"><%= arr.join(". ") %></p>
+                                  <% }); %>
                                 </p>
                             </div>
                             <div class="extreme-points">
                                 <div class="extreme-points__item">
                                     <h5 class="extreme-points__title">Место встречи</h5>
-                                    <p class="extreme-points__text">ЖД Вокзал</p>
+                                    <p class="extreme-points__text">
+                                        <%= data.excursionData.startLocation %>
+                                    </p>
                                 </div>
                                 <div class="extreme-points__item">
                                     <h5 class="extreme-points__title">Место окончания</h5>
-                                    <p class="extreme-points__text">пл. Свободы 2а (Ратуша), у скульптуры
-                                        ВОЙТ
+                                    <p class="extreme-points__text">
+                                        <%= data.excursionData.endLocation %>
                                     </p>
                                 </div>
-                                <div class="tertiary-btn btn-with-icon">
+
+
+                                <!-- <div class="tertiary-btn btn-with-icon">
                                     <img src="/Public/icons/map-pin.svg">
                                     Показать на карте
-                                </div>
+                                </div> -->
                             </div>
                             <div class="excursion-type-block">
                                 <img src="/Public/icons/group.svg">
-                                <p class="paragraph"><strong>Групповые экскурсии </strong>— гид формирует
-                                    группу.
-                                    Вместе с вами будут
-                                    другие туристы. <br> Приблизительно 12-30 человек.</p>
+                                <p class="paragraph">
+                                    <strong>
+                                        <%= data.typeData.name %>
+                                    </strong>
+                                    <%= data.typeData.description %>
+                                </p>
                             </div>
                         </div>
 
@@ -200,34 +197,12 @@
                             <div class="slider">
                                 <div class="slider-list">
                                     <div class="slider-track">
-                                        <div class="slide ">
-                                            <img class="img-open-btn" src="/Public/icons/GlassPlus.svg" alt="">
-                                            <img class="slide-img" src="/Public/guideImages/идея мокапа.jpeg" alt="">
-
-                                        </div>
-                                        <div class="slide ">
-                                            <img class="img-open-btn" src="/Public/icons/GlassPlus.svg" alt="">
-                                            <img class="slide-img" src="/Public/guideImages/ColonneMorris.JPG" alt="">
-
-                                        </div>
-                                        <div class="slide">
-                                            <img class="img-open-btn" src="/Public/icons/GlassPlus.svg" alt="">
-                                            <img class="slide-img" src="/Public/guideImages/optimize.webp" alt="">
-
-                                        </div>
-                                        <div class="slide ">
-                                            <img class="img-open-btn" src="/Public/icons/GlassPlus.svg" alt="">
-                                            <img class="slide-img"
-                                                src="/Public/guideImages/nypl.digitalcollections.510d47e1-0c52-a3d9-e040-e00a18064a99.001.w.jpg"
-                                                alt="">
-
-                                        </div>
-                                        <div class="slide ">
-                                            <img class="img-open-btn" src="/Public/icons/GlassPlus.svg" alt="">
-                                            <img class="slide-img"
-                                                src="/Public/guideImages/0.022009037737057202shape_21.png" alt="">
-
-                                        </div>
+                                        <% data.imagesExcursionsData.forEach(item=> { %>
+                                            <div class="slide">
+                                                <img class="img-open-btn" src="/Public/icons/GlassPlus.svg" alt="">
+                                                <img class="slide-img" src="<%= item.imgSRC %>" alt="">
+                                            </div>
+                                            <% }); %>
                                     </div>
                                 </div>
                                 <div class="slider-arrows">

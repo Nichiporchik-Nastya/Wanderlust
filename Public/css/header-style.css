@@ -1,0 +1,129 @@
+
+header {
+  display: flex;
+  position: fixed;
+  z-index: 2;
+  top: 0;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--light-green);
+  background-color: #fff;
+}
+
+header.container {
+  width: 100%;
+  padding: 8px 40px;
+}
+
+
+header nav {
+  display: flex;
+  align-items: center;
+  column-gap: 24px;
+}
+
+.nav-nemu {
+  display: flex;
+  column-gap: 40px;
+}
+
+.nav-nemu__item {
+  text-transform: uppercase;
+  align-items: center;
+  display: flex;
+  column-gap: 4px;
+  cursor: pointer;
+}
+
+.nav-nemu__item:hover {
+  font-weight: 600;
+}
+
+.search-bar {
+  display: flex;
+  border: 2px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  column-gap: 10px;
+  font-size: 16px;
+  width: 400px;
+}
+
+.search-bar input{
+  width: 100%;
+}
+
+.btn-block {
+  display: flex;
+  column-gap: 24px;
+  align-items: center;
+}
+
+.search-bar__block{
+  visibility: hidden;
+  position: absolute;
+  background-color: #fff;
+  border-radius: 0 0 var(--radius) var(--radius);
+  border: 1px solid var(--border-color);
+  width: 560px;
+  top: 100%;
+  left: 160px;
+  transform: translateY(-20%);
+  opacity: 0;
+  transition: .2s ease;
+}
+
+.search-bar__block.show{
+  transform: translateY(0);
+  opacity: 1;
+  visibility: visible;
+}
+
+.search-bar__block-title{
+  margin: 12px 20px 0px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.search-results__img{
+  width: 45px;
+  height: 45px;
+  border-radius: var(--radius);
+  margin-right: 16px;
+}
+
+.search-results__item{
+  padding: 12px 20px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 2px solid var(--border-color);
+  background-color: #fff;
+  transition: .2s ease;
+  cursor: pointer;
+}
+
+.search-results__item:hover{
+  background-color: var(--light-bg);
+}
+
+.search-results__wrapper{
+  display: flex;
+  flex-direction: column;
+}
+
+.search-results__item-info{
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  margin-left: 20px;
+  row-gap: 4px;
+  font-weight: 400;
+}
+
+.search-results__title{
+  line-height: 120%;
+}
+

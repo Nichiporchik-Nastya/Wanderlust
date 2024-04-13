@@ -1,4 +1,3 @@
-
 <header class="container">
     <nav>
         <a href="/">
@@ -9,7 +8,7 @@
             <label for="search">
                 <img src="/public/icons/search.svg" />
             </label>
-            <input type="text" id="search" placeholder="Найти экскурсию">
+            <input type="text" id="search" placeholder="Найти экскурсию" autocomplete="off">
         </div>
 
         <ul class="nav-nemu">
@@ -31,4 +30,64 @@
         <a href="#" class="btn secondary-btn">Выбрать экскурию</a>
     </div>
 
+    <div class="search-bar__block">
+        <div class="search-bar__block-title">
+            <h4>Популярные экскурсии</h4>
+            <a href="#" class="link">
+                Смотреть все
+                <img src="/Public/icons/btn-arrow.svg">
+            </a>
+        </div>
+        <div class="search-results__wrapper">
+            <a href="/excursions/show" class="search-results__item">
+                <img class="search-results__img"
+                    src="/Public/guideImages/nypl.digitalcollections.510d47e1-0c52-a3d9-e040-e00a18064a99.001.w.jpg"
+                    alt="">
+                <div class="search-results__title">Экскурсия в мини-группе: Минск современный и исторический</div>
+                <div class="search-results__item-info">
+                    <span class="extra-info">3 часа</span>
+                    <span class="extra-info">Пешая</span>
+                </div>
+            </a>
+            <a href="/excursions/show" class="search-results__item">
+                <img class="search-results__img"
+                    src="/Public/guideImages/nypl.digitalcollections.510d47e1-0c52-a3d9-e040-e00a18064a99.001.w.jpg"
+                    alt="">
+                <div class="search-results__title">Экскурсия в мини-группе: Минск современный и исторический</div>
+                <div class="search-results__item-info">
+                    <span class="extra-info">3 часа</span>
+                    <span class="extra-info">Пешая</span>
+                </div>
+            </a>
+            <a href="/excursions/show" class="search-results__item">
+                <img class="search-results__img"
+                    src="/Public/guideImages/nypl.digitalcollections.510d47e1-0c52-a3d9-e040-e00a18064a99.001.w.jpg"
+                    alt="">
+                <div class="search-results__title">Экскурсия в мини-группе: Минск современный и исторический</div>
+                <div class="search-results__item-info">
+                    <span class="extra-info">3 часа</span>
+                    <span class="extra-info">Пешая</span>
+                </div>
+            </a>
+            <a href="/excursions/show" class="search-results__item">
+                <img class="search-results__img"
+                    src="/Public/guideImages/nypl.digitalcollections.510d47e1-0c52-a3d9-e040-e00a18064a99.001.w.jpg"
+                    alt="">
+                <div class="search-results__title">Экскурсия в мини-группе: Минск современный и исторический</div>
+                <div class="search-results__item-info">
+                    <span class="extra-info">3 часа</span>
+                    <span class="extra-info">Пешая</span>
+                </div>
+            </a>
+        </div>
+    </div>
+
 </header>
+
+<script>
+    let searchBar = document.querySelector('#search'),
+        searchBarBlock = document.querySelector('.search-bar__block');
+    searchBar.addEventListener("focus", () => {
+        searchBarBlock.classList.add("show");
+    })
+</script>

@@ -9,23 +9,25 @@ const StartTimes = require("../db/models/index").StartTimes;
 const ThemeExcursions = require("../db/models/index").ThemeExcursions;
 const ImagesExcursions = require("../db/models/index").ImagesExcursions;
 
+
 class ExcursionModel {
     async create(body, files) {
+        console.log(files.photos);
         try {
-
-            // console.log(files.photos[0]);
-
-            let id = await Excursions.create(body);
+            // let id = await Excursions.create(body),
+            let id = 1,
+            rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + min));
             id = id.id;
 
             if (Array.isArray(files.photos)) {
                 await files.photos.forEach(file => {
-                    ImagesExcursions.create({ imgSRC: '/public/guideImages/' + Math.random() + file.name, excursionId: id });
-                    file.mv('public/guideImages/' + Math.random() + file.name);
+                    ImagesExcursions.create({ imgSRC: '/public/guideImages/' + rand + file.name, excursionId: id });
+                    file.mv('public/guideImages/' + rand + file.name);
                 });
             } else {
-                ImagesExcursions.create({ imgSRC: '/public/guideImages/' + Math.random() + files.photos.name, excursionId: id });
-                files.photos.mv('public/guideImages/' + Math.random() + files.photos.name);
+                ImagesExcursions.create({ imgSRC: '/public/guideImages/' + rand + files.photos.name, excursionId: id });
+                files.photos.mv('public/guideImages/' + rand + files.photos.name);
+                console.log("сюда дошло");
             }
 
             if (Array.isArray(body.themes)) {
@@ -51,9 +53,6 @@ class ExcursionModel {
             } else {
                 StartTimes.create({ time: body.startTimes, excursionId: id });
             }
-
-
-
             return true;
 
         } catch (error) {
@@ -71,37 +70,74 @@ class ExcursionModel {
         return structure;
     };
 
-    async delete(id){
-        await ImagesExcursions.destroy({where:{excursionId:id}});
-        await ThemeExcursions.destroy({where:{excursionId:id}});
-        await DaysExcursions.destroy({where:{excursionId:id}});
-        await StartTimes.destroy({where:{excursionId:id}});
+    async delete(id) {
+        await ImagesExcursions.destroy({ where: { excursionId: id } });
+        await ThemeExcursions.destroy({ where: { excursionId: id } });
+        await DaysExcursions.destroy({ where: { excursionId: id } });
+        await StartTimes.destroy({ where: { excursionId: id } });
         //Reviews & Orders
-        return await Excursions.destroy({where:{id}});
+        return await Excursions.destroy({ where: { id } });
     }
 
-    async search(str, fromCost, toCost, orderTitle = 'created_at', order = 'ASC', themes, formats){//имя поля и направление сортировки
+    async get(id) {
+        let excursionData = await Excursions.findOne({
+            where: {
+                id,
+            },
+        });
+        // console.log(typeof excursionData.typeId);
+        return {
+            excursionData, 
+            themesData: await ThemeExcursions.findAll({
+                where: {
+                    excursionId: id,
+                },
+            }),
+            startTimesData: await StartTimes.findAll({
+                where: {
+                    excursionId: id,
+                },
+            }),
+            daysExcursionsData: await DaysExcursions.findAll({
+                where: {
+                    excursionId: id,
+                },
+            }),
+            imagesExcursionsData: await ImagesExcursions.findAll({
+                where: {
+                    excursionId: id,
+                },
+            }),
+            typeData: await Types.findOne({
+                where: {
+                    id: excursionData.typeId,
+                },
+            })
+        };
+    }
+
+    async search(str, fromCost, toCost, orderTitle = 'created_at', order = 'ASC', themes, formats) {//имя поля и направление сортировки
         return await ExcursionModel.findAll({
-            where:{
-                [Op.or]:{
-                    name:{
+            where: {
+                [Op.or]: {
+                    name: {
                         [Op.like]: `%${str}%`,
                     },
-                    description:{
+                    description: {
                         [Op.like]: `%${str}%`,
                     }
                 },
-                adultCost:{
+                adultCost: {
                     [Op.between]: [fromCost, toCost]
                 },
-                formatId:{
+                formatId: {
                     [Op.in]: formats
                 },
-                themeId:{
+                themeId: {
                     [Op.in]: themes
                 }
             },
-            order:[
+            order: [
                 [orderTitle, order]
             ]
         })

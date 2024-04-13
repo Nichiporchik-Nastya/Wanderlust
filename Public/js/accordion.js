@@ -20,14 +20,14 @@ let accordionItemsheads = document.querySelectorAll(".accordion__title-block"),
     answer_btns = document.querySelectorAll(".accordion__arrow");
 
 accordionItemsheads.forEach((item, index) => {
-    accordionItemsBodys[index].style.maxHeight = accordionItemsBodys[index].scrollHeight + "px";
+    accordionItemsBodys[index].style.maxHeight = "100%";
 
     item.addEventListener("click", () => {
         answer_btns[index].classList.toggle('close');
         if (accordionItemsBodys[index].style.maxHeight) {
             accordionItemsBodys[index].style.maxHeight = null;
         } else {
-            accordionItemsBodys[index].style.maxHeight = accordionItemsBodys[index].scrollHeight + "px";
+            accordionItemsBodys[index].style.maxHeight = "100%"; //accordionItemsBodys[index].scrollHeight + "px"
         }
     });
 });
