@@ -28,6 +28,7 @@ class mainController {
 
     async index(req, res) {
         try {
+            console.log(23456);
             res.render('index');
         } catch (e) {
             console.log(e);

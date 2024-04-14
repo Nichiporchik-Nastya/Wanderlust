@@ -12,12 +12,14 @@ const ImagesExcursions = require("../db/models/index").ImagesExcursions;
 
 class ExcursionModel {
     async create(body, files) {
-        console.log(files.photos);
+        // console.log(files.photos);
         try {
-            // let id = await Excursions.create(body),
-            let id = 1,
-            rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + min));
+            let id = await Excursions.create(body),
+            // let id = 1,
+            rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
             id = id.id;
+
+            // console.log(id);
 
             if (Array.isArray(files.photos)) {
                 await files.photos.forEach(file => {
@@ -56,6 +58,7 @@ class ExcursionModel {
             return true;
 
         } catch (error) {
+            console.log(error);
             return false;
         }
 

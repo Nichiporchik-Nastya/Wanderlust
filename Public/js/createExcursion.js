@@ -41,5 +41,8 @@ async function CreateExcursionSubmit(event) {
         });
 
 
-    } else console.log("Ошибок нет");
+    } else {
+        console.log("Экскурсия создана");
+        // window.location.href = "/ ";
+    }
 }

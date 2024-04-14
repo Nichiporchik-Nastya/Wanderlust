@@ -290,6 +290,10 @@ textarea {
   resize: none;
 }
 
+textarea{
+  height: 200px;
+}
+
 .box-input input,
 .box-input textarea {
   border: 2px solid var(--border-color);

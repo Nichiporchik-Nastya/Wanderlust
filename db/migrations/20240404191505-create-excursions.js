@@ -15,7 +15,7 @@ module.exports = {
         type: Sequelize.STRING
       },
       description: {
-        type: Sequelize.STRING
+        type: Sequelize.TEXT('medium')
       },
       typeId: {
         allowNull: false,
@@ -42,7 +42,7 @@ module.exports = {
       },
       duration: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
       },
       extraInfo: {
         type: Sequelize.STRING
