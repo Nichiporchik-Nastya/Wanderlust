@@ -2,6 +2,7 @@ const path = require('path');
 const { validationResult } = require('express-validator');
 const UserModel = require("../Models/userModel");
 const ExcursionModel = require('../Models/excursionModel');
+const OrderModel = require('../Models/orderModel');
 
 
 
@@ -28,7 +29,6 @@ class mainController {
 
     async index(req, res) {
         try {
-            console.log(23456);
             res.render('index');
         } catch (e) {
             console.log(e);
@@ -58,14 +58,13 @@ class mainController {
     async createExcursion(req, res) {
         try {
             let errors = validationResult(req);
-
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
             }
-            else if (!req.files?.photos) {
-                errors = [{ type: 'field', value: '', msg: 'Выберите одно или несколько изображений', path: 'photos', location: 'body' }];
+            else if (!req.files?.photos || !Array.isArray(req.files?.photos) || req.files?.photos.lenght < 4) {
+                errors = [{ type: 'field', value: '', msg: 'Выберите 4 или более изображений', path: 'photos', location: 'body' }];
                 return res.status(400).json({ errors: errors });
-            } 
+            }
             else if (Array.isArray(req.files?.photos)) {
                 req.files?.photos.forEach(element => {
                     if (!element.mimetype.includes("image")) {
@@ -78,10 +77,8 @@ class mainController {
                 errors = [{ type: 'field', value: '', msg: 'Файл не является изображением', path: 'photos', location: 'body' }];
                 return res.status(400).json({ errors: errors });
             }
-            else {
-                let result = await ExcursionModel.create(req.body, req.files);
-                res.status(200).send(result);
-            }
+            let result = await ExcursionModel.create(req.body, req.files);
+            res.status(200).send(result);
         } catch (e) {
             console.log(e);
         }
@@ -107,11 +104,34 @@ class mainController {
     async showExcursion(req, res) {
         try {
             const id = +req?.params?.id;
-
             let result = await ExcursionModel.get(id);
-            // console.log(result.imagesExcursionsData[0].imgSRC);
+            // console.log(result.daysExcursionsData)
             res.render('excursionPage', { data: result });
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
+    async orderExcursion(req, res) {
+        try {
+            let errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+            let result = await OrderModel.create(req.body);
+            res.status(200).send(result);
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async getExcursionDays(req, res){
+        try {
+            
+            let result = await ExcursionModel.getDays(req.body);
+            console.log(result);
+            res.status(200).send(result);
 
         } catch (e) {
             console.log(e);

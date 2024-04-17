@@ -15,6 +15,10 @@ module.exports = {
       description: {
         type: Sequelize.STRING
       },
+      clientMaxNumber: {
+        allowNull: false,
+        type: Sequelize.INTEGER
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

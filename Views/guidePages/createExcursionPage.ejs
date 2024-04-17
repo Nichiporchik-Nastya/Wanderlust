@@ -17,6 +17,7 @@
         <div class="container two-part-container">
 
             <form onsubmit="CreateExcursionSubmit(event)">
+                <input type="number" name="guideId" hidden value="<%= 1 %>">
                 <h2>Создание новой экскурсии</h2>
 
 
@@ -250,7 +251,6 @@
                                     <p class="input-help-text">Можно не заполнять, если не предусмотрено </p>
                                 </div>
                             </div>
-
                         </div>
                     </li>
                 </ul>
@@ -379,7 +379,7 @@
             clear.addEventListener('click', () => {
                 input.value = "";
                 preview.innerHTML = "";
-                console.log(input.files);
+                // console.log(input.files);
             });
 
         </script>

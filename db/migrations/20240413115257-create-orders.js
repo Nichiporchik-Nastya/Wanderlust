@@ -26,6 +26,10 @@ module.exports = {
         allowNull: false,
         type: Sequelize.STRING
       },
+      clientEmail: {
+        allowNull: false,
+        type: Sequelize.STRING
+      },
       numberOfAdults: {
         allowNull: false,
         type: Sequelize.INTEGER

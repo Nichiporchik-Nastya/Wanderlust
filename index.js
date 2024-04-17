@@ -5,7 +5,7 @@ const express = require('express');
 const fileUpload = require('express-fileupload');
 // const middlewareController = require('./Controllers/middlewareController');
 const bcrypt = require('bcrypt');
-const PORT = process.env.PORT || 4000;
+const PORT = process.env.PORT || 4001;
 
 const bodyParser = require('body-parser');
 // const cookieParser = require('cookie-parser');

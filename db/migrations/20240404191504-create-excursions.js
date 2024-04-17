@@ -17,6 +17,14 @@ module.exports = {
       description: {
         type: Sequelize.TEXT('medium')
       },
+      guideId: {
+        allowNull: false,
+        references: {
+          model: { tableName: 'Users' },
+          key: 'id'
+        },
+        type: Sequelize.INTEGER
+      },
       typeId: {
         allowNull: false,
         references: {
@@ -35,10 +43,10 @@ module.exports = {
       },
       adultCost: {
         allowNull: false,
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
       },
       childCost: {
-        type: Sequelize.INTEGER
+        type: Sequelize.FLOAT
       },
       duration: {
         allowNull: false,

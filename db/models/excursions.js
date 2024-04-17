@@ -15,12 +15,13 @@ module.exports = (sequelize, DataTypes) => {
   }
   Excursions.init({
     name: DataTypes.STRING,
-    description: DataTypes.STRING,
+    description: DataTypes.TEXT('medium'),
+    guideId: DataTypes.INTEGER,
     typeId: DataTypes.INTEGER,
     formatId: DataTypes.INTEGER,
-    adultCost: DataTypes.INTEGER,
-    childCost: DataTypes.INTEGER,
-    duration: DataTypes.INTEGER,
+    adultCost: DataTypes.FLOAT,
+    childCost: DataTypes.FLOAT,
+    duration: DataTypes.FLOAT,
     extraInfo: DataTypes.STRING,
     startLocation: DataTypes.STRING,
     endLocation: DataTypes.STRING,

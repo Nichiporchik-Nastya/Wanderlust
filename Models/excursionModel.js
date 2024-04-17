@@ -12,25 +12,27 @@ const ImagesExcursions = require("../db/models/index").ImagesExcursions;
 
 class ExcursionModel {
     async create(body, files) {
-        // console.log(files.photos);
         try {
+            // console.log(body);
             let id = await Excursions.create(body),
             // let id = 1,
             rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
+            
+
             id = id.id;
 
-            // console.log(id);
+            
 
             if (Array.isArray(files.photos)) {
                 await files.photos.forEach(file => {
                     ImagesExcursions.create({ imgSRC: '/public/guideImages/' + rand + file.name, excursionId: id });
                     file.mv('public/guideImages/' + rand + file.name);
                 });
-            } else {
-                ImagesExcursions.create({ imgSRC: '/public/guideImages/' + rand + files.photos.name, excursionId: id });
-                files.photos.mv('public/guideImages/' + rand + files.photos.name);
-                console.log("сюда дошло");
-            }
+            } 
+            // else {
+            //     ImagesExcursions.create({ imgSRC: '/public/guideImages/' + rand + files.photos.name, excursionId: id });
+            //     files.photos.mv('public/guideImages/' + rand + files.photos.name);
+            // }
 
             if (Array.isArray(body.themes)) {
                 await body.themes.forEach(theme => {
@@ -117,6 +119,15 @@ class ExcursionModel {
                 },
             })
         };
+    }
+
+    async getDays(id){
+        console.log(id);
+        return await DaysExcursions.findAll({
+            where: {
+                excursionId: id.excursionId,
+            },
+        });
     }
 
     async search(str, fromCost, toCost, orderTitle = 'created_at', order = 'ASC', themes, formats) {//имя поля и направление сортировки

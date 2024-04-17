@@ -2,7 +2,7 @@ const Router = require('express');
 const router = new Router();
 const controller = require('../Controllers/mainController');
 const middlewareController = require('../Controllers/middlewareController');
-const { body} = require('express-validator');
+const { body } = require('express-validator');
 const UserModel = require("../Models/userModel");
 const excursionModel = require('../Models/excursionModel');
 
@@ -54,19 +54,25 @@ router.post('/api/excursions/create',
   controller.createExcursion);
 
 router.get('/excursions/create', async (req, res) => {
-  const excursionStructure = await excursionModel.getStructure();
-  res.render('guidePages/createExcursionPage', { data: excursionStructure });
+  let excursionStructure = await excursionModel.getStructure();
+  // excursionStructure.push('guideId', req.session.user.id);
+  // console.log(excursionStructure);
+  // console.log(session);
+  res.render('guidePages/createExcursionPage', { data: excursionStructure }); //, guideId: req.session.user.id
 });
-
-// router.get('/excursions/show/:id', (req, res) => {
-//   res.render('excursionPage', {
-//     data: "hjkl"
-//   });
-// });
 
 router.get('/excursions/show/:id', controller.showExcursion);
 
+router.post('/api/excursions/order',
+  [
+    body('clientName').not().isEmpty().withMessage('Заполните поле'),
+    body('clientEmail').not().isEmpty().withMessage('Заполните поле'),
+    body('clientPhone').not().isEmpty().withMessage('Заполните поле'),
+    body('clientEmail').isEmail().withMessage('Введите корректный адрес электронной почты'),
+    body('clientPhone').isMobilePhone().withMessage('Введите корректный номер телефона'),
+  ],
+  controller.orderExcursion);
 
-
+router.post('/api/excursions/getExcursionDays', controller.getExcursionDays);
 
 module.exports = router;
