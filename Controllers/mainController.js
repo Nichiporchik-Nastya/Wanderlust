@@ -105,7 +105,6 @@ class mainController {
         try {
             const id = +req?.params?.id;
             let result = await ExcursionModel.get(id);
-            // console.log(result.daysExcursionsData)
             res.render('excursionPage', { data: result });
         } catch (e) {
             console.log(e);
@@ -128,7 +127,7 @@ class mainController {
 
     async getExcursionDays(req, res){
         try {
-            
+
             let result = await ExcursionModel.getDays(req.body);
             console.log(result);
             res.status(200).send(result);
@@ -138,6 +137,15 @@ class mainController {
         }
     }
 
+    async search(req, res){
+        try {
+            let result = await ExcursionModel.search(req.query?.str);
+            console.log(result);
+            res.status(200).send(result);
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
 }
 

@@ -24,7 +24,12 @@ const session = require('express-session');
 app.use(session({
     secret: 'secret-key',
     resave: false,
-    saveUninitialized: true
+    saveUninitialized: true,
+    cookie: {
+        path: '/',
+        httpOnly: true,
+        maxAge: 24*60*60*1000
+    }
 }));
 
 const authRouter = require('./Routers/authRouter');
@@ -43,7 +48,7 @@ const start = () => {
             console.log(`server started on port ${PORT}`);
             // console.log(bcrypt.hash(123 + '123', 3));
         }
-            
+
         );
     } catch (e) {
         console.log(e);

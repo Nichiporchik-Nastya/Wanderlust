@@ -2,14 +2,13 @@ async function OrderSubmit(event) {
     try {
         event.preventDefault();
         let formData = new FormData(event.target);
-
+        formData.append('day', '1');
         // formData.append("adultCost", Number(clientCountCounts[0].innerText));
 
 
         // for (let [key, value] of formData.entries()) {
-        //     console.log(key, value);
+        //      console.log(key, value);
         // }
-        
 
         let response = await fetch('/api/excursions/order', { //объект отправки и получения запроса, путь прописывается без точки, так как бек и фронт находятся на одном ломене
             method: "POST",

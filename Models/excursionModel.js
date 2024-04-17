@@ -1,6 +1,7 @@
 const { where, Op } = require("sequelize");
 
 const Excursions = require("../db/models/index").Excursions;
+const Users = require("../db/models/index").Users;
 const Formats = require("../db/models/index").Formats;
 const Types = require("../db/models/index").Types;
 const Themes = require("../db/models/index").Themes;
@@ -17,18 +18,18 @@ class ExcursionModel {
             let id = await Excursions.create(body),
             // let id = 1,
             rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
-            
+
 
             id = id.id;
 
-            
+
 
             if (Array.isArray(files.photos)) {
                 await files.photos.forEach(file => {
                     ImagesExcursions.create({ imgSRC: '/public/guideImages/' + rand + file.name, excursionId: id });
                     file.mv('public/guideImages/' + rand + file.name);
                 });
-            } 
+            }
             // else {
             //     ImagesExcursions.create({ imgSRC: '/public/guideImages/' + rand + files.photos.name, excursionId: id });
             //     files.photos.mv('public/guideImages/' + rand + files.photos.name);
@@ -89,10 +90,15 @@ class ExcursionModel {
             where: {
                 id,
             },
+            include:[
+                {
+                    model: Users,
+                    as: 'guide'
+                }
+            ]
         });
-        // console.log(typeof excursionData.typeId);
         return {
-            excursionData, 
+            excursionData,
             themesData: await ThemeExcursions.findAll({
                 where: {
                     excursionId: id,
@@ -129,9 +135,33 @@ class ExcursionModel {
             },
         });
     }
+    async search(str) {//имя поля и направление сортировки
+        return await Excursions.findAll({
+            where: {
+                [Op.or]: {
+                    name: {
+                        [Op.like]: `%${str}%`,
+                    },
+                    description: {
+                        [Op.like]: `%${str}%`,
+                    }
+                },
+            },
+            include:[
+                {
+                    model: Formats,
+                    as: 'format',
+                },
+                {
+                    model: ImagesExcursions,
+                    as: 'images',
+                }
+            ]
+        })
+    }
 
-    async search(str, fromCost, toCost, orderTitle = 'created_at', order = 'ASC', themes, formats) {//имя поля и направление сортировки
-        return await ExcursionModel.findAll({
+    async searchForFilter(str, fromCost = 0, toCost = 99999999999, orderTitle = 'createdAt', order = 'ASC', formats=[]) {//имя поля и направление сортировки
+        return await Excursions.findAll({
             where: {
                 [Op.or]: {
                     name: {
@@ -146,9 +176,6 @@ class ExcursionModel {
                 },
                 formatId: {
                     [Op.in]: formats
-                },
-                themeId: {
-                    [Op.in]: themes
                 }
             },
             order: [

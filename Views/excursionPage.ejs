@@ -408,7 +408,7 @@
                                     <h5>Время начала экскурсии</h5>
                                     <% data.startTimesData.forEach(item=> { %>
                                         <div class="radio-input">
-                                            <input type="radio" name="startTimes" id="startTime-<%= item.id %>"
+                                            <input type="radio" name="startTimeId" id="startTime-<%= item.id %>"
                                                 value="<%= item.id %>" checked>
                                             <label for="startTime-<%= item.id; %>">
                                                 <% let itemText=item.time.slice(0, -3); %>
@@ -479,10 +479,10 @@
                     </div>
                     <div class="excursion-extra-info__item">
                         <div style="display: flex; align-items: center;">
-                            <img class="guide-img" src="/Public/guideImages/ColonneMorris.JPG" alt="">
+                            <img class="guide-img" src="<%= data.excursionData.guide.imgSRC %>" alt="">
                             <div class="excursion-extra-info__group">
-                                <div class="guide-name h5">Лебедев Александр</div>
-                                <div class="guide-info extra-info">Опыт 5 лет</div>
+                                <div class="guide-name h5"><%= data.excursionData.guide.name %></div>
+                                <div class="guide-info extra-info"><%= data.excursionData.guide.description %></div>
                             </div>
                         </div>
                         <div class="btn secondary-btn">Подробнее</div>
@@ -493,7 +493,7 @@
 
         <script>
 
-          
+
 
 
             let accordeonTabs = document.querySelectorAll('.accordeon-tabs__tab');

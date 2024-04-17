@@ -53,7 +53,7 @@ router.post('/api/excursions/create',
   ],
   controller.createExcursion);
 
-router.get('/excursions/create', async (req, res) => {
+router.get('/excursions/create', middlewareController.checkSession, middlewareController.checkGuide, async (req, res) => {
   let excursionStructure = await excursionModel.getStructure();
   // excursionStructure.push('guideId', req.session.user.id);
   // console.log(excursionStructure);
@@ -70,9 +70,13 @@ router.post('/api/excursions/order',
     body('clientPhone').not().isEmpty().withMessage('Заполните поле'),
     body('clientEmail').isEmail().withMessage('Введите корректный адрес электронной почты'),
     body('clientPhone').isMobilePhone().withMessage('Введите корректный номер телефона'),
+    body('day').not().isEmpty().isNumeric().withMessage('Выберите день недели'),
+    body('startTimeId').not().isEmpty().isNumeric().withMessage('Выберите время начала'),
   ],
   controller.orderExcursion);
 
 router.post('/api/excursions/getExcursionDays', controller.getExcursionDays);
+
+router.get('/excursions/search', controller.search);
 
 module.exports = router;

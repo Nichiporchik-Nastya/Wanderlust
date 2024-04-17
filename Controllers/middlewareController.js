@@ -4,7 +4,7 @@ class middlewareController {
 
     async checkSession(req, res, next) {
         try {
-            if (req.session.user) {
+            if (req?.session?.user) {
                 next();
             }
             else {
@@ -18,12 +18,12 @@ class middlewareController {
 
     async checkAdmin(req, res, next) {
         try {
-            const { email } = req.session.user;
+            const { email } = req?.session?.user;
             let result = await UserModel.getRole(email);
-
+            console.log(result)
             if (result == 1) {
                 next();
-            } 
+            }
             else if (result == 2) {
                 res.redirect('/guide-dashbord');
             }
@@ -36,6 +36,22 @@ class middlewareController {
         }
     }
 
+    async checkGuide(req, res, next) {
+        try {
+            console.log(req.session)
+            const { email } = req?.session?.user;
+            let result = await UserModel.getRole(email);
+            if (result == 2) {
+                next();
+            }
+            else {
+                res.redirect('/');
+            }
+
+        } catch (e) {
+            console.log(e);
+        }
+    }
 }
 
 module.exports = new middlewareController();

@@ -8,7 +8,7 @@
             <label for="search">
                 <img src="/public/icons/search.svg" />
             </label>
-            <input type="text" id="search" placeholder="Найти экскурсию" autocomplete="off">
+            <input type="text" id="search" placeholder="Найти экскурсию" oninput="Search(this)">
         </div>
 
         <ul class="nav-nemu">
@@ -39,46 +39,6 @@
             </a>
         </div>
         <div class="search-results__wrapper">
-            <a href="/excursions/show" class="search-results__item">
-                <img class="search-results__img"
-                    src="/Public/guideImages/nypl.digitalcollections.510d47e1-0c52-a3d9-e040-e00a18064a99.001.w.jpg"
-                    alt="">
-                <div class="search-results__title">Экскурсия в мини-группе: Минск современный и исторический</div>
-                <div class="search-results__item-info">
-                    <span class="extra-info">3 часа</span>
-                    <span class="extra-info">Пешая</span>
-                </div>
-            </a>
-            <a href="/excursions/show" class="search-results__item">
-                <img class="search-results__img"
-                    src="/Public/guideImages/nypl.digitalcollections.510d47e1-0c52-a3d9-e040-e00a18064a99.001.w.jpg"
-                    alt="">
-                <div class="search-results__title">Экскурсия в мини-группе: Минск современный и исторический</div>
-                <div class="search-results__item-info">
-                    <span class="extra-info">3 часа</span>
-                    <span class="extra-info">Пешая</span>
-                </div>
-            </a>
-            <a href="/excursions/show" class="search-results__item">
-                <img class="search-results__img"
-                    src="/Public/guideImages/nypl.digitalcollections.510d47e1-0c52-a3d9-e040-e00a18064a99.001.w.jpg"
-                    alt="">
-                <div class="search-results__title">Экскурсия в мини-группе: Минск современный и исторический</div>
-                <div class="search-results__item-info">
-                    <span class="extra-info">3 часа</span>
-                    <span class="extra-info">Пешая</span>
-                </div>
-            </a>
-            <a href="/excursions/show" class="search-results__item">
-                <img class="search-results__img"
-                    src="/Public/guideImages/nypl.digitalcollections.510d47e1-0c52-a3d9-e040-e00a18064a99.001.w.jpg"
-                    alt="">
-                <div class="search-results__title">Экскурсия в мини-группе: Минск современный и исторический</div>
-                <div class="search-results__item-info">
-                    <span class="extra-info">3 часа</span>
-                    <span class="extra-info">Пешая</span>
-                </div>
-            </a>
         </div>
     </div>
 
@@ -87,7 +47,36 @@
 <script>
     let searchBar = document.querySelector('#search'),
         searchBarBlock = document.querySelector('.search-bar__block');
-    searchBar.addEventListener("focus", () => {
+    searchBar.addEventListener("focus", (event) => {
         searchBarBlock.classList.add("show");
+        Search(event.target);
     })
+
+    async function Search(target){
+        let formData = new FormData();
+        formData.append('str', target.value);
+
+        let response = await fetch('/excursions/search?str='+target.value, {
+            method: "GET"
+        });
+
+        let result = await response.json();
+        console.log(result)
+        let container = document.querySelector('.search-results__wrapper');
+        container.innerHTML = '';
+        for (let i = 0; i < 4 && i < result.length; i++ ){
+            let item = result[i];
+            container.innerHTML += `
+                <a href="/excursions/show/${item?.id}" class="search-results__item">
+                    <img class="search-results__img"
+                        src="${item?.images[0]?.imgSRC}"
+                        alt="">
+                    <div class="search-results__title">${item?.name?.slice(0, 40)}...</div>
+                    <div class="search-results__item-info">
+                        <span class="extra-info">${item?.duration} часа</span>
+                        <span class="extra-info">${item?.format?.name}</span>
+                    </div>
+                </a>`
+        }
+    }
 </script>
