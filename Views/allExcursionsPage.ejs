@@ -49,7 +49,7 @@
                     <div class="input-wrap">
                         <h4 class="box-input__title">Формат</h4>
                         <% data.formats.forEach(item=> { %>
-                        <div class="checkbox-input">
+                        <div class="radio-input">
                             <input type="checkbox" name="formatId" id="format-<%= item.id; %>" value="<%= item.id; %>" checked>
                             <label for="format-<%= item.id; %>">
                                 <%= item.name; %>
@@ -63,7 +63,7 @@
                     <div class="input-wrap">
                         <h4 class="box-input__title">Тип</h4>
                         <% data.types.forEach(item=> { %>
-                            <div class="checkbox-input">
+                            <div class="radio-input">
                                 <input type="checkbox" name="typeId" id="type-<%= item.id; %>" value="<%= item.id; %>"
                                     checked>
                                 <label for="type-<%= item.id; %>">
@@ -79,14 +79,14 @@
                         <h4 class="box-input__title">Сортировка</h4>
                         
                             <div class="radio-input">
-                                <input type="radio" name="sort" id="sort-1"
+                                <input type="checkbox" name="sort" id="sort-1"
                                     checked>
                                 <label for="sort-1">
                                     Сначала новые
                                 </label>
                             </div>
                             <div class="radio-input">
-                                <input type="radio" name="sort" id="sort-2"
+                                <input type="checkbox" name="sort" id="sort-2"
                                     checked>
                                 <label for="sort-2">
                                     Сначала дешёвые
