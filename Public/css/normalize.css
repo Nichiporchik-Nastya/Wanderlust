@@ -19,7 +19,7 @@
     outline: none;
 }
 
-a{
+a {
     color: inherit;
     text-decoration: none;
 }
@@ -111,6 +111,11 @@ section {
 ul {
     list-style: none;
 }
+
+li {
+    list-style-position: inside;
+}
+
 
 table {
     border-collapse: collapse;

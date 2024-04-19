@@ -81,10 +81,17 @@ router.get('/excursions/search', controller.search);
 router.get('/excursions/searchfilter', controller.searchFilter);
 
 router.get('/excursions/all', async (req, res) => {
-    const data = {};
-    data.types = await excursionModel.getAllTypes();
-    data.formats = await excursionModel.getAllFormats();
+  const data = {};
+  let user = req.session?.user ? true : false;
+  console.log(user);
+  data.types = await excursionModel.getAllTypes();
+  data.formats = await excursionModel.getAllFormats();
+  data.user = user;
   res.render('allExcursionsPage', data);
 });
+
+router.delete('/api/excursions/delete', [
+  body('id').not().isEmpty().isNumeric().withMessage('Некорректный id экскурсии'),
+], controller.deleteExcursion);
 
 module.exports = router;

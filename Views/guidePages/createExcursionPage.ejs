@@ -9,17 +9,20 @@
     <link rel="stylesheet" href="/public/css/normalize.css">
     <link rel="stylesheet" href="/public/css/header-style.css">
     <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/dashbord.css">
 </head>
 
 <body>
     <%- include('./partials/header'); %>
 
-        <div class="container two-part-container">
+    <div class="status"></div>
 
-            <form onsubmit="CreateExcursionSubmit(event)">
+        <div class="container two-part-container">
+            
+            <form onsubmit="CreateExcursionSubmit(event)" class="first-container-part">
                 <input type="number" name="guideId" hidden value="<%= 1 %>">
                 <h2>Создание новой экскурсии</h2>
-
+                
 
                 <!-- <div class="accordion__wrap"> -->
                 <ul class="accordion__list">
@@ -260,7 +263,7 @@
 
             </form>
 
-            <div class="soderj_wrapper">
+            <div class="soderj_wrapper second-container-part">
                 <ol class="soderj">
                     <li>Общая информация</li>
                     <li>Маршрут</li>
@@ -269,6 +272,7 @@
                     <li>Стоимость</li>
                     <li>Дополнительно</li>
                 </ol>
+                
             </div>
 
         </div>
@@ -278,11 +282,7 @@
                 addTimeBtn = document.querySelector("#add-time-btn"),
                 timeInput = document.getElementById("time"),
                 timeError = document.querySelector("#time-error"),
-                fileInput = document.querySelector(".input__file")
-                ;
-
-
-
+                fileInput = document.querySelector(".input__file");
 
             let date = new Date();
             const options = { weekday: 'long' };

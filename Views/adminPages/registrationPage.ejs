@@ -1,19 +1,103 @@
-<form onsubmit="RegistrationSubmit(event)">
+<!DOCTYPE html>
+<html lang="ru">
 
-    <label for="name">Имя:</label>
-    <input type="text" id="name" name="name" value="Новый гид">
-    
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="test2@asd.sds">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Добавить нового гида</title>
+    <link rel="stylesheet" href="/public/css/normalize.css">
+    <link rel="stylesheet" href="/public/css/header-style.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+</head>
 
-    <label for="password">Пароль:</label>
-    <input type="password" id="password" name="password" value="11111111">
+<body>
+    <%- include('./partials/header'); %>
 
-    <label for="secondPassword">Повторить пароль:</label>
-    <input type="password" id="secondPassword" name="secondPassword" value="11111111">
 
-    <input type="submit" value="Зарегистрировать">
+        <form onsubmit="RegistrationSubmit(event)">
+            <div class="container two-part-container">
+                <div>
+                    <h2>Регистрация нового сотрудника</h2>
+                    <div class="box-input">
+                        <input type="text" name="name" id="name" class="input" placeholder=" " value="Новый гид">
+                        <label>Полное имя</label>
+                        <div class="box-input__error-text name-error"></div>
+                    </div>
 
-</form>
 
-<script src="/public/js/registration.js"></script>
+
+                    <div class="box-input">
+                        <input type="email" name="email" id="email" class="input" placeholder=" " value="test2@asd.sds">
+                        <label>Адрес электронной почты</label>
+                        <div class="box-input__error-text email-error"></div>
+                    </div>
+
+                    <div class="box-input">
+                        <input type="password" name="password" id="password" class="input" placeholder=" "
+                            value="11111111">
+                        <label>Пароль</label>
+                        <div class="box-input__error-text password-error"></div>
+                    </div>
+
+                    <div class="box-input">
+                        <input type="password" name="secondPassword" id="secondPassword" class="input" placeholder=" "
+                            value="11111111">
+                        <label>Пароль</label>
+                        <div class="box-input__error-text secondPassword-error"></div>
+                    </div>
+
+                    
+                </div>
+                <div>
+                    <div class="input-wrap">
+                        <h4 class="box-input__title">Подробная информация</h4>
+                        <div class="box-input">
+                            <textarea name="description" rows="2"
+                                placeholder=" ">Провёл более 2000 экскурсий, работаю гидом с 1 января 2010</textarea>
+                            <label>Описание гида</label>
+                            <div class="box-input__error-text description-error"></div>
+                        </div>
+                    </div>
+
+                    <div class="input-wrap">
+                        <h4 class="box-input__title">Изображение</h4>
+                        <label class="btn secondary-btn btn-with-icon">
+                            <input name="photos" type="file" hidden class="input__file" accept="image/*" />
+                            <img src="/Public/icons/pic.svg">
+                            Выбрать изображение
+                        </label>
+
+                        <div class="tags-wrap photo-tags">
+                            <p>Выбрано:</p>
+                            <div class="preview"></div>
+                            <div class="btn secondary-btn clear-file-input">Очистить выбор</div>
+                        </div>
+                        <div class="box-input__error-text photos-error"></div>
+
+                    </div>
+
+                    <input type="submit" class="btn" value="Зарегистрировать">
+                </div>
+            </div>
+        </form>
+
+        <script src="/public/js/registration.js"></script>
+
+</body>
+
+</html>
+
+<!-- <label for="name">Имя:</label>
+        <input type="text" id="name" name="name" value="Новый гид"> -->
+
+<!-- <label for="email">Email:</label>
+        <input type="email" id="email" name="email" value="test2@asd.sds"> -->
+
+<!-- <label for="password">Пароль:</label>
+        <input type="password" id="password" name="password" value="11111111"> -->
+
+<!-- <label for="secondPassword">Повторить пароль:</label>
+        <input type="password" id="secondPassword" name="secondPassword" value="11111111"> -->
+
+<!-- <input type="submit" value="Зарегистрировать"> -->

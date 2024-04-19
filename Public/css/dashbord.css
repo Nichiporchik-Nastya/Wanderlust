@@ -6,11 +6,13 @@
     width: 100%;
     display: flex;
     justify-content: space-between;
+    gap: 20px;
 }
 
 .excursion-block__data-wrap {
     display: flex;
     gap: 8px;
+    align-items: center;
 }
 
 .excursion-block__body {
@@ -19,19 +21,19 @@
     margin-bottom: 8px;
 }
 
-.excursion-block{
+.excursion-block {
     padding-top: 8px;
     border-top: 1px solid var(--border-color);
     position: relative;
 }
 
-.action-menu{
+.action-menu {
     visibility: hidden;
     background-color: #fff;
     position: absolute;
-    top: 40px;
+    top: 20px;
     opacity: 0;
-    right: 30px;
+    right: 15px;
     z-index: 2;
     border: 1px solid var(--border-color);
     border-radius: var(--radius);
@@ -40,7 +42,7 @@
     transition: .2s ease;
 }
 
-.action-menu__item{
+.action-menu__item {
     display: flex;
     gap: 8px;
     align-items: center;
@@ -50,14 +52,75 @@
     cursor: pointer;
 }
 
-.action-menu__item:hover{
-background-color: var(--light-bg);
+.action-menu__item:hover {
+    background-color: var(--light-bg);
 }
 
-
-  
-  .visible{
+.visible {
     transform: translateY(0);
     visibility: visible;
     opacity: 1;
-  }
+}
+
+.excursion-block__dots{
+    cursor: pointer;
+}
+
+.excursion-blocks{
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.excursion-block__img{
+    height: 120px;
+    width: 50%;
+    object-fit: cover;
+}
+
+.data-highlighth{
+    font-weight: 700;
+    color: var(--main-green);
+    font-size: 20px;
+}
+
+.dashbord__header{
+    display: flex;
+    gap: 40px;
+    align-items: center;
+}
+
+.dashobord__info{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.status{
+    padding: 20px;
+    border-radius: var(--radius);
+    background-color: var(--light-bg);
+    border: 2px solid var(--border-color);
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 2;
+    align-items: center;
+    display: flex;
+    gap: 8px;
+    font-size: 20px;
+    opacity: 0;
+    visibility: hidden;
+    transition: .2s ease;
+    transform: translateX(-50%);
+}
+
+.status:before{
+    content: url("/Public/icons/ok-status.svg");
+}
+
+.show-status{
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}

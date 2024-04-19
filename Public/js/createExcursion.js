@@ -22,7 +22,7 @@ async function CreateExcursionSubmit(event) {
         // for (let [key, value] of formData.entries()) {
         //     console.log(key, value); 
         // }
-        
+
 
         let response = await fetch('/api/excursions/create', { //объект отправки и получения запроса, путь прописывается без точки, так как бек и фронт находятся на одном ломене
             method: "POST",
@@ -44,8 +44,10 @@ async function CreateExcursionSubmit(event) {
 
 
         } else {
-            console.log("Экскурсия создана");
-            // window.location.href = "/ ";
+            document.querySelector(".status").innerHTML = "Экскурсия создана";
+            document.querySelector(".status").classList.add("show-status");
+            setTimeout(function () { window.location.href = "/guide-dashbord"; }, 2000);
+            
         }
     } catch (error) {
         console.log(error);

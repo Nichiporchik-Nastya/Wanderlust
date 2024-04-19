@@ -40,12 +40,13 @@ class authController {
         try {
             if (req.session.user) {
                 req.session.user = null;
-                res.redirect('/');
+                let isSession = req.session.user ? true : false;
+                res.render('index', { data: isSession });
             }
             else {
-                res.send('There is no login in session!');
+                let isSession = req.session.user ? true : false;
+                res.render('index', { data: isSession });
             }
-
         } catch (e) {
             console.log(e);
         }

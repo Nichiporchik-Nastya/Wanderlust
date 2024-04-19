@@ -19,78 +19,124 @@
 
             <div class="first-container-part">
 
-                <img class="dashbord__guide-img" src="<%= data.imgSRC %>" alt="">
-
-                <p>
-                    <%= data.name %>
-                </p>
+                <div class="dashbord__header">
+                    <img class="dashbord__guide-img" src="<%= user.imgSRC %>" alt="">
+                    <div class="dashobord__info">
+                        <h2>
+                            <%= user.name %>
+                        </h2>
+                        <p class="paragraph" ><%= user.description %></p>
+                        <a class="btn" href="/excursions/create">Добавить экскурсию</a>
+                    </div>
+                </div>
             </div>
             <div class="second-container-part">
 
-                <a class="btn" href="/excursions/create">Создать новую экскурсию</a>
+
             </div>
         </div>
 
         <div class="container two-part-container">
 
-            <div class="first-container-part">
-                <h5>Ближайшие экскурсии</h5>
-
-            </div>
+            <!-- <div class="first-container-part">
+                <h4>Ближайшие экскурсии</h4>
+                <div class="excursion-blocks">
+                    <div class="excursion-block">
+                        <div class="excursion-block__header">
+                            <div>
+                                <h5 class="excursion-name">Минск «перламутровый»: пешая прогулка со знатоком города</h5>
+                                <div class="excursion-block__data-wrap">
+                                    <p class="excursion-block__type excursion-block__data data-highlighth">11 апреля
+                                        23:00</p>
+                                    <p class="extra-info">Экскурсия состоится</p>
+                                </div>
+                                <div class="excursion-block__data-wrap">
+                                    <p class="excursion-block__format excursion-block__data data-highlighth">14/20</p>
+                                    <p class="extra-info">Забронировано мест</p>
+                                </div>
+                            </div>
+                            <img class="excursion-block__img" src="/Public/guideImages/1334unsplash_SBiVq9eWEtQ.png"
+                                alt="">
+                        </div>
+                    </div>
+                    <div class="excursion-block">
+                        <div class="excursion-block__header">
+                            <div>
+                                <h5 class="excursion-name">Минск «перламутровый»: пешая прогулка со знатоком города</h5>
+                                <div class="excursion-block__data-wrap">
+                                    <p class="excursion-block__type excursion-block__data data-highlighth">11 апреля
+                                        23:00</p>
+                                    <p class="extra-info">Экскурсия состоится</p>
+                                </div>
+                                <div class="excursion-block__data-wrap">
+                                    <p class="excursion-block__format excursion-block__data data-highlighth">14/20</p>
+                                    <p class="extra-info">Забронировано мест</p>
+                                </div>
+                            </div>
+                            <img class="excursion-block__img" src="/Public/guideImages/1334unsplash_SBiVq9eWEtQ.png"
+                                alt="">
+                        </div>
+                    </div>
+                </div>
+            </div> -->
             <div class="second-container-part">
                 <h4>Все экскурсии</h4>
-                <div class="excursion-block">
-                    <ul class="action-menu">
-                        <li class="action-menu__item">
-                            <img src="/Public/icons/Trash.svg" alt="">
-                            Удалить
-                        </li>
-                        <li class="action-menu__item">
-                            <img src="/Public/icons/PencilSimpleLine.svg" alt="">
-                            Редактировать
-                        </li>
-                        <li class="action-menu__item">
-                            <img src="/Public/icons/PencilSimpleLine.svg" alt="">
-                            Посмотреть
-                        </li>
-                    </ul>
-                    <div class="excursion-block__header">
-                        <h5 class="excursion-name">Минск «перламутровый»: пешая прогулка со знатоком города</h5>
-                        <img class="excursion-block__dots" src="/Public/icons/DotsThreeVertical.svg" alt="">
-                    </div>
-                    <div class="excursion-block__body">
-                        <div>
-                            <div class="excursion-block__data-wrap">
-                                <p class="excursion-block__type excursion-block__data">Групповая</p>
-                                <p class="extra-info">Тип</p>
+                <div class="excursion-blocks">
+                    <% excursions.forEach(item=> { %>
+                        
+                    <div class="excursion-block">
+                        <div class="action-menu">
+                            <a href="/excursions/show/<%=item.id %>" class="action-menu__item">
+                                <img src="/Public/icons/Eye.svg" alt="">
+                                Посмотреть
+                            </a>
+                            <!-- <li class="action-menu__item">
+                                <img src="/Public/icons/PencilSimpleLine.svg" alt="">
+                                Редактировать
+                            </li> -->
+                            <li class="action-menu__item">
+                                <img src="/Public/icons/Trash.svg" alt="">
+                                Удалить
+                            </li>
+                        </div>
+                        <div class="excursion-block__header">
+                            <h5 class="excursion-name"><%=item.name%></h5>
+                            <img class="excursion-block__dots" src="/Public/icons/DotsThreeVertical.svg" alt="">
+                        </div>
+                        <div class="excursion-block__body">
+                            <div>
+                                <div class="excursion-block__data-wrap">
+                                    <p class="excursion-block__format excursion-block__data"><%=item.format.name%></p>
+                                    <p class="extra-info">Формат</p>
+                                </div>
+                                <div class="excursion-block__data-wrap">
+                                    <p class="excursion-block__type excursion-block__data"><%=item.type.name%></p>
+                                    <p class="extra-info">Тип</p>
+                                </div>
+                                <!-- <div class="excursion-block__data-wrap">
+                                    <p class="excursion-block__type excursion-block__data">4,2</p>
+                                    <p class="extra-info">Рейтинг</p>
+                                </div> -->
                             </div>
-                            <div class="excursion-block__data-wrap">
-                                <p class="excursion-block__format excursion-block__data">Пешая</p>
-                                <p class="extra-info">Формат</p>
-                            </div>
-                            <div class="excursion-block__data-wrap">
-                                <p class="excursion-block__type excursion-block__data">4,2</p>
-                                <p class="extra-info">Рейтинг</p>
+                            <div>
+                                <div class="excursion-block__data-wrap">
+                                    <p class="excursion-block__type excursion-block__data"><%=item.duration%> часа</p>
+                                    <p class="extra-info">Длительность</p>
+                                </div>
+                                <div class="excursion-block__data-wrap">
+                                    <p class="excursion-block__type excursion-block__data"><%=item.adultCost%> Br</p>
+                                    <p class="extra-info">Стоимость</p>
+                                </div>
+                                <!-- <div class="excursion-block__data-wrap">
+                                    <p class="excursion-block__type excursion-block__data">5</p>
+                                    <p class="extra-info">Отзывы</p>
+                                </div> -->
                             </div>
                         </div>
-                        <div>
-                            <div class="excursion-block__data-wrap">
-                                <p class="excursion-block__type excursion-block__data">3 часа</p>
-                                <p class="extra-info">Длительность</p>
-                            </div>
-                            <div class="excursion-block__data-wrap">
-                                <p class="excursion-block__type excursion-block__data">150 Br</p>
-                                <p class="extra-info">Стоимость</p>
-                            </div>
-                            <div class="excursion-block__data-wrap">
-                                <p class="excursion-block__type excursion-block__data">5</p>
-                                <p class="extra-info">Отзывы</p>
-                            </div>
-                        </div>
                     </div>
-
+                    <% }); %>
+                    
                 </div>
-
             </div>
         </div>
 
@@ -104,16 +150,19 @@
 
 
             dots.forEach((element, index) => {
-                
-                element.addEventListener('mouseenter', () => {
+
+                element.addEventListener('click', () => {
                     actionMenu[index].classList.add('visible');
                 });
-                element.addEventListener('mouseleave', () => {
-                    actionMenu[index].classList.remove('visible');
+                document.addEventListener('mouseup', function (e) {
+
+                    if (!actionMenu[index].contains(e.target)) {
+                        actionMenu[index].classList.remove('visible');
+                    }
                 });
             });
 
-            
+
         </script>
 
 

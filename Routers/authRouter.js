@@ -4,10 +4,11 @@ const controller = require('../Controllers/authController');
 const { body } = require('express-validator');
 const UserModel = require("../Models/userModel");
 
-// router.post('/registration', controller.registration);
-// router.get('/registration', (req, res)=>{
-//     res.render('registrationPage');
-// });
+router.post('/registration', controller.registration);
+
+router.get('/registration', (req, res)=>{
+    res.render('registrationPage');
+});
 
 router.post('/api/login', [
     body('email').isEmail().withMessage('Введите корректный адрес электронной почты'),

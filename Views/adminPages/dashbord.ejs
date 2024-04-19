@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>fdghj</title>
+    <title>Личный кабинет администратора</title>
     <link rel="stylesheet" href="/public/css/normalize.css">
+    <link rel="stylesheet" href="/public/css/header-style.css">
     <link rel="stylesheet" href="/public/css/style.css">
 </head>
+
 <body>
-    <header>
-        <%- include('./partials/header'); %>
-    </header>
-    <p>
-        <%= data.email %>
-    </p>
+    <%- include('./partials/header'); %>
+
+        <div class="container two-part-container">
+
+            <div class="first-container-part">
+
+                <a class="btn" href="/admin/registration">Добавить гида</a>
+            </div>
+        </div>
 
 
-    <!-- <form action="" method="get">
-        <input type="text" id="login" value="data.login" hidden>
-        <input type="submit" value="Выйти">
-    </form> -->
-    <a href="/auth/logout">Выйти</a>
 
 
-    <footer>
-        <%- include('./partials/footer'); %>
-    </footer>
 </body>
+
 </html>

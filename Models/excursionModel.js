@@ -9,6 +9,7 @@ const DaysExcursions = require("../db/models/index").DaysExcursions;
 const StartTimes = require("../db/models/index").StartTimes;
 const ThemeExcursions = require("../db/models/index").ThemeExcursions;
 const ImagesExcursions = require("../db/models/index").ImagesExcursions;
+const Orders = require("../db/models/index").Orders;
 
 
 class ExcursionModel {
@@ -81,7 +82,8 @@ class ExcursionModel {
         await ThemeExcursions.destroy({ where: { excursionId: id } });
         await DaysExcursions.destroy({ where: { excursionId: id } });
         await StartTimes.destroy({ where: { excursionId: id } });
-        //Reviews & Orders
+        await Orders.destroy({ where: { excursionId: id } });
+        //Reviews 
         return await Excursions.destroy({ where: { id } });
     }
 
@@ -135,7 +137,7 @@ class ExcursionModel {
             },
         });
     }
-    async search(str) {//имя поля и направление сортировки
+    async search(str = '') {//имя поля и направление сортировки
         return await Excursions.findAll({
             where: {
                 [Op.or]: {
@@ -151,6 +153,9 @@ class ExcursionModel {
                 {
                     model: Formats,
                     as: 'format',
+                },{
+                    model: Types,
+                    as: 'type',
                 },
                 {
                     model: ImagesExcursions,

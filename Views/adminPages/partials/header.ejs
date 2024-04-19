@@ -1,3 +1,82 @@
-<a href="/">
-    <img src="/public/logo.svg" alt="" class="logo">
-</a>
+<header class="container">
+    <nav>
+        <a href="/">
+            <img src="/public/logo.svg" alt="" class="logo">
+        </a>
+
+        <div class="search-bar">
+            <label for="search">
+                <img src="/public/icons/search.svg" />
+            </label>
+            <input type="text" id="search" placeholder="Найти экскурсию" oninput="Search(this)" autocomplete="off">
+        </div>
+
+        <ul class="nav-nemu">
+            <li class="nav-nemu__item">
+                <a href="/excursions/all">Экскурсии</a>
+            </li>
+            <li class="nav-nemu__item">
+                <a href="#">Контакты</a>
+            </li>
+            <li class="nav-nemu__item">
+                <a href="#">Ещё</a>
+                <img src="/Public/icons/lil-arrow.svg">
+            </li>
+        </ul>
+    </nav>
+
+    <div class="btn-block">
+        <a href="/dashbord">Профиль</a>
+        <a href="/auth/logout" class="btn secondary-btn">Выйти</a>
+    </div>
+
+    <div class="search-bar__block">
+        <div class="search-bar__block-title">
+            <h4>Популярные экскурсии</h4>
+            <a href="#" class="link">
+                Смотреть все
+                <img src="/Public/icons/btn-arrow.svg">
+            </a>
+        </div>
+        <div class="search-results__wrapper">
+        </div>
+    </div>
+
+</header>
+
+<script>
+    let searchBar = document.querySelector('#search'),
+        searchBarBlock = document.querySelector('.search-bar__block');
+    searchBar.addEventListener("focus", (event) => {
+        searchBarBlock.classList.add("show");
+        Search(event.target);
+    })
+
+    async function Search(target){
+        let formData = new FormData();
+        formData.append('str', target.value);
+
+        let response = await fetch('/excursions/search?str='+target.value, {
+            method: "GET"
+        });
+
+        let result = await response.json();
+        console.log(result)
+        let container = document.querySelector('.search-results__wrapper');
+        container.innerHTML = '';
+        for (let i = 0; i < 4 && i < result.length; i++ ){
+            let item = result[i];
+            container.innerHTML += `
+                <a href="/excursions/show/${item?.id}" class="search-results__item">
+                    <img class="search-results__img"
+                        src="${item?.images[0]?.imgSRC}"
+                        alt="">
+                    <div class="search-results__title">${item?.name?.slice(0, 40)}...</div>
+                    <div class="search-results__item-info">
+                        <span class="extra-info">${item?.duration} часа</span>
+                        <span class="extra-info">${item?.format?.name}</span>
+                    </div>
+                </a>`
+        }
+    }
+</script>

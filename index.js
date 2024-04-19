@@ -37,11 +37,6 @@ const mainRouter = require('./Routers/mainRouter');
 app.use("/auth", authRouter);
 app.use("/", mainRouter);
 
-
-
-
-
-
 const start = () => {
     try {
         app.listen(PORT, () =>{
