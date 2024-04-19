@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все экскурсии</title>
+    <link rel="stylesheet" href="/public/css/normalize.css">
+    <link rel="stylesheet" href="/public/css/header-style.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+</head>
+
+<body>
+    <%- include('./partials/header'); %>
+        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <div class="container">
+            <h2>Все экскурсии</h2>
+
+            <form class="filters-form">
+                <div class="many-fields__wrap">
+                    <div class="input-wrap">
+                        <h4 class="box-input__title">Даты</h4>
+                        <div class="box-input">
+                            <input type="date" name="startDate" placeholder=" ">
+                            <label>с даты</label>
+                            <div class="box-input__error-text startDate-error"></div>
+                        </div>
+                        <div class="box-input">
+                            <input type="date" name="endDate" placeholder=" ">
+                            <label>по дату</label>
+                            <div class="box-input__error-text endDate-error"></div>
+                        </div>
+                    </div>
+
+                    <div class="input-wrap">
+                        <h4 class="box-input__title">Цена</h4>
+                        <div class="box-input">
+                            <input type="number" name="startCost" placeholder=" ">
+                            <label>от</label>
+                            <div class="box-input__error-text startCost-error"></div>
+                        </div>
+                        <div class="box-input">
+                            <input type="number" name="endCost" placeholder=" ">
+                            <label>до</label>
+                            <div class="box-input__error-text endCost-error"></div>
+                        </div>
+                    </div>
+                    <div class="input-wrap">
+                        <h4 class="box-input__title">Формат</h4>
+                        
+                            <div class="radio-input">
+                                <input type="radio" name="formatId" id="format-"
+                                    value="" checked>
+                                <label for="format-">
+                                    
+                                </label>
+                                <div class="box-input__error-text formatId-error"></div>
+                            </div>
+                            
+                    </div>
+                    <div class="input-wrap">
+                        <h4 class="box-input__title">Тип</h4>
+                        <% data.types.forEach(item=> { %>
+                            <div class="radio-input">
+                                <input type="radio" name="typeId" id="type-<%= item.id; %>"
+                                    value="<%= item.id; %>" checked>
+                                <label for="type-<%= item.id; %>">
+                                    <%= item.name; %>
+                    <span class="input-superscript"> <%= item.count; %> </span>
+                                </label>
+                                <div class="box-input__error-text typeId-error"></div>
+                            </div>
+                            <% }); %>
+                    </div>
+                </div>
+
+                <div class="tags-wrap">
+                    <div class="tags" id="type-tags">
+                        <div class="tag time-tag">Мини-группа</div>
+                        <div class="tag time-tag">Мини-группа</div>
+                        <div class="tag time-tag">Мини-группа</div>
+                    </div>
+                    <div class="tags-clean-btn">Очистить</div>
+                </div>
+            </form>
+
+        </div>
+
+        <div class="container">
+            <div class="excursion-cards__wrapper">
+                <div class="excursion-card">
+                    <img class="excursion-card__img" src="/Public/guideImages/1334unsplash_vJDbPuxUS_s.png" alt="">
+                    <h4 class="excursion-card__title">Знакомство с Минском: обзорная групповая экскурсия</h4>
+                    <h3 class="excursion-card__cost">130 Br</h3>
+
+                    <div class="excursion-card__next-wrapper">
+                        <div class="excursion-card__next-block">
+                            <p class="excursion-card__next-day">Завтра</p>
+                            ,
+                            <p class="excursion-card__next-time">11:00</p>
+                        </div>
+    
+                        <div class="excursion-card__next-block">
+                            <p class="excursion-card__next-day">25 сентября</p>
+                            ,
+                            <p class="excursion-card__next-time">13:00</p>
+                        </div>
+                    </div>
+
+                    <!-- <div class="excursion-card__rating"></div> -->
+
+                    <p class="excursion-card__type">индивидуальная</p>
+                    <p class="excursion-card__format">на транспорте</p>
+                    <p class="excursion-card__duration">3 часа</p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <script src="./index.js"></script>
+</body>
+
+</html>

@@ -79,4 +79,8 @@ router.post('/api/excursions/getExcursionDays', controller.getExcursionDays);
 
 router.get('/excursions/search', controller.search);
 
+router.get('/excursions/all', (req, res) => {
+  res.render('allExcursionsPage');
+});
+
 module.exports = router;

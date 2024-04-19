@@ -148,7 +148,8 @@ header {
 }
 
 .tag,
-.photo-tag {
+.photo-tag,
+.tags-clean-btn {
   border-radius: var(--radius);
   border: 2px solid var(--border-color);
   width: fit-content;
@@ -156,7 +157,11 @@ header {
   display: flex;
   column-gap: 12px;
   cursor: pointer;
+  flex-wrap: nowrap;
 }
+/* .tags-clean-btn{
+  width: 100%;
+} */
 
 .photo-tags{
   visibility: hidden;
@@ -173,6 +178,8 @@ header {
   column-gap: 24px;
   align-items: baseline;
   margin-top: 16px;
+  border-top: 1px solid var(--border-color);
+  padding-top: 12px;
 }
 
 .tags {
@@ -300,6 +307,12 @@ textarea{
   padding: 10px 12px;
   width: 100%;
   border-radius: var(--radius);
+}
+
+.input-wrap{
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .long-field {
@@ -1134,6 +1147,28 @@ aside{
   flex-direction: column;
   gap: 8px;
 } */
+
+.excursion-card{
+  width: 500px;
+}
+
+.excursion-card__img{
+  width: 100%;
+}
+
+.excursion-card__next-block{
+  display: flex;
+  gap: 4px;
+  border-radius: var(--radius);
+  border: 2px solid var(--border-color);
+  padding: 8px 16px;
+  width: fit-content;
+}
+
+.excursion-card__next-wrapper{
+  display: flex;
+  gap: 4px;
+}
 
 
 
