@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator');
 const UserModel = require("../Models/userModel");
 const ExcursionModel = require('../Models/excursionModel');
 const OrderModel = require('../Models/orderModel');
+const {logger} = require("sequelize/lib/utils/logger");
 
 
 
@@ -147,6 +148,25 @@ class mainController {
         }
     }
 
+    async searchFilter(req, res){
+        try {
+            let {str, startCost, endCost, formatId, typeId, sort} = req.query;
+            if (!formatId) {
+                formatId = (await ExcursionModel.getAllFormats()).map(el => el.dataValues.id);
+            }
+            if (!typeId) {
+                typeId = (await ExcursionModel.getAllTypes()).map(el => el.dataValues.id);
+            }
+            formatId = typeof formatId === 'string' ? [formatId] : formatId;
+            typeId = typeof typeId === 'string' ? [typeId] : typeId;
+            formatId = formatId.map(el => +el);
+            typeId = typeId.map(el => +el);
+            let result = await ExcursionModel.searchForFilter(str, startCost, endCost, formatId, typeId, sort );
+            res.status(200).send(result);
+        } catch (e) {
+            console.log(e);
+        }
+    }
 }
 
 module.exports = new mainController();

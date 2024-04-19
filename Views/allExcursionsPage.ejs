@@ -17,40 +17,34 @@
         <div class="container">
             <h2>Все экскурсии</h2>
 
-            <form class="filters-form">
+            <form class="filters-form" id="SearchForm">
+
+                <div class="search-bar">
+                    <label for="search">
+                        <img src="/public/icons/search.svg" />
+                    </label>
+                    <input type="text" name="str" value="" placeholder="Найти экскурсию" oninput="SubmitSearch()">
+                </div>
                 <div class="many-fields__wrap">
-                    <div class="input-wrap">
-                        <h4 class="box-input__title">Даты</h4>
-                        <div class="box-input">
-                            <input type="date" name="startDate" placeholder=" ">
-                            <label>с даты</label>
-                            <div class="box-input__error-text startDate-error"></div>
-                        </div>
-                        <div class="box-input">
-                            <input type="date" name="endDate" placeholder=" ">
-                            <label>по дату</label>
-                            <div class="box-input__error-text endDate-error"></div>
-                        </div>
-                    </div>
 
                     <div class="input-wrap">
                         <h4 class="box-input__title">Цена</h4>
                         <div class="box-input">
-                            <input type="number" name="startCost" placeholder=" ">
+                            <input type="number" oninput="SubmitSearch()" name="startCost" placeholder=" " value="50">
                             <label>от</label>
                             <div class="box-input__error-text startCost-error"></div>
                         </div>
                         <div class="box-input">
-                            <input type="number" name="endCost" placeholder=" ">
+                            <input type="number" oninput="SubmitSearch()" name="endCost" placeholder=" " value="200">
                             <label>до</label>
                             <div class="box-input__error-text endCost-error"></div>
                         </div>
                     </div>
                     <div class="input-wrap">
                         <h4 class="box-input__title">Формат</h4>
-                        <% data.formats.forEach(item=> { %>
+                        <% formats.forEach(item=> { %>
                         <div class="radio-input">
-                            <input type="checkbox" name="formatId" id="format-<%= item.id; %>" value="<%= item.id; %>" checked>
+                            <input type="checkbox" oninput="SubmitSearch()" name="formatId" id="format-<%= item.id; %>" value="<%= item.id; %>" checked>
                             <label for="format-<%= item.id; %>">
                                 <%= item.name; %>
                                 <span class="input-superscript">
@@ -58,13 +52,14 @@
                                 </span>
                             </label>
                         </div>
+                        <%}); %>
 
                     </div>
                     <div class="input-wrap">
                         <h4 class="box-input__title">Тип</h4>
-                        <% data.types.forEach(item=> { %>
+                        <% types.forEach(item=> { %>
                             <div class="radio-input">
-                                <input type="checkbox" name="typeId" id="type-<%= item.id; %>" value="<%= item.id; %>"
+                                <input type="checkbox" oninput="SubmitSearch()" name="typeId" id="type-<%= item.id; %>" value="<%= item.id; %>"
                                     checked>
                                 <label for="type-<%= item.id; %>">
                                     <%= item.name; %>
@@ -77,70 +72,89 @@
                     </div>
                     <div class="input-wrap">
                         <h4 class="box-input__title">Сортировка</h4>
-                        
+
                             <div class="radio-input">
-                                <input type="checkbox" name="sort" id="sort-1"
+                                <input type="radio" name="sort" id="sort-1" value="ASC" oninput="SubmitSearch()"
                                     checked>
                                 <label for="sort-1">
                                     Сначала новые
                                 </label>
                             </div>
                             <div class="radio-input">
-                                <input type="checkbox" name="sort" id="sort-2"
-                                    checked>
+                                <input type="radio" name="sort" id="sort-2" value="DESC" oninput="SubmitSearch()">
                                 <label for="sort-2">
                                     Сначала дешёвые
                                 </label>
                             </div>
-                            
+
                     </div>
                 </div>
 
-                <div class="tags-wrap">
-                    <div class="tags" id="type-tags">
-                        <div class="tag time-tag">Мини-группа</div>
-                        <div class="tag time-tag">Мини-группа</div>
-                        <div class="tag time-tag">Мини-группа</div>
-                    </div>
-                    <div class="tags-clean-btn">Очистить</div>
-                </div>
             </form>
 
         </div>
 
         <div class="container">
             <div class="excursion-cards__wrapper">
-                <div class="excursion-card">
-                    <img class="excursion-card__img" src="/Public/guideImages/1334unsplash_vJDbPuxUS_s.png" alt="">
-                    <h4 class="excursion-card__title">Знакомство с Минском: обзорная групповая экскурсия</h4>
-                    <h3 class="excursion-card__cost">130 Br</h3>
 
-                    <div class="excursion-card__next-wrapper">
-                        <div class="excursion-card__next-block">
-                            <p class="excursion-card__next-day">Завтра</p>
-                            ,
-                            <p class="excursion-card__next-time">11:00</p>
-                        </div>
+<!--                <div class="excursion-card__next-wrapper">-->
+<!--                    <div class="excursion-card__next-block">-->
+<!--                        <p class="excursion-card__next-day">Завтра</p>-->
+<!--                        ,-->
+<!--                        <p class="excursion-card__next-time">11:00</p>-->
+<!--                    </div>-->
 
-                        <div class="excursion-card__next-block">
-                            <p class="excursion-card__next-day">25 сентября</p>
-                            ,
-                            <p class="excursion-card__next-time">13:00</p>
-                        </div>
-                    </div>
+<!--                    <div class="excursion-card__next-block">-->
+<!--                        <p class="excursion-card__next-day">25 сентября</p>-->
+<!--                        ,-->
+<!--                        <p class="excursion-card__next-time">13:00</p>-->
+<!--                    </div>-->
+<!--                </div>-->
 
-                    <!-- <div class="excursion-card__rating"></div> -->
-
-                    <p class="excursion-card__type">индивидуальная</p>
-                    <p class="excursion-card__format">на транспорте</p>
-                    <p class="excursion-card__duration">3 часа</p>
-                </div>
             </div>
         </div>
 
 
 
-        <script src="./index.js"></script>
+    <script>
+        SubmitSearch();
+        async function SubmitSearch(){
+            let form = document.querySelector('#SearchForm');
+            const formData = new FormData(form);
+            const queryString = new URLSearchParams(formData).toString();
+
+            let response = await fetch(`/excursions/searchfilter?${queryString}`);
+
+            let result = await response.json();
+            const container = document.querySelector('.excursion-cards__wrapper');
+            container.innerHTML = '';
+            result.forEach(el => {
+                let days = el.days.map(el=>el.dayNumber);
+                let dayNow = getLocalDay(new Date());
+                el.images = el.images.sort((a, b)=> a.id - b.id);
+                container.innerHTML += `<div class="excursion-card">
+                                            <img class="excursion-card__img" src="${el.images[0].imgSRC}" alt="">
+                                            <h4 class="excursion-card__title">${el.name.slice(0, 50)}...</h4>
+                                            <h3 class="excursion-card__cost">${el.adultCost} Br</h3>
+
+
+                                            <p class="excursion-card__type">${el.type.name}</p>
+                                            <p class="excursion-card__format">${el.format.name}</p>
+                                            <p class="excursion-card__duration">${el.duration} часа</p>
+                                        </div>`;
+            });
+        }
+        function getLocalDay(date) {
+
+            let day = date.getDay();
+
+            if (day == 0) {
+                day = 7;
+            }
+
+            return day;
+        }
+    </script>
 </body>
 
 </html>

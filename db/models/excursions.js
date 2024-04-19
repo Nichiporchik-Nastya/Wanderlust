@@ -16,8 +16,20 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'RESTRICT',
         onUpdate: 'RESTRICT'
       });
+      this.belongsTo(models.Types, {
+        as: 'type',
+        foreignKey: 'id',
+        onDelete: 'RESTRICT',
+        onUpdate: 'RESTRICT'
+      });
       this.hasMany(models.ImagesExcursions, {
         as: 'images',
+        foreignKey: 'excursionId',
+        onDelete: 'RESTRICT',
+        onUpdate: 'RESTRICT'
+      });
+      this.hasMany(models.DaysExcursions, {
+        as: 'days',
         foreignKey: 'excursionId',
         onDelete: 'RESTRICT',
         onUpdate: 'RESTRICT'

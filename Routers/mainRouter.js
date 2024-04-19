@@ -78,9 +78,13 @@ router.post('/api/excursions/order',
 router.post('/api/excursions/getExcursionDays', controller.getExcursionDays);
 
 router.get('/excursions/search', controller.search);
+router.get('/excursions/searchfilter', controller.searchFilter);
 
-router.get('/excursions/all', (req, res) => {
-  res.render('allExcursionsPage');
+router.get('/excursions/all', async (req, res) => {
+    const data = {};
+    data.types = await excursionModel.getAllTypes();
+    data.formats = await excursionModel.getAllFormats();
+  res.render('allExcursionsPage', data);
 });
 
 module.exports = router;

@@ -160,7 +160,7 @@ class ExcursionModel {
         })
     }
 
-    async searchForFilter(str, fromCost = 0, toCost = 99999999999, orderTitle = 'createdAt', order = 'ASC', formats=[]) {//имя поля и направление сортировки
+    async searchForFilter(str = "", fromCost, toCost, formats, types, order = 'ASC') {//имя поля и направление сортировки
         return await Excursions.findAll({
             where: {
                 [Op.or]: {
@@ -176,14 +176,45 @@ class ExcursionModel {
                 },
                 formatId: {
                     [Op.in]: formats
+                },
+                typeId: {
+                    [Op.in]: types
                 }
             },
+            include: [
+                {
+                    model: DaysExcursions,
+                    as: 'days'
+                },
+                {
+                    model: Types,
+                    as: 'type'
+                },
+                {
+                    model: Formats,
+                    as: 'format'
+                },
+                {
+                    model: ImagesExcursions,
+                    as: 'images',
+                    order: [
+                        ['createdAt', 'ASC']
+                    ]
+                }
+            ],
             order: [
-                [orderTitle, order]
+                ['createdAt', order]
             ]
         })
     }
 
+    async getAllTypes (){
+        return await Types.findAll();
+    }
+
+    async getAllFormats(){
+        return await Formats.findAll();
+    }
 
 
 }
