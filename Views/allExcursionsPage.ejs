@@ -48,30 +48,51 @@
                     </div>
                     <div class="input-wrap">
                         <h4 class="box-input__title">Формат</h4>
-                        
-                            <div class="radio-input">
-                                <input type="radio" name="formatId" id="format-"
-                                    value="" checked>
-                                <label for="format-">
-                                    
-                                </label>
-                                <div class="box-input__error-text formatId-error"></div>
-                            </div>
-                            
+                        <% data.formats.forEach(item=> { %>
+                        <div class="checkbox-input">
+                            <input type="checkbox" name="formatId" id="format-<%= item.id; %>" value="<%= item.id; %>" checked>
+                            <label for="format-<%= item.id; %>">
+                                <%= item.name; %>
+                                <span class="input-superscript">
+                                    <%= item.count; %>
+                                </span>
+                            </label>
+                        </div>
+
                     </div>
                     <div class="input-wrap">
                         <h4 class="box-input__title">Тип</h4>
                         <% data.types.forEach(item=> { %>
-                            <div class="radio-input">
-                                <input type="radio" name="typeId" id="type-<%= item.id; %>"
-                                    value="<%= item.id; %>" checked>
+                            <div class="checkbox-input">
+                                <input type="checkbox" name="typeId" id="type-<%= item.id; %>" value="<%= item.id; %>"
+                                    checked>
                                 <label for="type-<%= item.id; %>">
                                     <%= item.name; %>
-                    <span class="input-superscript"> <%= item.count; %> </span>
+                                        <span class="input-superscript">
+                                            <%= item.count; %>
+                                        </span>
                                 </label>
-                                <div class="box-input__error-text typeId-error"></div>
                             </div>
                             <% }); %>
+                    </div>
+                    <div class="input-wrap">
+                        <h4 class="box-input__title">Сортировка</h4>
+                        
+                            <div class="radio-input">
+                                <input type="radio" name="sort" id="sort-1"
+                                    checked>
+                                <label for="sort-1">
+                                    Сначала новые
+                                </label>
+                            </div>
+                            <div class="radio-input">
+                                <input type="radio" name="sort" id="sort-2"
+                                    checked>
+                                <label for="sort-2">
+                                    Сначала дешёвые
+                                </label>
+                            </div>
+                            
                     </div>
                 </div>
 
@@ -100,7 +121,7 @@
                             ,
                             <p class="excursion-card__next-time">11:00</p>
                         </div>
-    
+
                         <div class="excursion-card__next-block">
                             <p class="excursion-card__next-day">25 сентября</p>
                             ,

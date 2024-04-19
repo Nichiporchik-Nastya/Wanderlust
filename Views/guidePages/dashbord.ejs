@@ -9,24 +9,117 @@
     <link rel="stylesheet" href="/public/css/normalize.css">
     <link rel="stylesheet" href="/public/css/header-style.css">
     <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/dashbord.css">
 </head>
 
 <body>
     <%- include('./partials/header'); %>
 
+        <div class="container two-part-container">
 
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-    <p>
-        <%= data.email %>
-    </p>
+            <div class="first-container-part">
 
-    <a href="/auth/logout">Выйти</a>
-    
-    <a href="/excursions/create">Создать новую экскурсию</a>
+                <img class="dashbord__guide-img" src="<%= data.imgSRC %>" alt="">
+
+                <p>
+                    <%= data.name %>
+                </p>
+            </div>
+            <div class="second-container-part">
+
+                <a class="btn" href="/excursions/create">Создать новую экскурсию</a>
+            </div>
+        </div>
+
+        <div class="container two-part-container">
+
+            <div class="first-container-part">
+                <h5>Ближайшие экскурсии</h5>
+
+            </div>
+            <div class="second-container-part">
+                <h4>Все экскурсии</h4>
+                <div class="excursion-block">
+                    <ul class="action-menu">
+                        <li class="action-menu__item">
+                            <img src="/Public/icons/Trash.svg" alt="">
+                            Удалить
+                        </li>
+                        <li class="action-menu__item">
+                            <img src="/Public/icons/PencilSimpleLine.svg" alt="">
+                            Редактировать
+                        </li>
+                        <li class="action-menu__item">
+                            <img src="/Public/icons/PencilSimpleLine.svg" alt="">
+                            Посмотреть
+                        </li>
+                    </ul>
+                    <div class="excursion-block__header">
+                        <h5 class="excursion-name">Минск «перламутровый»: пешая прогулка со знатоком города</h5>
+                        <img class="excursion-block__dots" src="/Public/icons/DotsThreeVertical.svg" alt="">
+                    </div>
+                    <div class="excursion-block__body">
+                        <div>
+                            <div class="excursion-block__data-wrap">
+                                <p class="excursion-block__type excursion-block__data">Групповая</p>
+                                <p class="extra-info">Тип</p>
+                            </div>
+                            <div class="excursion-block__data-wrap">
+                                <p class="excursion-block__format excursion-block__data">Пешая</p>
+                                <p class="extra-info">Формат</p>
+                            </div>
+                            <div class="excursion-block__data-wrap">
+                                <p class="excursion-block__type excursion-block__data">4,2</p>
+                                <p class="extra-info">Рейтинг</p>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="excursion-block__data-wrap">
+                                <p class="excursion-block__type excursion-block__data">3 часа</p>
+                                <p class="extra-info">Длительность</p>
+                            </div>
+                            <div class="excursion-block__data-wrap">
+                                <p class="excursion-block__type excursion-block__data">150 Br</p>
+                                <p class="extra-info">Стоимость</p>
+                            </div>
+                            <div class="excursion-block__data-wrap">
+                                <p class="excursion-block__type excursion-block__data">5</p>
+                                <p class="extra-info">Отзывы</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
 
 
-    <footer>
-        <%- include('./partials/footer'); %>
-    </footer>
+
+
+        <script>
+
+            let dots = document.querySelectorAll(".excursion-block__dots"),
+                actionMenu = document.querySelectorAll(".action-menu");
+
+
+            dots.forEach((element, index) => {
+                
+                element.addEventListener('mouseenter', () => {
+                    actionMenu[index].classList.add('visible');
+                });
+                element.addEventListener('mouseleave', () => {
+                    actionMenu[index].classList.remove('visible');
+                });
+            });
+
+            
+        </script>
+
+
+        <!-- <footer>
+            <%- include('./partials/footer'); %>
+        </footer> -->
 </body>
+
 </html>
