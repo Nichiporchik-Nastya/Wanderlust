@@ -20,14 +20,14 @@
         <div class="container two-part-container">
             
             <form onsubmit="CreateExcursionSubmit(event)" class="first-container-part">
-                <input type="number" name="guideId" hidden value="<%= 1 %>">
+                <input type="number" name="guideId" hidden value="<%= user %>">
                 <h2>Создание новой экскурсии</h2>
                 
 
                 <!-- <div class="accordion__wrap"> -->
                 <ul class="accordion__list">
                     <li class="accordion__item long-field">
-                        <div class="accordion__title-block">
+                        <div class="accordion__title-block" id="allInfo">
                             <div class="accordion__title-content">
                                 <h3 class="accordion__title">Основная информация</h3>
                                 <img class="accordion__arrow" src="/Public/icons/arrow.svg">
@@ -37,7 +37,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Название экскурсии</h4>
                                 <div class="box-input">
-                                    <input type="text" name="name" placeholder=" " value="Знакомство с Минском: обзорная групповая экскурсия">
+                                    <input type="text" name="name" placeholder=" " value="">
                                     <label>Название экскурсии</label>
                                     <div class="box-input__error-text name-error"></div>
                                     <p class="input-help-text">Развёрнутое название</p>
@@ -47,8 +47,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Описание экскурсии</h4>
                                 <div class="box-input">
-                                    <textarea name="description" placeholder=" ">Ежедневная групповая или индивидуальная экскурсия по Минску на автобусе от ЖД вокзала с лучшими гидами. Во время поездки вы познакомитесь с самыми интересными достопримечательностями города — столицы Республики Беларусь. 
-                                        Широкие проспекты и уютные улицы, историческая часть старого Минска, Ратуша и Остров слез. Экскурсия занимает 3,5 часа и предусматривает 4 выхода из автобуса с пешими прогулками. После экскурсии вам будет легко ориентироваться в городе, гид ответит на любые вопросы и расскажет о лучших кафе и магазинах Минска.</textarea>
+                                    <textarea name="description" placeholder=" "></textarea>
                                     <label>Описание экскурсии</label>
                                     <div class="box-input__error-text description-error"></div>
                                     <p class="input-help-text">Что увидят и узнают путешественники в рамках
@@ -92,7 +91,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Длительность экскурсии</h4>
                                 <div class="box-input">
-                                    <input type="number" name="duration" placeholder=" " value="3.5">
+                                    <input type="number" name="duration" placeholder=" " value="">
                                     <label>Длительность экскурсии</label>
                                     <div class="box-input__error-text duration-error"></div>
                                     <p class="input-help-text">Введите длительность экскурсии в часах</p>
@@ -106,7 +105,7 @@
                                     <% data.formats.forEach(item=> { %>
                                         <div class="radio-input">
                                             <input type="radio" name="formatId" id="format-<%= item.id; %>"
-                                                value="<%= item.id; %>" checked>
+                                                value="<%= item.id; %>" >
                                             <label for="format-<%= item.id; %>">
                                                 <%= item.name; %>
                                             </label>
@@ -119,7 +118,7 @@
                                     <% data.types.forEach(item=> { %>
                                         <div class="radio-input">
                                             <input type="radio" name="typeId" id="type-<%= item.id; %>"
-                                                value="<%= item.id; %>" checked>
+                                                value="<%= item.id; %>" >
                                             <label for="type-<%= item.id; %>">
                                                 <%= item.name; %>
                                             </label>
@@ -133,7 +132,7 @@
                                         <% data.themes.forEach(item=> { %>
                                             <div class="radio-input">
                                                 <input type="checkbox" name="themes" id="theme-<%= item.id; %>"
-                                                    value="<%= item.id; %>" checked>
+                                                    value="<%= item.id; %>" >
                                                 <label for="theme-<%= item.id; %>">
                                                     <%= item.name; %>
                                                 </label>
@@ -146,7 +145,7 @@
                         </div>
                     </li>
                     <li class="accordion__item long-field">
-                        <div class="accordion__title-block">
+                        <div class="accordion__title-block" id="timeTable">
                             <div class="accordion__title-content">
                                 <h4 class="accordion__title">Расписание</h4>
                                 <img class="accordion__arrow" src="/Public/icons/arrow.svg">
@@ -189,12 +188,12 @@
                         </div>
                     </li>
                     <li class="accordion__item long-field">
-                        <div class="accordion__title-block">
+                        <div class="accordion__title-block" id="Photos">
                             <div class="accordion__title-content">
                                 <h4 class="accordion__title">Фотографии</h4>
                                 <img class="accordion__arrow" src="/Public/icons/arrow.svg">
                             </div>
-                            <p class="input-help-text">Загрузите минимум 5 фотографий основных
+                            <p class="input-help-text">Загрузите минимум 4 фотографии основных
                                 достопримечательностей в
                                 высоком качестве. Запрещено использовать фотографии с надписями и водяными знаками
                             </p>
@@ -224,7 +223,7 @@
                         </div>
                     </li>
                     <li class="accordion__item">
-                        <div class="accordion__title-block">
+                        <div class="accordion__title-block" id="Cost">
                             <div class="accordion__title-content">
                                 <h4 class="accordion__title">Стоимость</h4>
                                 <img class="accordion__arrow" src="/Public/icons/arrow.svg">
@@ -265,12 +264,12 @@
 
             <div class="soderj_wrapper second-container-part">
                 <ol class="soderj">
-                    <li>Общая информация</li>
-                    <li>Маршрут</li>
-                    <li>Расписание</li>
-                    <li>Фотографии</li>
-                    <li>Стоимость</li>
-                    <li>Дополнительно</li>
+                    <a href="#allInfo" onclick="scrollToBlock">Общая информация</a>
+                    <!-- <a href="#allInfo" onclick="scrollToBlock">Маршрут</li> -->
+                    <a href="#timeTable" onclick="scrollToBlock">Расписание</li>
+                    <a href="#Photos" onclick="scrollToBlock">Фотографии</li>
+                    <a href="#Cost" onclick="scrollToBlock">Стоимость</li>
+                    <!-- <a href="#extraInfo" onclick="scrollToBlock">Дополнительно</li> -->
                 </ol>
                 
             </div>
@@ -299,7 +298,7 @@
 
                 document.getElementById("weekdays").innerHTML +=
                     `<div class="radio-input">
-                <input type="checkbox" name="dayNumber" id="weekday-${i}" value="${i}" checked>
+                <input type="checkbox" name="dayNumber" id="weekday-${i}" value="${i}" >
                     <label for="weekday-${i}">
                         ${nextday}
                     </label>

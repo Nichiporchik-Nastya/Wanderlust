@@ -4,9 +4,18 @@ const bcrypt = require('bcrypt');
 const Users = require("../db/models/index").Users;
 
 class UserModel {
-  async create(body) {
-    let salt = Math.round(100 - 0.5 + Math.random() * (1000 - 100 + 1));
-    return await Users.create({ ...body, role: 2, salt, password: await bcrypt.hash(body.password + salt, 3) });
+  async create(body, files) {
+    try {
+      let salt = Math.round(100 - 0.5 + Math.random() * (1000 - 100 + 1));
+      await Users.create({ ...body, role: 2, salt, password: await bcrypt.hash(body.password + salt, 3) });
+      // console.log(files);
+      // files.photos.mv(files.photos.name);
+
+      return true;
+    } catch (error) {
+      console.log(error);
+      return false;
+    }
   }
 
   async getByEmail(email) {

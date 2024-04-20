@@ -96,31 +96,3 @@
     gap: 20px;
 }
 
-.status{
-    padding: 20px;
-    border-radius: var(--radius);
-    background-color: var(--light-bg);
-    border: 2px solid var(--border-color);
-    position: absolute;
-    top: 0;
-    right: 0;
-    z-index: 2;
-    align-items: center;
-    display: flex;
-    gap: 8px;
-    font-size: 20px;
-    opacity: 0;
-    visibility: hidden;
-    transition: .2s ease;
-    transform: translateX(-50%);
-}
-
-.status:before{
-    content: url("/Public/icons/ok-status.svg");
-}
-
-.show-status{
-    opacity: 1;
-    visibility: visible;
-    transform: translateX(0);
-}

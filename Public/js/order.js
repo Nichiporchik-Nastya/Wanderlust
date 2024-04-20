@@ -30,8 +30,9 @@ async function OrderSubmit(event) {
 
 
         } else {
-            console.log("Ошибок нет");
-            // window.location.href = "/ ";
+            document.querySelector(".status").innerHTML = "Заказ успешно оформлен. Менеджер савяжется с вами в ближайшее время";
+            document.querySelector(".status").classList.add("show-status");
+            setTimeout(() => document.querySelector(".status").classList.remove("show-status"), 3000);
         }
     } catch (error) {
         console.log(error);

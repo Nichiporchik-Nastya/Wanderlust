@@ -22,8 +22,8 @@ class mainController {
     async guideDashbord(req, res) {
         try {
             const user = req.session.user;
-            let excursions = await ExcursionModel.search();
-            console.log(excursions[0]);
+            let excursions = await ExcursionModel.getByUserId(user.id);
+            console.log(excursions);
             res.render('guidePages/dashbord', { user:user, excursions:excursions });
         } catch (e) {
             console.log(e);
@@ -91,15 +91,17 @@ class mainController {
 
     async deleteExcursion(req, res) {
         try {
-            const errors = validationResult(req);
+            // const errors = validationResult(req);
 
-            if (!errors.isEmpty()) {
-                return res.status(400).json({ errors: errors.array() });
-            }
-            else {
+            // if (!errors.isEmpty()) {
+            //     return res.status(400).json({ errors: errors.array() });
+            // }
+            // else {
+
                 let result = await ExcursionModel.delete(req.body.id);
-                res.status(200).send(result);
-            }
+                
+                res.status(200).json(result);
+            // }
 
         } catch (e) {
             console.log(e);
@@ -112,8 +114,8 @@ class mainController {
             let result = await ExcursionModel.get(id);
 
             let isSession = req.session?.user ? true : false;
-            console.log(isSession);
-            // res.render('index', { data: isSession});
+            console.log(result);
+
 
             res.render('excursionPage', { data: result, user: isSession });
         } catch (e) {

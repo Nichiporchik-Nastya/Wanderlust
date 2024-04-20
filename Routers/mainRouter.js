@@ -9,7 +9,7 @@ const excursionModel = require('../Models/excursionModel');
 router.get('/dashbord', middlewareController.checkSession, middlewareController.checkAdmin, controller.dashbord);
 router.get('/', controller.index);
 
-router.get('/guide-dashbord', controller.guideDashbord);
+router.get('/guide-dashbord', middlewareController.checkSession, controller.guideDashbord);
 
 
 router.post('/api/admin/registration', [
@@ -58,7 +58,7 @@ router.get('/excursions/create', middlewareController.checkSession, middlewareCo
   // excursionStructure.push('guideId', req.session.user.id);
   // console.log(excursionStructure);
   // console.log(session);
-  res.render('guidePages/createExcursionPage', { data: excursionStructure }); //, guideId: req.session.user.id
+  res.render('guidePages/createExcursionPage', { data: excursionStructure, user: req.session.user.id  }); //, guideId: req.session.user.id
 });
 
 router.get('/excursions/show/:id', controller.showExcursion);
@@ -90,8 +90,6 @@ router.get('/excursions/all', async (req, res) => {
   res.render('allExcursionsPage', data);
 });
 
-router.delete('/api/excursions/delete', [
-  body('id').not().isEmpty().isNumeric().withMessage('Некорректный id экскурсии'),
-], controller.deleteExcursion);
+router.post('/api/excursions/delete', controller.deleteExcursion);
 
 module.exports = router;

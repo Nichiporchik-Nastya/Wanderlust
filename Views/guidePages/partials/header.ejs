@@ -67,11 +67,13 @@
         for (let i = 0; i < 4 && i < result.length; i++ ){
             let item = result[i];
             container.innerHTML += `
-                <a href="/excursions/show/${item?.id}" class="search-results__item">
+            <a href="/excursions/show/${item?.id}" class="search-results__item">
+                    <div style='display: flex; gap: 8px; align-items: center;'>
                     <img class="search-results__img"
                         src="${item?.images[0]?.imgSRC}"
                         alt="">
                     <div class="search-results__title">${item?.name?.slice(0, 40)}...</div>
+                    </div>
                     <div class="search-results__item-info">
                         <span class="extra-info">${item?.duration} часа</span>
                         <span class="extra-info">${item?.format?.name}</span>

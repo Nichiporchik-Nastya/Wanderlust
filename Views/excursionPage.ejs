@@ -14,126 +14,140 @@
 <body>
     <% if(!user) {%>
         <%- include('./partials/header'); %>
-        <% } else {%>
-            <%- include('./guidePages/partials/header'); %>
-           <%  }%>
+            <% } else {%>
+                <%- include('./guidePages/partials/header'); %>
+                    <% }%>
 
+                        <div class="status">Экскурсия забронирована. Менеджер свяжется с вами в ближайшее время</div>
 
-        <div class="main-images__wrapper container">
-            <% for(i=0; i < 4; i++) {%>
-                <img class="main-images__item main-images__item<%= i %>"
-                    src="<%= data.imagesExcursionsData[i].imgSRC %>" alt="">
-                <% } %>
-        </div>
-        <div class="container two-part-container">
-            <h2 class="first-container-part">
-                <%= data.excursionData.name %>
-            </h2>
+                        <div class="main-images__wrapper container">
+                            <% for(i=0; i < 4; i++) {%>
+                                <img class="main-images__item main-images__item<%= i %>"
+                                    src="<%= data.imagesExcursionsData[i].imgSRC %>" alt="">
+                                <% } %>
+                        </div>
+                        <div class="container two-part-container">
+                            <h2 class="first-container-part">
+                                <%= data.excursionData.name %>
+                            </h2>
 
-            <div class="share-block">
-                <div class="tertiary-btn btn-with-icon share-btn">
-                    <img src="/Public/icons/share-network.svg">
-                    Поделиться
-                </div>
+                            <div class="share-block">
+                                <div class="tertiary-btn btn-with-icon share-btn">
+                                    <img src="/Public/icons/share-network.svg">
+                                    Поделиться
+                                </div>
 
-                <div class="social-icons">
-                    <div class="ya-share2" data-curtain data-shape="normal"
-                        data-services="vkontakte,odnoklassniki,telegram,viber" data-copy="extraItem"
-                        data-title="<%= data.excursionData.name %>"
-                        data-image="<%= data.imagesExcursionsData[0].imgSRC %>" data-description="Вот так экскурсия"
-                        data-url="/excursions/show/<%= data.excursionData.id %>"></div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container two-part-container">
-            <div class="first-container-part">
-                <div class="accordeon-tabs__wrapper">
-                    <a href="#description" onclick="scrollToBlock()" class="accordeon-tabs__tab">Описание</a>
-                    <a href="#route" onclick="scrollToBlock()" class="accordeon-tabs__tab">маршрут</a>
-                    <a href="#gallery" onclick="scrollToBlock()" class="accordeon-tabs__tab">фотографии</a>
-                    <a href="#testimonials" onclick="scrollToBlock()" class="accordeon-tabs__tab">отзывы</a>
-                </div>
-                <ul class="accordion__list">
-                    <li class="accordion__item" id="description">
-                        <div class="accordion__title-block">
-                            <div class="accordion__title-content">
-                                <h4 class="accordion__title">Описание экскурсии</h4>
-                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                                <div class="social-icons">
+                                    <div class="ya-share2" data-curtain data-shape="normal"
+                                        data-services="vkontakte,odnoklassniki,telegram,viber" data-copy="extraItem"
+                                        data-title="<%= data.excursionData.name %>"
+                                        data-image="<%= data.imagesExcursionsData[0].imgSRC %>"
+                                        data-description="Вот так экскурсия"
+                                        data-url="/excursions/show/<%= data.excursionData.id %>"></div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="accordion__text-block">
-                            <div class="paragraph-wrap">
-                                <% let array=data.excursionData.description.split("."), size=3, subarrays=[]; %>
-                                    <!-- <% console.log(array) %> -->
-                                    <% for (let i=0; i < Math.ceil(array.length / size); i++) { %>
-                                        <% subarrays[i]=array.slice(i * size, i * size + size); %>
-                                            <% } %>
-                                                <% subarrays.forEach(arr=> { %>
-                                                    <p class="paragraph">
-                                                        <%= arr.join(". ") %> </p>
+                        <div class="container two-part-container">
+                            <div class="first-container-part">
+                                <div class="accordeon-tabs__wrapper">
+                                    <a href="#description" onclick="scrollToBlock()"
+                                        class="accordeon-tabs__tab">Описание</a>
+                                    <!-- <a href="#route" onclick="scrollToBlock()" class="accordeon-tabs__tab">маршрут</a> -->
+                                    <a href="#gallery" onclick="scrollToBlock()"
+                                        class="accordeon-tabs__tab">фотографии</a>
+                                    <!-- <a href="#testimonials" onclick="scrollToBlock()"
+                                        class="accordeon-tabs__tab">отзывы</a> -->
+                                </div>
+                                <ul class="accordion__list">
+                                    <li class="accordion__item" id="description">
+                                        <div class="accordion__title-block">
+                                            <div class="accordion__title-content">
+                                                <h4 class="accordion__title">Описание экскурсии</h4>
+                                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion__text-block">
+                                            <div class="paragraph-wrap">
+                                                <% let array=data.excursionData.description.split("."), size=3,
+                                                    subarrays=[]; %>
+                                                    <!-- <% console.log(array) %> -->
+                                                    <% for (let i=0; i < Math.ceil(array.length / size); i++) { %>
+                                                        <% subarrays[i]=array.slice(i * size, i * size + size); %>
+                                                            <% } %>
+                                                                <% subarrays.forEach(arr=> { %>
+                                                                    <p class="paragraph">
+                                                                        <%= arr.join(". ") %> </p>
                                         <% }); %>
                                 </p>
                             </div>
                             <div class=" extreme-points">
-                                                            <div class="extreme-points__item">
-                                                                <h5 class="extreme-points__title">Место встречи</h5>
-                                                                <p class="extreme-points__text">
-                                                                    <%= data.excursionData.startLocation %>
-                                                                </p>
-                                                            </div>
-                                                            <div class="extreme-points__item">
-                                                                <h5 class="extreme-points__title">Место окончания
-                                                                </h5>
-                                                                <p class="extreme-points__text">
-                                                                    <%= data.excursionData.endLocation %>
-                                                                </p>
-                                                            </div>
+                                                                            <div class="extreme-points__item">
+                                                                                <h5 class="extreme-points__title">Место
+                                                                                    встречи</h5>
+                                                                                <p class="extreme-points__text">
+                                                                                    <%= data.excursionData.startLocation
+                                                                                        %>
+                                                                                </p>
+                                                                            </div>
+                                                                            <div class="extreme-points__item">
+                                                                                <h5 class="extreme-points__title">Место
+                                                                                    окончания
+                                                                                </h5>
+                                                                                <p class="extreme-points__text">
+                                                                                    <%= data.excursionData.endLocation
+                                                                                        %>
+                                                                                </p>
+                                                                            </div>
 
 
-                                                            <!-- <div class="tertiary-btn btn-with-icon">
+                                                                            <!-- <div class="tertiary-btn btn-with-icon">
                                     <img src="/Public/icons/map-pin.svg">
                                     Показать на карте
                                 </div> -->
-                            </div>
-                            <div class="excursion-type-block">
-                                <img src="/Public/icons/group.svg">
-                                <p class="paragraph">
-                                    <strong>
-                                        <%= data.typeData.name %>
-                                    </strong>
-                                    <%= data.typeData.description %>
-                                </p>
-                            </div>
-                        </div>
+                                            </div>
+                                            <div class="excursion-type-block">
+                                                <img src="/Public/icons/group.svg">
+                                                <p class="paragraph">
+                                                    <strong>
+                                                        <%= data.typeData.name %>
+                                                    </strong> –
+                                                    <%= data.typeData.description %>
+                                                </p>
+                                            </div>
+                                        </div>
 
-                    </li>
-                    <li class="accordion__item" id="route">
-                        <div class="accordion__title-block">
-                            <div class="accordion__title-content">
-                                <h4 class="accordion__title">Подробный маршрут</h4>
-                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
-                            </div>
-                        </div>
+                                    </li>
+                                    <!-- <li class="accordion__item" id="route">
+                                        <div class="accordion__title-block">
+                                            <div class="accordion__title-content">
+                                                <h4 class="accordion__title">Подробный маршрут</h4>
+                                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                                            </div>
+                                        </div>
 
-                        <div class="accordion__text-block ">
-                            <div class="paragraph-wrap">
-                                <p class="paragraph">
-                                    Вы побываете на площади Свободы — нашем историческом центре, сердце
-                                    города.
-                                    Здесь вашему взору откроются: Кафедральный собор Святого Духа, костёл
-                                    Пресвятой Девы Марии, Ратуша, Гостиный двор, комплекс бывших униатских
-                                    монастырей, прекрасные скульптурные композиции.
-                                </p>
-                                <p class="paragraph">
-                                    В кафедральном соборе Святого Духа у вас будет возможность увидеть самую
-                                    ценную православную святыню Беларуси — древнейшую икону Минской Божьей
-                                    Матери.
-                                </p>
-                            </div>
+                                        <div class="accordion__text-block ">
+                                            <div class="paragraph-wrap">
+                                                <p class="paragraph">
+                                                    Вы побываете на площади Свободы — нашем историческом центре, сердце
+                                                    города.
+                                                    Здесь вашему взору откроются: Кафедральный собор Святого Духа,
+                                                    костёл
+                                                    Пресвятой Девы Марии, Ратуша, Гостиный двор, комплекс бывших
+                                                    униатских
+                                                    монастырей, прекрасные скульптурные композиции.
+                                                </p>
+                                                <p class="paragraph">
+                                                    В кафедральном соборе Святого Духа у вас будет возможность увидеть
+                                                    самую
+                                                    ценную православную святыню Беларуси — древнейшую икону Минской
+                                                    Божьей
+                                                    Матери.
+                                                </p>
+                                            </div>
 
-                            <!-- <div class="slider">
+                                            <div class="slider">
                                     <div class="slider-list">
                                         <div class="slider-track">
                                             <div class="slide ">
@@ -163,61 +177,67 @@
                                         <button type="button" class="prev">&larr;</button>
                                         <button type="button" class="next">&rarr;</button>
                                     </div>
-                                </div> -->
+                                </div>
 
 
 
-                            <div class="paragraph-wrap">
-                                <p class="paragraph">
-                                    На площади Независимости вы посетите один из самых красивых костёлов
-                                    Беларуси — костёл Святых Симеона и Елены, увидите Дом Правительства
-                                    со скульптурой Ленина у главного входа, бывшие доходные дома, минскую
-                                    мэрию,
-                                    фонтан с тремя аистами, два университета.
-                                </p>
-                                <p class="paragraph">
-                                    Главная и самая красивая улица города — проспект Независимости — поразит
-                                    обилием достопримечательностей. Задуманная 215 лет назад как объездная
-                                    дорога вдоль города сегодня она начинается из самого центра.
-                                </p>
-                                <p class="paragraph">
-                                    Проспект является прекрасным примером единого архитектурного ансамбля,
-                                    построенного в стиле сталинского ампира. Каждое здание здесь — словно
-                                    дворец, очаровывающий минчан и гостей столицы. Вы познакомитесь
-                                    со зданиями
-                                    КГБ, Главпочтамта, гостиницы Минск, Национального банка, ГУМа.
-                                </p>
-                            </div>
-
-                        </div>
-
-                    </li>
-                    <li class="accordion__item" id="gallery">
-                        <div class="accordion__title-block">
-                            <div class="accordion__title-content">
-                                <h4 class="accordion__title">Фотографии</h4>
-                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
-                            </div>
-                        </div>
-
-                        <div class="accordion__text-block">
-                            <div class="slider">
-                                <div class="slider-list">
-                                    <div class="slider-track">
-                                        <% data.imagesExcursionsData.forEach(item=> { %>
-                                            <div class="slide">
-                                                <img class="img-open-btn" src="/Public/icons/GlassPlus.svg" alt="">
-                                                <img class="slide-img" src="<%= item.imgSRC %>" alt="">
+                                            <div class="paragraph-wrap">
+                                                <p class="paragraph">
+                                                    На площади Независимости вы посетите один из самых красивых костёлов
+                                                    Беларуси — костёл Святых Симеона и Елены, увидите Дом Правительства
+                                                    со скульптурой Ленина у главного входа, бывшие доходные дома,
+                                                    минскую
+                                                    мэрию,
+                                                    фонтан с тремя аистами, два университета.
+                                                </p>
+                                                <p class="paragraph">
+                                                    Главная и самая красивая улица города — проспект Независимости —
+                                                    поразит
+                                                    обилием достопримечательностей. Задуманная 215 лет назад
+                                                    как объездная
+                                                    дорога вдоль города сегодня она начинается из самого центра.
+                                                </p>
+                                                <p class="paragraph">
+                                                    Проспект является прекрасным примером единого архитектурного
+                                                    ансамбля,
+                                                    построенного в стиле сталинского ампира. Каждое здание здесь —
+                                                    словно
+                                                    дворец, очаровывающий минчан и гостей столицы. Вы познакомитесь
+                                                    со зданиями
+                                                    КГБ, Главпочтамта, гостиницы Минск, Национального банка, ГУМа.
+                                                </p>
                                             </div>
-                                            <% }); %>
-                                    </div>
-                                </div>
-                                <div class="slider-arrows">
-                                    <div type="button" class="prev disabled"> </div>
-                                    <div type="button" class="next"> </div>
-                                </div>
 
-                                <!-- <div class="slider-arrows">
+                                        </div>
+
+                                    </li> -->
+                                    <li class="accordion__item" id="gallery">
+                                        <div class="accordion__title-block">
+                                            <div class="accordion__title-content">
+                                                <h4 class="accordion__title">Фотографии</h4>
+                                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                                            </div>
+                                        </div>
+
+                                        <div class="accordion__text-block">
+                                            <div class="slider">
+                                                <div class="slider-list">
+                                                    <div class="slider-track">
+                                                        <% data.imagesExcursionsData.forEach(item=> { %>
+                                                            <div class="slide">
+                                                                <img class="img-open-btn"
+                                                                    src="/Public/icons/GlassPlus.svg" alt="">
+                                                                <img class="slide-img" src="<%= item.imgSRC %>" alt="">
+                                                            </div>
+                                                            <% }); %>
+                                                    </div>
+                                                </div>
+                                                <div class="slider-arrows">
+                                                    <div type="button" class="prev disabled"> </div>
+                                                    <div type="button" class="next"> </div>
+                                                </div>
+
+                                                <!-- <div class="slider-arrows">
                                     <div type="button" class="prev">
                                         <img src="/Public/icons/left-arrow.svg" alt="">
                                     </div>
@@ -225,13 +245,13 @@
                                         <img src="/Public/icons/right-arrow.svg" alt="">
                                     </button>
                                 </div> -->
-                            </div>
-                        </div>
+                                            </div>
+                                        </div>
 
 
-                    </li>
+                                    </li>
 
-                    <!-- <li class="accordion__item" id="testimonials">
+                                    <!-- <li class="accordion__item" id="testimonials">
                             <div class="accordion__title-block">
                                 <div class="accordion__title-content">
                                     <h4 class="accordion__title">Отзывы</h4>
@@ -302,16 +322,16 @@
 
 
                         </li> -->
-                </ul>
-                <!-- </div> -->
+                                </ul>
+                                <!-- </div> -->
 
 
 
-                <form class="order-form" id="order-form" onsubmit="OrderSubmit(event)">
-                    <input type="number" hidden name="excursionId" id="excursionId"
-                        value="<%= data.excursionData.id %>">
-                    <h3>Забронировать экскурсию</h3>
-                    <div style="display: flex; align-items: flex-end; gap: 20px; margin-bottom: 20px;">
+                                <form class="order-form" id="order-form" onsubmit="OrderSubmit(event)">
+                                    <input type="number" hidden name="excursionId" id="excursionId"
+                                        value="<%= data.excursionData.id %>">
+                                    <h3>Забронировать экскурсию</h3>
+                                    <!-- <div style="display: flex; align-items: flex-end; gap: 20px; margin-bottom: 20px;">
                         <div class="calendar-wrapper">
                             <h5>Дата бронирования</h5>
                             <div class="calendar-top">
@@ -336,247 +356,260 @@
                             <div class="accessible-day selected">32</div>
                             Доступный для бронирования день
                         </div>
-                    </div>
+                    </div> -->
 
-                    <div style="display: flex; gap: 40px; width: 100%;">
-                        <div style="display: flex; flex-direction: column;
+                                    <div style="display: flex; gap: 40px; width: 100%;">
+                                        <div style="display: flex; flex-direction: column;
                            gap: 8px; width: 100%;">
-                            <h5>Введите контактные данные</h5>
-                            <div class="box-input">
-                                <input type="name" name="clientName" id="name" class="input" placeholder=" "
-                                    value="Имя">
-                                <label>Ваше имя</label>
-                                <div class="box-input__error-text clientName-error"></div>
-                            </div>
+                                            <h5>Введите контактные данные</h5>
+                                            <div class="box-input">
+                                                <input type="name" name="clientName" id="name" class="input"
+                                                    placeholder=" ">
+                                                <label>Ваше имя</label>
+                                                <div class="box-input__error-text clientName-error"></div>
+                                            </div>
 
-                            <div class="box-input">
-                                <input type="phone" name="clientPhone" id="phone" class="input" placeholder=" "
-                                    value="888888888">
-                                <label>Номер телефона</label>
-                                <div class="box-input__error-text clientPhone-error"></div>
-                            </div>
+                                            <div class="box-input">
+                                                <input type="phone" name="clientPhone" id="phone" class="input"
+                                                    placeholder=" ">
+                                                <label>Номер телефона</label>
+                                                <div class="box-input__error-text clientPhone-error"></div>
+                                            </div>
 
-                            <div class="box-input">
-                                <input type="email" name="clientEmail" id="email" class="input" placeholder=" "
-                                    value="client@email.com">
-                                <label>Адрес электронной почты</label>
-                                <div class="box-input__error-text clientEmail-error"></div>
-                            </div>
+                                            <div class="box-input">
+                                                <input type="email" name="clientEmail" id="email" class="input"
+                                                    placeholder=" ">
+                                                <label>Адрес электронной почты</label>
+                                                <div class="box-input__error-text clientEmail-error"></div>
+                                            </div>
 
-                            <div class="client-count__wrapper">
-                                <div class="client-count__item">
-                                    <div class="client-count__item-wrap">
-                                        <div class="client-count__name">Взрослый</div>
-                                        <div class="client-count__cost">
-                                            <%= data.excursionData.adultCost %> BYN
-                                        </div>
-                                    </div>
-                                    <div class="client-count__item-wrap">
-                                        <div class="client-count__minus">–</div>
-                                        <input class="client-count__count" name="numberOfAdults"
-                                            data-maxcount="<%= data.typeData.clientMaxNumber %> "
-                                            data-cost="<%= data.excursionData.adultCost%>" value="1">
-                                        <div class="client-count__plus">+</div>
-                                    </div>
-                                </div>
+                                            <div class="client-count__wrapper">
+                                                <div class="client-count__item">
+                                                    <div class="client-count__item-wrap">
+                                                        <div class="client-count__name">Взрослый</div>
+                                                        <div class="client-count__cost">
+                                                            <%= data.excursionData.adultCost %> BYN
+                                                        </div>
+                                                    </div>
+                                                    <div class="client-count__item-wrap">
+                                                        <div class="client-count__minus">–</div>
+                                                        <input class="client-count__count" name="numberOfAdults"
+                                                            data-maxcount="<%= data.typeData.clientMaxNumber %> "
+                                                            data-cost="<%= data.excursionData.adultCost%>" value="1">
+                                                        <div class="client-count__plus">+</div>
+                                                    </div>
+                                                </div>
 
-                                <div class="box-input__error-text count-error"></div>
+                                                <div class="box-input__error-text count-error"></div>
 
-                                <% if(data.excursionData.childCost) {%>
-                                    <div class="client-count__item">
-                                        <div class="client-count__item-wrap">
-                                            <div class="client-count__name">Детский (2 - 12 лет)</div>
-                                            <div class="client-count__cost">
-                                                <%= data.excursionData.childCost %> BYN
+                                                <% if(data.excursionData.childCost) {%>
+                                                    <div class="client-count__item">
+                                                        <div class="client-count__item-wrap">
+                                                            <div class="client-count__name">Детский (2 - 12 лет)</div>
+                                                            <div class="client-count__cost">
+                                                                <%= data.excursionData.childCost %> BYN
+                                                            </div>
+                                                        </div>
+                                                        <div class="client-count__item-wrap">
+                                                            <div class="client-count__minus">–</div>
+                                                            <input class="client-count__count" name="numberOfChildren"
+                                                                data-maxcount=" <%= data.typeData.clientMaxNumber %> "
+                                                                data-cost="<%=data.excursionData.childCost%>" value="0">
+                                                            <div class="client-count__plus">+</div>
+                                                            </input>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="box-input__error-text count-error"></div>
+                                                    <% }%>
+
                                             </div>
                                         </div>
-                                        <div class="client-count__item-wrap">
-                                            <div class="client-count__minus">–</div>
-                                            <input class="client-count__count" name="numberOfChildren"
-                                                data-maxcount=" <%= data.typeData.clientMaxNumber %> "
-                                                data-cost="<%=data.excursionData.childCost%>" value="0">
-                                            <div class="client-count__plus">+</div>
-                                            </input>
+                                        <div style="min-width: 240px;">
+                                            <div class="input-wrap">
+                                                <h5>Время начала экскурсии</h5>
+                                                <% data.startTimesData.forEach(item=> { %>
+                                                    <div class="radio-input">
+                                                        <input type="radio" name="startTimeId"
+                                                            id="startTime-<%= item.id %>" value="<%= item.id %>"
+                                                            checked>
+                                                        <label for="startTime-<%= item.id; %>">
+                                                            <% let itemText=item.time.slice(0, -3); %>
+                                                                <%= itemText %>
+                                                        </label>
+                                                        <div class="box-input__error-text startTimes-error"></div>
+                                                    </div>
+                                                    <% }); %>
+                                            </div>
                                         </div>
-                                        <div class="box-input__error-text count-error"></div>
-                                        <% }%>
                                     </div>
-                            </div>
-                        </div>
-                        <div style="min-width: 240px;">
-                            <div class="input-wrap">
-                                <h5>Время начала экскурсии</h5>
-                                <% data.startTimesData.forEach(item=> { %>
-                                    <div class="radio-input">
-                                        <input type="radio" name="startTimeId" id="startTime-<%= item.id %>"
-                                            value="<%= item.id %>" checked>
-                                        <label for="startTime-<%= item.id; %>">
-                                            <% let itemText=item.time.slice(0, -3); %>
-                                                <%= itemText %>
-                                        </label>
-                                        <div class="box-input__error-text startTimes-error"></div>
+
+
+                                    <div class="final-cost">Итого: <span class="final-cost-place">0</span> BYN</div>
+                                    <div style="display: flex; column-gap: 12px;">
+                                        <input type="submit" class="btn" value="Забронировать экскурсию">
+                                        <p class="extra-info">Оформляя заказ, вы соглашаетесь на обработку персональных
+                                            данных
+                                        </p>
                                     </div>
-                                    <% }); %>
+
+
+                                </form>
+                            </div>
+                            <div class="second-container-part">
+                                <aside class="excursion-extra-info">
+                                    <div class="excursion-extra-info__item">
+                                        <div class="excursion-extra-info__group">
+                                            <div class="visitors-number">
+                                                Посетили: <span>75</span> <span>чел.</span>
+                                            </div>
+                                            <div class="reviews-number">
+                                                Отзывы: <img src="/Public/icons/Star.svg" alt="">
+                                                <span>4,7</span> <span class="extra-info">(51)</span>
+                                            </div>
+                                        </div>
+                                        <div class="excursion-extra-info__group">
+                                            <div class="cost">
+                                                <span>
+                                                    <%= data.excursionData.adultCost %>
+                                                </span> Br
+                                            </div>
+                                            <div class="duration">
+                                                <span>
+                                                    <%= data.excursionData.duration %>
+                                                </span> <span>часа</span>
+                                            </div>
+                                        </div>
+                                        <a href="#order-form" onclick="scrollToBlock" class="btn">Забронировать</a>
+                                    </div>
+                                    <div class="excursion-extra-info__item">
+                                        <div class="excursion-extra-info__group">
+                                            <h5 class="h5">Тип</h5>
+                                            <div class="type-block">
+                                                <span>
+                                                    <%= data.typeData.name%>
+                                                </span>
+                                                <img class="question-icon" src="/Public/icons/Question.svg" alt="">
+                                                <div class="tooltip">
+                                                    <%= data.typeData.description %>>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="excursion-extra-info__group">
+                                            <h5 class="h5">Формат</h5>
+                                            <p class="">
+                                                <%= data.formatData.name%>
+                                            </p>
+                                        </div>
+                                    </div>
+                                    <div class="excursion-extra-info__item">
+                                        <div style="display: flex; align-items: center;">
+                                            <img class="guide-img" src="<%= data.excursionData.guide.imgSRC %>" alt="">
+                                            <div class="excursion-extra-info__group">
+                                                <div class="guide-name h5">
+                                                    <%= data.excursionData.guide.name %>
+                                                </div>
+                                                <div class="guide-info extra-info">
+                                                    <%= data.excursionData.guide.description %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="btn secondary-btn">Подробнее</div>
+                                    </div>
+                                </aside>
                             </div>
                         </div>
-                    </div>
 
-
-                    <div class="final-cost">Итого: <span class="final-cost-place">0</span> BYN</div>
-                    <div style="display: flex; column-gap: 12px;">
-                        <input type="submit" class="btn" value="Забронировать экскурсию">
-                        <p class="extra-info">Оформляя заказ, вы соглашаетесь на обработку персональных данных
-                        </p>
-                    </div>
-
-
-                </form>
-            </div>
-            <div class="second-container-part">
-                <aside class="excursion-extra-info">
-                    <div class="excursion-extra-info__item">
-                        <div class="excursion-extra-info__group">
-                            <div class="visitors-number">
-                                Посетили: <span>75</span> <span>чел.</span>
-                            </div>
-                            <div class="reviews-number">
-                                Отзывы: <img src="/Public/icons/Star.svg" alt="">
-                                <span>4,7</span> <span class="extra-info">(51)</span>
-                            </div>
-                        </div>
-                        <div class="excursion-extra-info__group">
-                            <div class="cost">
-                                <span>150</span> Br
-                            </div>
-                            <div class="duration">
-                                <span>3,5</span> <span>часа</span>
-                            </div>
-                        </div>
-                        <a href="#order-form" onclick="scrollToBlock" class="btn">Забронировать</a>
-                    </div>
-                    <div class="excursion-extra-info__item">
-                        <div class="excursion-extra-info__group">
-                            <h5 class="h5">Тип</h5>
-                            <div class="type-block">
-                                <span>Групповая</span>
-                                <img class="question-icon" src="/Public/icons/Question.svg" alt="">
-                                <div class="tooltip">Групповые экскурсии — гид формирует группу. Вместе с вами будут
-                                    другие туристы. 12–30 человек</div>
-                            </div>
-
-                        </div>
-                        <div class="excursion-extra-info__group">
-                            <h5 class="h5">Формат</h5>
-                            <p class="">На транспорте (автобус)</p>
-                        </div>
-                    </div>
-                    <div class="excursion-extra-info__item">
-                        <div style="display: flex; align-items: center;">
-                            <img class="guide-img" src="<%= data.excursionData.guide.imgSRC %>" alt="">
-                            <div class="excursion-extra-info__group">
-                                <div class="guide-name h5">
-                                    <%= data.excursionData.guide.name %>
-                                </div>
-                                <div class="guide-info extra-info">
-                                    <%= data.excursionData.guide.description %>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="btn secondary-btn">Подробнее</div>
-                    </div>
-                </aside>
-            </div>
-        </div>
-
-        <script>
+                        <script>
 
 
 
 
-            let accordeonTabs = document.querySelectorAll('.accordeon-tabs__tab');
-            accordeonTabs.forEach(tab => {
-                tab.addEventListener('click', () => {
-                    accordeonTabs.forEach(elemnt => {
-                        elemnt.classList.remove('active');
-                    });
-                    tab.classList.add('active');
-                });
-            });
+                            let accordeonTabs = document.querySelectorAll('.accordeon-tabs__tab');
+                            accordeonTabs.forEach(tab => {
+                                tab.addEventListener('click', () => {
+                                    accordeonTabs.forEach(elemnt => {
+                                        elemnt.classList.remove('active');
+                                    });
+                                    tab.classList.add('active');
+                                });
+                            });
 
-            let questionIcon = document.querySelector('.question-icon'),
-                tooltip = document.querySelector('.tooltip');
-            questionIcon.addEventListener('mouseenter', () => {
-                tooltip.classList.add('visible');
-            });
-            questionIcon.addEventListener('mouseleave', () => {
-                tooltip.classList.remove('visible');
-            });
+                            let questionIcon = document.querySelector('.question-icon'),
+                                tooltip = document.querySelector('.tooltip');
+                            questionIcon.addEventListener('mouseenter', () => {
+                                tooltip.classList.add('visible');
+                            });
+                            questionIcon.addEventListener('mouseleave', () => {
+                                tooltip.classList.remove('visible');
+                            });
 
-            let socialIcons = document.querySelector('.social-icons'),
-                shareBtn = document.querySelector('.share-btn');
+                            let socialIcons = document.querySelector('.social-icons'),
+                                shareBtn = document.querySelector('.share-btn');
 
-            shareBtn.addEventListener('click', () => {
-                socialIcons.classList.add('socials-open');
-            });
-
-
-            let clientCountPluses = document.querySelectorAll(".client-count__plus"),
-                clientCountCounts = document.querySelectorAll(".client-count__count"),
-                clientCountMinuses = document.querySelectorAll(".client-count__minus"),
-                countErrors = document.querySelectorAll('.count-error'),
-                finalCost = document.querySelector('.final-cost-place');
-            let maxCount = clientCountCounts[0].dataset.maxcount;
+                            shareBtn.addEventListener('click', () => {
+                                socialIcons.classList.add('socials-open');
+                            });
 
 
-            clientCountPluses.forEach((element, index) => {
-                element.addEventListener('click', () => {
-                    countErrors[index].innerText = "";
-                    let num = [clientCountCounts[0].value, 0];
-                    if (clientCountCounts[1]) num[1] = clientCountCounts[1].value;
-
-                    if (num[0] >= (maxCount - num[1]) || num[1] >= (maxCount - num[0])) {
-                        countErrors[index].innerText = "Достигнут лимит доступных мест"
-                    } else {
-                        clientCountCounts[index].value = ++num[index];
-                    }
-                    renderFinalCost();
-                });
-            });
-            clientCountMinuses.forEach((element, index) => {
-                element.addEventListener('click', () => {
-                    countErrors[index].innerText = "";
-                    let num = clientCountCounts[index].value;
-                    num = Number(num);
-
-                    if (num != 0) {
-                        clientCountCounts[index].value = --num;
-                    }
-                    renderFinalCost();
-                });
-            });
-
-            function renderFinalCost() {
-                let finalC = 0;
-                clientCountCounts.forEach(element => {
-                    finalC += Number(element.value) * Number(element.dataset.cost);
-                });
-                finalCost.innerText = String(finalC);
-            }
-            renderFinalCost();
+                            let clientCountPluses = document.querySelectorAll(".client-count__plus"),
+                                clientCountCounts = document.querySelectorAll(".client-count__count"),
+                                clientCountMinuses = document.querySelectorAll(".client-count__minus"),
+                                countErrors = document.querySelectorAll('.count-error'),
+                                finalCost = document.querySelector('.final-cost-place');
+                            let maxCount = clientCountCounts[0].dataset.maxcount;
 
 
+                            clientCountPluses.forEach((element, index) => {
+                                element.addEventListener('click', () => {
+                                    countErrors[index].innerText = "";
+                                    let num = [clientCountCounts[0].value, 0];
+                                    if (clientCountCounts[1]) num[1] = clientCountCounts[1].value;
 
-        </script>
+                                    if (num[0] >= (maxCount - num[1]) || num[1] >= (maxCount - num[0])) {
+                                        countErrors[index].innerText = "Достигнут лимит доступных мест"
+                                    } else {
+                                        clientCountCounts[index].value = ++num[index];
+                                    }
+                                    renderFinalCost();
+                                });
+                            });
+                            clientCountMinuses.forEach((element, index) => {
+                                element.addEventListener('click', () => {
+                                    countErrors[index].innerText = "";
+                                    let num = clientCountCounts[index].value;
+                                    num = Number(num);
+
+                                    if (num != 1) {
+                                        clientCountCounts[index].value = --num;
+                                    }
+                                    renderFinalCost();
+                                });
+                            });
+
+                            function renderFinalCost() {
+                                let finalC = 0;
+                                clientCountCounts.forEach(element => {
+                                    finalC += Number(element.value) * Number(element.dataset.cost);
+                                });
+                                finalCost.innerText = String(finalC);
+                            }
+                            renderFinalCost();
 
 
 
+                        </script>
 
-        <script src="/public/js/anchorScroll.js"></script>
-        <script src="/public/js/calendar.js"></script>
-        <script src="/public/js/accordion.js"></script>
-        <script src="/public/js/slider.js"></script>
-        <script src="https://yastatic.net/share2/share.js"></script>
-        <script src="/public/js/order.js"></script>
+
+
+
+                        <script src="/public/js/anchorScroll.js"></script>
+                        <!-- <script src="/public/js/calendar.js"></script> -->
+                        <script src="/public/js/accordion.js"></script>
+                        <script src="/public/js/slider.js"></script>
+                        <script src="https://yastatic.net/share2/share.js"></script>
+                        <script src="/public/js/order.js"></script>
 </body>
 
 </html>

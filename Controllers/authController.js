@@ -3,16 +3,30 @@ const { validationResult } = require('express-validator');
 
 class authController {
     async registration(req, res) {
+// console.log(req.body);
         try {
-            const errors = validationResult(req);
-
+            let errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
             }
-            else {
-                let result = await UserModel.create(req.body);
-                res.status(200).send(result);
+            else if (!req.files?.photos || Array.isArray(req.files?.photos)) {
+                errors = [{ type: 'field', value: '', msg: 'Выберите 1 изображение', path: 'photos', location: 'body' }];
+                return res.status(400).json({ errors: errors });
             }
+            else if (Array.isArray(req.files?.photos)) {
+                req.files?.photos.forEach(element => {
+                    if (!element.mimetype.includes("image")) {
+                        errors = [{ type: 'field', value: '', msg: 'Один или несколько файлов не являются изображениями', path: 'photos', location: 'body' }];
+                        return res.status(400).json({ errors: errors });
+                    }
+                });
+            }
+            else if (!req.files?.photos.mimetype.includes("image")) {
+                errors = [{ type: 'field', value: '', msg: 'Файл не является изображением', path: 'photos', location: 'body' }];
+                return res.status(400).json({ errors: errors });
+            }
+            let result = await UserModel.create(req.body, req.files);
+            res.status(200).send(result);
         } catch (e) {
             console.log(e);
         }

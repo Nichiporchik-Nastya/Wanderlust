@@ -12,13 +12,13 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.belongsTo(models.Formats, {
         as: 'format',
-        foreignKey: 'id',
+        foreignKey: 'formatId',
         onDelete: 'RESTRICT',
         onUpdate: 'RESTRICT'
       });
       this.belongsTo(models.Types, {
         as: 'type',
-        foreignKey: 'id',
+        foreignKey: 'typeId',
         onDelete: 'RESTRICT',
         onUpdate: 'RESTRICT'
       });

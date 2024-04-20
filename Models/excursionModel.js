@@ -78,11 +78,12 @@ class ExcursionModel {
     };
 
     async delete(id) {
+        await Orders.destroy({ where: { excursionId: id } });
         await ImagesExcursions.destroy({ where: { excursionId: id } });
         await ThemeExcursions.destroy({ where: { excursionId: id } });
         await DaysExcursions.destroy({ where: { excursionId: id } });
         await StartTimes.destroy({ where: { excursionId: id } });
-        await Orders.destroy({ where: { excursionId: id } });
+        
         //Reviews 
         return await Excursions.destroy({ where: { id } });
     }
@@ -125,6 +126,11 @@ class ExcursionModel {
                 where: {
                     id: excursionData.typeId,
                 },
+            }),
+            formatData: await Formats.findOne({
+                where: {
+                    id: excursionData.formatId,
+                },
             })
         };
     }
@@ -164,6 +170,28 @@ class ExcursionModel {
             ]
         })
     }
+
+    async getByUserId(id) {//имя поля и направление сортировки
+        return await Excursions.findAll({
+            where: {
+                guideId: id,
+            },
+            include:[
+                {
+                    model: Formats,
+                    as: 'format',
+                },{
+                    model: Types,
+                    as: 'type',
+                },
+                {
+                    model: ImagesExcursions,
+                    as: 'images',
+                }
+            ]
+        })
+    }
+
 
     async searchForFilter(str = "", fromCost, toCost, formats, types, order = 'ASC') {//имя поля и направление сортировки
         return await Excursions.findAll({

@@ -13,14 +13,14 @@
 
 <body>
     <%- include('./partials/header'); %>
-
+    <div class="status">Экскурсия забронирована. Менеджер свяжется с вами в ближайшее время</div>
 
         <form onsubmit="RegistrationSubmit(event)">
             <div class="container two-part-container">
                 <div>
                     <h2>Регистрация нового сотрудника</h2>
                     <div class="box-input">
-                        <input type="text" name="name" id="name" class="input" placeholder=" " value="Новый гид">
+                        <input type="text" name="name" id="name" class="input" placeholder=" " value="">
                         <label>Полное имя</label>
                         <div class="box-input__error-text name-error"></div>
                     </div>
@@ -28,33 +28,33 @@
 
 
                     <div class="box-input">
-                        <input type="email" name="email" id="email" class="input" placeholder=" " value="test2@asd.sds">
+                        <input type="email" name="email" id="email" class="input" placeholder=" " value="">
                         <label>Адрес электронной почты</label>
                         <div class="box-input__error-text email-error"></div>
                     </div>
 
                     <div class="box-input">
                         <input type="password" name="password" id="password" class="input" placeholder=" "
-                            value="11111111">
+                            value="">
                         <label>Пароль</label>
                         <div class="box-input__error-text password-error"></div>
                     </div>
 
                     <div class="box-input">
                         <input type="password" name="secondPassword" id="secondPassword" class="input" placeholder=" "
-                            value="11111111">
+                            value="">
                         <label>Пароль</label>
                         <div class="box-input__error-text secondPassword-error"></div>
                     </div>
 
-                    
+
                 </div>
                 <div>
                     <div class="input-wrap">
                         <h4 class="box-input__title">Подробная информация</h4>
                         <div class="box-input">
                             <textarea name="description" rows="2"
-                                placeholder=" ">Провёл более 2000 экскурсий, работаю гидом с 1 января 2010</textarea>
+                                placeholder=" "></textarea>
                             <label>Описание гида</label>
                             <div class="box-input__error-text description-error"></div>
                         </div>
@@ -82,6 +82,45 @@
             </div>
         </form>
 
+        <script>
+
+            let k = 0, clear = document.querySelector(".clear-file-input"),
+                photoTags = document.querySelector(".photo-tags");
+
+
+            let input = document.querySelector('input[type="file"]');
+            const preview = document.querySelector('.preview');
+            const button = document.querySelector('button');
+            const fileList = [];
+            input.addEventListener('change', onChange);
+
+            function onChange(e) {
+                photoTags.style.visibility = 'visible';
+                [...input.files].forEach(file => {
+                    const reader = new FileReader;
+                    reader.addEventListener('loadend', () => {
+                        const item = document.createElement('div');
+                        item.classList.add('photo-tag');
+                        item.innerText = file.name;
+                        item.setAttribute('data-index', k++);
+                        const image = new Image;
+                        image.src = `data:${file.type};base64,${btoa(reader.result)}`;
+                        item.appendChild(image);
+                        preview.appendChild(item);
+
+                    });
+                    reader.readAsBinaryString(file);
+
+                });
+            }
+
+            clear.addEventListener('click', () => {
+                input.value = "";
+                preview.innerHTML = "";
+                // console.log(input.files);
+            });
+
+        </script>
         <script src="/public/js/registration.js"></script>
 
 </body>
