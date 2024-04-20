@@ -61,6 +61,11 @@ router.get('/excursions/create', middlewareController.checkSession, middlewareCo
   res.render('guidePages/createExcursionPage', { data: excursionStructure, user: req.session.user.id  }); //, guideId: req.session.user.id
 });
 
+router.get('/excursions/edit/:id', middlewareController.checkSession, middlewareController.checkGuide, async (req, res) => {
+  let excursionStructure = await excursionModel.getStructure();
+  res.render('guidePages/editExcursionPage', { data: excursionStructure, user: req.session.user.id  }); 
+});
+
 router.get('/excursions/show/:id', controller.showExcursion);
 
 router.post('/api/excursions/order',

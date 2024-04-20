@@ -95,71 +95,72 @@
             <div class="second-container-part">
                 <h4>Все экскурсии</h4>
                 <div class="excursion-blocks">
-                  
-                    <% if(excursions) {%>
-                    <% excursions.forEach(item=> { %>
 
-                        <div class="excursion-block" id="excursion-<%=item.id%>">
-                            <div class="action-menu">
-                                <a href="/excursions/show/<%=item.id %>" class="action-menu__item">
-                                    <img src="/Public/icons/Eye.svg" alt="">
-                                    Посмотреть
-                                </a>
-                                <!-- <li class="action-menu__item">
-                                <img src="/Public/icons/PencilSimpleLine.svg" alt="">
-                                Редактировать
-                            </li> -->
-                                <li class="action-menu__item remove-excursion__btn" data-exname="<%=item.name %>" data-exid="<%=item.id %>">
-                                    <img src="/Public/icons/Trash.svg" alt="">
-                                    Удалить
-                                </li>
-                            </div>
-                            <div class="excursion-block__header">
-                                <h5 class="excursion-name">
-                                    <%=item.name%>
-                                </h5>
-                                <img class="excursion-block__dots" src="/Public/icons/DotsThreeVertical.svg" alt="">
-                            </div>
-                            <div class="excursion-block__body">
-                                <div>
-                                    <div class="excursion-block__data-wrap">
-                                        <p class="excursion-block__format excursion-block__data">
-                                            <%=item.format.name%>
-                                        </p>
-                                        <p class="extra-info">Формат</p>
-                                    </div>
-                                    <div class="excursion-block__data-wrap">
-                                        <p class="excursion-block__type excursion-block__data">
-                                            <%=item.type.name%>
-                                        </p>
-                                        <p class="extra-info">Тип</p>
-                                    </div>
-                                    <!-- <div class="excursion-block__data-wrap">
+                    <% if(excursions) {%>
+                        <% excursions.forEach(item=> { %>
+
+                            <div class="excursion-block" id="excursion-<%=item.id%>">
+                                <div class="action-menu">
+                                    <a href="/excursions/show/<%=item.id %>" class="action-menu__item">
+                                        <img src="/Public/icons/Eye.svg" alt="">
+                                        Посмотреть
+                                    </a>
+                                    <a href="/excursions/edit/<%=item.id %>" class="action-menu__item">
+                                        <img src="/Public/icons/PencilSimpleLine.svg" alt="">
+                                        Редактировать
+                                    </a>
+                                    <li class="action-menu__item remove-excursion__btn" data-exname="<%=item.name %>"
+                                        data-exid="<%=item.id %>">
+                                        <img src="/Public/icons/Trash.svg" alt="">
+                                        Удалить
+                                    </li>
+                                </div>
+                                <div class="excursion-block__header">
+                                    <h5 class="excursion-name">
+                                        <%=item.name%>
+                                    </h5>
+                                    <img class="excursion-block__dots" src="/Public/icons/DotsThreeVertical.svg" alt="">
+                                </div>
+                                <div class="excursion-block__body">
+                                    <div>
+                                        <div class="excursion-block__data-wrap">
+                                            <p class="excursion-block__format excursion-block__data">
+                                                <%=item.format.name%>
+                                            </p>
+                                            <p class="extra-info">Формат</p>
+                                        </div>
+                                        <div class="excursion-block__data-wrap">
+                                            <p class="excursion-block__type excursion-block__data">
+                                                <%=item.type.name%>
+                                            </p>
+                                            <p class="extra-info">Тип</p>
+                                        </div>
+                                        <!-- <div class="excursion-block__data-wrap">
                                     <p class="excursion-block__type excursion-block__data">4,2</p>
                                     <p class="extra-info">Рейтинг</p>
                                 </div> -->
-                                </div>
-                                <div>
-                                    <div class="excursion-block__data-wrap">
-                                        <p class="excursion-block__type excursion-block__data">
-                                            <%=item.duration%> часа
-                                        </p>
-                                        <p class="extra-info">Длительность</p>
                                     </div>
-                                    <div class="excursion-block__data-wrap">
-                                        <p class="excursion-block__type excursion-block__data">
-                                            <%=item.adultCost%> Br
-                                        </p>
-                                        <p class="extra-info">Стоимость</p>
-                                    </div>
-                                    <!-- <div class="excursion-block__data-wrap">
+                                    <div>
+                                        <div class="excursion-block__data-wrap">
+                                            <p class="excursion-block__type excursion-block__data">
+                                                <%=item.duration%> часа
+                                            </p>
+                                            <p class="extra-info">Длительность</p>
+                                        </div>
+                                        <div class="excursion-block__data-wrap">
+                                            <p class="excursion-block__type excursion-block__data">
+                                                <%=item.adultCost%> Br
+                                            </p>
+                                            <p class="extra-info">Стоимость</p>
+                                        </div>
+                                        <!-- <div class="excursion-block__data-wrap">
                                     <p class="excursion-block__type excursion-block__data">5</p>
                                     <p class="extra-info">Отзывы</p>
                                 </div> -->
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <% }); }%>
+                            <% }); }%>
 
                 </div>
             </div>

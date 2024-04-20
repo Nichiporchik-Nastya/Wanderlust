@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Создать экскурсию</title>
+    <link rel="stylesheet" href="/public/css/normalize.css">
+    <link rel="stylesheet" href="/public/css/header-style.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+    <link rel="stylesheet" href="/public/css/dashbord.css">
+</head>
+
+<body>
+    <%- include('./partials/header'); %>
+
+    <div class="status"></div>
+
+        <div class="container two-part-container">
+            
+            <form onsubmit="CreateExcursionSubmit(event)" class="first-container-part">
+                <!-- <input type="number" name="guideId" hidden value="<%= user %>"> -->
+                <h2>Редактирование экскурсии</h2>
+                
+
+                <!-- <div class="accordion__wrap"> -->
+                <ul class="accordion__list">
+                    <li class="accordion__item long-field">
+                        <div class="accordion__title-block" id="allInfo">
+                            <div class="accordion__title-content">
+                                <h3 class="accordion__title">Основная информация</h3>
+                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                            </div>
+                        </div>
+                        <div class="accordion__text-block">
+                            <div class="input-wrap">
+                                <h4 class="box-input__title">Название экскурсии</h4>
+                                <div class="box-input">
+                                    <input type="text" name="name" placeholder=" " value="">
+                                    <label>Название экскурсии</label>
+                                    <div class="box-input__error-text name-error"></div>
+                                    <p class="input-help-text">Развёрнутое название</p>
+                                </div>
+                            </div>
+
+                            <div class="input-wrap">
+                                <h4 class="box-input__title">Описание экскурсии</h4>
+                                <div class="box-input">
+                                    <textarea name="description" placeholder=" "></textarea>
+                                    <label>Описание экскурсии</label>
+                                    <div class="box-input__error-text description-error"></div>
+                                    <p class="input-help-text">Что увидят и узнают путешественники в рамках
+                                        экскурсии?
+                                        Опишите свою
+                                        экскурсию так, чтобы туристам захотелось поехать!</p>
+                                </div>
+                            </div>
+
+                            <div class="input-wrap">
+                                <h4 class="box-input__title">Дополнительная информация</h4>
+                                <div class="box-input">
+                                    <textarea name="extraInfo" placeholder=" "></textarea>
+                                    <label>Дополнительная информация</label>
+                                    <p class="input-help-text">Что ещё взять с собой?</p>
+                                </div>
+                            </div>
+
+                            <div class="input-wrap">
+                                <h4 class="box-input__title">Место начала экскурсии</h4>
+                                <div class="box-input">
+                                    <input type="text" name="startLocation" placeholder=" " value="ЖД Вокзал">
+                                    <label>Место встречи</label>
+                                    <div class="box-input__error-text startLocation-error"></div>
+                                    <p class="input-help-text">Укажите конкретный адрес или общеизвестное место.
+                                        Например, "ЖД Вокзал"</p>
+                                </div>
+                            </div>
+
+                            <div class="input-wrap">
+                                <h4 class="box-input__title">Место окончания экскурсии</h4>
+                                <div class="box-input">
+                                    <input type="text" name="endLocation" placeholder=" " value="пл. Свободы 2а (Ратуша), у скульптуры ВОЙТ">
+                                    <label>Место окончания</label>
+                                    <div class="box-input__error-text endLocation-error"></div>
+                                    <p class="input-help-text">Укажите конкретный адрес или общеизвестное место.
+                                        Например, "ЖД Вокзал"</p>
+                                </div>
+                            </div>
+
+                            <div class="input-wrap">
+                                <h4 class="box-input__title">Длительность экскурсии</h4>
+                                <div class="box-input">
+                                    <input type="number" name="duration" placeholder=" " value="">
+                                    <label>Длительность экскурсии</label>
+                                    <div class="box-input__error-text duration-error"></div>
+                                    <p class="input-help-text">Введите длительность экскурсии в часах</p>
+                                </div>
+                            </div>
+
+                            <div class="many-fields__wrap">
+
+                                <div class="input-wrap">
+                                    <h4 class="box-input__title">Формат</h4>
+                                    <% data.formats.forEach(item=> { %>
+                                        <div class="radio-input">
+                                            <input type="radio" name="formatId" id="format-<%= item.id; %>"
+                                                value="<%= item.id; %>" >
+                                            <label for="format-<%= item.id; %>">
+                                                <%= item.name; %>
+                                            </label>
+                                            <div class="box-input__error-text formatId-error"></div>
+                                        </div>
+                                        <% }); %>
+                                </div>
+                                <div class="input-wrap">
+                                    <h4 class="box-input__title">Тип</h4>
+                                    <% data.types.forEach(item=> { %>
+                                        <div class="radio-input">
+                                            <input type="radio" name="typeId" id="type-<%= item.id; %>"
+                                                value="<%= item.id; %>" >
+                                            <label for="type-<%= item.id; %>">
+                                                <%= item.name; %>
+                                            </label>
+                                            <div class="box-input__error-text typeId-error"></div>
+                                        </div>
+                                        <% }); %>
+                                </div>
+                                <div class="input-block-wrap">
+                                    <h4 class="box-input__title">Тема</h4>
+                                    <div class="many-inputs__wrap">
+                                        <% data.themes.forEach(item=> { %>
+                                            <div class="radio-input">
+                                                <input type="checkbox" name="themes" id="theme-<%= item.id; %>"
+                                                    value="<%= item.id; %>" >
+                                                <label for="theme-<%= item.id; %>">
+                                                    <%= item.name; %>
+                                                </label>
+                                            </div>
+                                            <% }); %>
+                                                <div class="box-input__error-text themes-error"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="accordion__item long-field">
+                        <div class="accordion__title-block" id="timeTable">
+                            <div class="accordion__title-content">
+                                <h4 class="accordion__title">Расписание</h4>
+                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                            </div>
+                            <p class="input-help-text">Укажите, на какие дни недели будет проходить экскурсия и в
+                                какое
+                                время она будет начинаться</p>
+                        </div>
+
+                        <div class="accordion__text-block">
+
+                            <div class="input-block-wrap">
+                                <h4 class="box-input__title">Дни недели</h4>
+                                <div class="many-inputs__wrap" id="weekdays">
+                                </div>
+                                <div class="box-input__error-text dayNumber-error"></div>
+                            </div>
+
+                            <div class="input-wrap">
+                                <h4 class="box-input__title">Время начала экскурсий</h4>
+
+                                <div class="box-input">
+                                    <input type="time" name="startTimes" value="10:00" id="time" step="300">
+                                    <!-- 5 минут-->
+                                    <div class="box-input__error-text startTimes-error" id="time-error"></div>
+                                    <div class="tags-wrap">
+                                        <p>Выбрано:</p>
+                                        <div class="tags" id="time-tags">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <div class="btn secondary-btn btn-with-icon" id="add-time-btn">
+                                <img src="/Public/icons/add-time.svg">
+                                Добавить время
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="accordion__item long-field">
+                        <div class="accordion__title-block" id="Photos">
+                            <div class="accordion__title-content">
+                                <h4 class="accordion__title">Фотографии</h4>
+                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                            </div>
+                            <p class="input-help-text">Загрузите минимум 4 фотографии основных
+                                достопримечательностей в
+                                высоком качестве. Запрещено использовать фотографии с надписями и водяными знаками
+                            </p>
+                        </div>
+
+                        <div class="accordion__text-block">
+
+
+
+                            <div class="input-wrap">
+
+                                <label class="btn secondary-btn btn-with-icon">
+                                    <input name="photos" type="file" hidden class="input__file" multiple
+                                        accept="image/*" />
+                                    <img src="/Public/icons/pic.svg">
+                                    Выбрать изображение
+                                </label>
+
+                                <div class="tags-wrap photo-tags">
+                                    <p>Выбрано:</p>
+                                    <div class="preview"></div>
+                                    <div class="btn secondary-btn clear-file-input">Очистить выбор</div>
+                                </div>
+                                <div class="box-input__error-text photos-error"></div>
+
+                            </div>
+                        </div>
+                    </li>
+                    <li class="accordion__item">
+                        <div class="accordion__title-block" id="Cost">
+                            <div class="accordion__title-content">
+                                <h4 class="accordion__title">Стоимость</h4>
+                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                            </div>
+                            <p class="input-help-text">Введите стоимость экскурсии в белорусских рублях для 1
+                                человека
+                            </p>
+                        </div>
+
+                        <div class="accordion__text-block">
+
+
+                            <div class="input-wrap">
+                                <h4 class="box-input__title">Взрослый</h4>
+                                <div class="box-input">
+                                    <input type="number" name="adultCost" placeholder=" " value="150">
+                                    <label>Введите стоимость</label>
+                                    <div class="box-input__error-text adultCost-error"></div>
+                                </div>
+                            </div>
+
+                            <div class="input-wrap">
+                                <h4 class="box-input__title">Детский</h4>
+                                <div class="box-input">
+                                    <input type="number" name="childCost" placeholder=" ">
+                                    <label>Введите стоимость</label>
+                                    <p class="input-help-text">Можно не заполнять, если не предусмотрено </p>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+                <!-- </div> -->
+
+                <input type="submit" class="btn" value="Создать">
+
+            </form>
+
+            <div class="soderj_wrapper second-container-part">
+                <ol class="soderj">
+                    <a href="#allInfo" onclick="scrollToBlock">Общая информация</a>
+                    <!-- <a href="#allInfo" onclick="scrollToBlock">Маршрут</li> -->
+                    <a href="#timeTable" onclick="scrollToBlock">Расписание</li>
+                    <a href="#Photos" onclick="scrollToBlock">Фотографии</li>
+                    <a href="#Cost" onclick="scrollToBlock">Стоимость</li>
+                    <!-- <a href="#extraInfo" onclick="scrollToBlock">Дополнительно</li> -->
+                </ol>
+                
+            </div>
+
+        </div>
+
+        <script>
+            let
+                addTimeBtn = document.querySelector("#add-time-btn"),
+                timeInput = document.getElementById("time"),
+                timeError = document.querySelector("#time-error"),
+                fileInput = document.querySelector(".input__file");
+
+            let date = new Date();
+            const options = { weekday: 'long' };
+
+            let curr = new Date;
+            let first = curr.getDate() - curr.getDay();
+            let dayOfWeek = [];
+
+            let firstday = (new Date(curr.setDate(first + 1))).toString();
+
+            for (let i = 1; i < 8; i++) {
+                let next = first + i;
+                let nextday = (new Date(curr.setDate(next))).toLocaleString('ru-RU', options);
+
+                document.getElementById("weekdays").innerHTML +=
+                    `<div class="radio-input">
+                <input type="checkbox" name="dayNumber" id="weekday-${i}" value="${i}" >
+                    <label for="weekday-${i}">
+                        ${nextday}
+                    </label>
+            </div>`;
+            }
+
+            let startTimes = [], timeTags = [], i = 0;
+
+            addTimeBtn.addEventListener('click', () => {
+
+                if (timeInput.value) {
+
+                    if (startTimes.length >= 3) {
+                        timeError.innerHTML = "Максимально допустимое количество: 3";
+                        timeInput.value = " ";
+                    }
+                    else {
+                        if (startTimes.includes(timeInput.value)) {
+                            timeError.innerHTML = "Время начала экскурсий не должно повторяться";
+                        }
+                        else {
+                            timeError.innerHTML = "";
+                            let time = timeInput.value;
+
+                            document.getElementById("time-tags").innerHTML += `<div class="tag time-tag" data-index="${i++}">${time}</div>`;
+                            startTimes.push(time);
+
+                            timeTags = document.querySelectorAll(".time-tag");
+                            timeTags.forEach(tag => {
+                                tag.addEventListener('click', () => {
+                                    tag.remove();
+                                    let tagIndex = tag.dataset.index;
+
+                                    startTimes.splice(tagIndex, 1);
+                                });
+                            });
+
+                            timeInput.value = " ";
+
+                        }
+                    }
+                } else {
+                    timeError.innerHTML = "Введите значение";
+                }
+            });
+
+            let k = 0, clear = document.querySelector(".clear-file-input"),
+            photoTags = document.querySelector(".photo-tags");
+
+
+            let input = document.querySelector('input[type="file"]');
+            const preview = document.querySelector('.preview');
+            const button = document.querySelector('button');
+            const fileList = [];
+            input.addEventListener('change', onChange);
+
+            function onChange(e) {
+                photoTags.style.visibility = 'visible';
+                [...input.files].forEach(file => {
+                    const reader = new FileReader;
+                    reader.addEventListener('loadend', () => {
+                        const item = document.createElement('div');
+                        item.classList.add('tag');
+                        item.innerText = file.name;
+                        item.setAttribute('data-index', k++);
+                        const image = new Image;
+                        image.src = `data:${file.type};base64,${btoa(reader.result)}`;
+                        item.appendChild(image);
+                        preview.appendChild(item);
+
+                    });
+                    reader.readAsBinaryString(file);
+
+                });
+            }
+
+            clear.addEventListener('click', () => {
+                input.value = "";
+                preview.innerHTML = "";
+                // console.log(input.files);
+            });
+
+        </script>
+        <script src="/Public/js/accordion.js"></script>
+        <script src="/public/js/createExcursion.js"></script>
