@@ -18,11 +18,12 @@
     <div class="status"></div>
 
         <div class="container two-part-container">
-            
-            <form onsubmit="CreateExcursionSubmit(event)" class="first-container-part">
+
+            <form onsubmit="EditExcursionSubmit(event)" class="first-container-part">
                 <!-- <input type="number" name="guideId" hidden value="<%= user %>"> -->
+                 <input type="number" name="id" hidden value="<%= excursion.excursionData.id %>">
                 <h2>Редактирование экскурсии</h2>
-                
+
 
                 <!-- <div class="accordion__wrap"> -->
                 <ul class="accordion__list">
@@ -37,7 +38,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Название экскурсии</h4>
                                 <div class="box-input">
-                                    <input type="text" name="name" placeholder=" " value="">
+                                    <input type="text" name="name" placeholder=" " value="<%= excursion.excursionData.name %>">
                                     <label>Название экскурсии</label>
                                     <div class="box-input__error-text name-error"></div>
                                     <p class="input-help-text">Развёрнутое название</p>
@@ -47,7 +48,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Описание экскурсии</h4>
                                 <div class="box-input">
-                                    <textarea name="description" placeholder=" "></textarea>
+                                    <textarea name="description" placeholder=" "><%= excursion.excursionData.description %></textarea>
                                     <label>Описание экскурсии</label>
                                     <div class="box-input__error-text description-error"></div>
                                     <p class="input-help-text">Что увидят и узнают путешественники в рамках
@@ -60,7 +61,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Дополнительная информация</h4>
                                 <div class="box-input">
-                                    <textarea name="extraInfo" placeholder=" "></textarea>
+                                    <textarea name="extraInfo" placeholder=" "><%= excursion.excursionData.extraInfo %></textarea>
                                     <label>Дополнительная информация</label>
                                     <p class="input-help-text">Что ещё взять с собой?</p>
                                 </div>
@@ -69,7 +70,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Место начала экскурсии</h4>
                                 <div class="box-input">
-                                    <input type="text" name="startLocation" placeholder=" " value="ЖД Вокзал">
+                                    <input type="text" name="startLocation" placeholder=" " value="<%= excursion.excursionData.startLocation %>">
                                     <label>Место встречи</label>
                                     <div class="box-input__error-text startLocation-error"></div>
                                     <p class="input-help-text">Укажите конкретный адрес или общеизвестное место.
@@ -80,7 +81,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Место окончания экскурсии</h4>
                                 <div class="box-input">
-                                    <input type="text" name="endLocation" placeholder=" " value="пл. Свободы 2а (Ратуша), у скульптуры ВОЙТ">
+                                    <input type="text" name="endLocation" placeholder=" " value="<%= excursion.excursionData.endLocation %>">
                                     <label>Место окончания</label>
                                     <div class="box-input__error-text endLocation-error"></div>
                                     <p class="input-help-text">Укажите конкретный адрес или общеизвестное место.
@@ -91,7 +92,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Длительность экскурсии</h4>
                                 <div class="box-input">
-                                    <input type="number" name="duration" placeholder=" " value="">
+                                    <input type="number" name="duration" placeholder=" " value="<%= excursion.excursionData.duration %>">
                                     <label>Длительность экскурсии</label>
                                     <div class="box-input__error-text duration-error"></div>
                                     <p class="input-help-text">Введите длительность экскурсии в часах</p>
@@ -103,40 +104,73 @@
                                 <div class="input-wrap">
                                     <h4 class="box-input__title">Формат</h4>
                                     <% data.formats.forEach(item=> { %>
-                                        <div class="radio-input">
-                                            <input type="radio" name="formatId" id="format-<%= item.id; %>"
-                                                value="<%= item.id; %>" >
-                                            <label for="format-<%= item.id; %>">
-                                                <%= item.name; %>
-                                            </label>
-                                            <div class="box-input__error-text formatId-error"></div>
-                                        </div>
-                                        <% }); %>
+                                        <%if (excursion.excursionData.formatId === item.id){%>
+                                            <div class="radio-input">
+                                                <input type="radio" name="formatId" id="format-<%= item.id; %>"
+                                                       value="<%= item.id; %>" checked>
+                                                <label for="format-<%= item.id; %>">
+                                                    <%= item.name; %>
+                                                </label>
+                                                <div class="box-input__error-text formatId-error"></div>
+                                            </div>
+                                        <%} else {%>
+                                            <div class="radio-input">
+                                                <input type="radio" name="formatId" id="format-<%= item.id; %>"
+                                                       value="<%= item.id; %>">
+                                                <label for="format-<%= item.id; %>">
+                                                    <%= item.name; %>
+                                                </label>
+                                                <div class="box-input__error-text formatId-error"></div>
+                                            </div>
+                                        <%}%>
+                                    <% }); %>
                                 </div>
                                 <div class="input-wrap">
                                     <h4 class="box-input__title">Тип</h4>
                                     <% data.types.forEach(item=> { %>
+
+                                    <%if (excursion.excursionData.typeId === item.id){%>
                                         <div class="radio-input">
                                             <input type="radio" name="typeId" id="type-<%= item.id; %>"
-                                                value="<%= item.id; %>" >
+                                                   value="<%= item.id; %>" checked>
                                             <label for="type-<%= item.id; %>">
                                                 <%= item.name; %>
                                             </label>
                                             <div class="box-input__error-text typeId-error"></div>
                                         </div>
+                                    <%} else {%>
+                                        <div class="radio-input">
+                                            <input type="radio" name="typeId" id="type-<%= item.id; %>"
+                                                   value="<%= item.id; %>" >
+                                            <label for="type-<%= item.id; %>">
+                                                <%= item.name; %>
+                                            </label>
+                                            <div class="box-input__error-text typeId-error"></div>
+                                        </div>
+                                    <%}%>
                                         <% }); %>
                                 </div>
                                 <div class="input-block-wrap">
                                     <h4 class="box-input__title">Тема</h4>
                                     <div class="many-inputs__wrap">
                                         <% data.themes.forEach(item=> { %>
+                                            <%if (themes.includes(item.id)){%>
                                             <div class="radio-input">
                                                 <input type="checkbox" name="themes" id="theme-<%= item.id; %>"
-                                                    value="<%= item.id; %>" >
+                                                       value="<%= item.id; %>" checked>
                                                 <label for="theme-<%= item.id; %>">
                                                     <%= item.name; %>
                                                 </label>
                                             </div>
+                                            <%} else {%>
+                                                <div class="radio-input">
+                                                    <input type="checkbox" name="themes" id="theme-<%= item.id; %>"
+                                                           value="<%= item.id; %>" >
+                                                    <label for="theme-<%= item.id; %>">
+                                                        <%= item.name; %>
+                                                    </label>
+                                                </div>
+                                            <%}%>
                                             <% }); %>
                                                 <div class="box-input__error-text themes-error"></div>
                                     </div>
@@ -160,6 +194,19 @@
                             <div class="input-block-wrap">
                                 <h4 class="box-input__title">Дни недели</h4>
                                 <div class="many-inputs__wrap" id="weekdays">
+                                    <%for(let i = 1; i < 8; i++){%>
+                                    <%if (excursionDaysWeek.includes(i)){%>
+                                    <div class="radio-input">
+                                        <input type="checkbox" name="dayNumber" id="weekday-<%=i%>" value="<%=i%>" checked>
+                                        <label for="weekday-<%=i%>"><%=daysWeek[i]%></label>
+                                    </div>
+                                    <%} else {%>
+                                    <div class="radio-input">
+                                        <input type="checkbox" name="dayNumber" id="weekday-<%=i%>" value="<%=i%>" >
+                                        <label for="weekday-<%=i%>"><%=daysWeek[i]%></label>
+                                    </div>
+                                    <%}%>
+                                    <%}%>
                                 </div>
                                 <div class="box-input__error-text dayNumber-error"></div>
                             </div>
@@ -168,12 +215,15 @@
                                 <h4 class="box-input__title">Время начала экскурсий</h4>
 
                                 <div class="box-input">
-                                    <input type="time" name="startTimes" value="10:00" id="time" step="300">
+                                    <input type="time" value="10:00" id="time" step="300">
                                     <!-- 5 минут-->
                                     <div class="box-input__error-text startTimes-error" id="time-error"></div>
                                     <div class="tags-wrap">
                                         <p>Выбрано:</p>
                                         <div class="tags" id="time-tags">
+                                            <% excursion.startTimesData.forEach(item=> { %>
+                                                <div class="tag time-tag" data-exindex="<%=item.id%>"><%=item.time.slice(0,5)%></div>
+                                            <% }); %>
                                         </div>
                                     </div>
 
@@ -212,9 +262,16 @@
                                     Выбрать изображение
                                 </label>
 
-                                <div class="tags-wrap photo-tags">
+                                <div class="tags-wrap photo-tags" style="visibility: visible">
                                     <p>Выбрано:</p>
-                                    <div class="preview"></div>
+                                    <div class="preview">
+                                        <% excursion.imagesExcursionsData.forEach(item=> { %>
+                                            <div class="photo-tag" data-exindex="<%=item.id%>">
+                                                <%=item.imgSRC.slice(item.imgSRC.lastIndexOf('/')+1)%>
+                                                <img src="<%=item.imgSRC%>">
+                                            </div>
+                                        <% }); %>
+                                    </div>
                                     <div class="btn secondary-btn clear-file-input">Очистить выбор</div>
                                 </div>
                                 <div class="box-input__error-text photos-error"></div>
@@ -239,7 +296,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Взрослый</h4>
                                 <div class="box-input">
-                                    <input type="number" name="adultCost" placeholder=" " value="150">
+                                    <input type="number" name="adultCost" placeholder=" " value="<%= excursion.excursionData.adultCost %>">
                                     <label>Введите стоимость</label>
                                     <div class="box-input__error-text adultCost-error"></div>
                                 </div>
@@ -248,7 +305,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Детский</h4>
                                 <div class="box-input">
-                                    <input type="number" name="childCost" placeholder=" ">
+                                    <input type="number" name="childCost" placeholder=" " value="<%= excursion.excursionData.childCost %>">
                                     <label>Введите стоимость</label>
                                     <p class="input-help-text">Можно не заполнять, если не предусмотрено </p>
                                 </div>
@@ -266,12 +323,12 @@
                 <ol class="soderj">
                     <a href="#allInfo" onclick="scrollToBlock">Общая информация</a>
                     <!-- <a href="#allInfo" onclick="scrollToBlock">Маршрут</li> -->
-                    <a href="#timeTable" onclick="scrollToBlock">Расписание</li>
-                    <a href="#Photos" onclick="scrollToBlock">Фотографии</li>
-                    <a href="#Cost" onclick="scrollToBlock">Стоимость</li>
+                    <a href="#timeTable" onclick="scrollToBlock">Расписание</a>
+                    <a href="#Photos" onclick="scrollToBlock">Фотографии</a>
+                    <a href="#Cost" onclick="scrollToBlock">Стоимость</a>
                     <!-- <a href="#extraInfo" onclick="scrollToBlock">Дополнительно</li> -->
                 </ol>
-                
+
             </div>
 
         </div>
@@ -282,6 +339,23 @@
                 timeInput = document.getElementById("time"),
                 timeError = document.querySelector("#time-error"),
                 fileInput = document.querySelector(".input__file");
+            let deletedStartTime = [], deletedPhotos = [];
+            let startTimes = [], timeTags = [], i = 0;
+
+            timeTags = document.querySelectorAll(".time-tag");
+            timeTags.forEach(tag => {
+                tag.addEventListener('click', () => {
+                    tag.remove();
+                    if(tag.dataset.exindex){
+                        deletedStartTime.push(tag.dataset.exindex);
+                    }
+                    else{
+                        let tagIndex = tag.dataset.index;
+
+                        startTimes.splice(tagIndex, 1);
+                    }
+                });
+            });
 
             let date = new Date();
             const options = { weekday: 'long' };
@@ -290,22 +364,21 @@
             let first = curr.getDate() - curr.getDay();
             let dayOfWeek = [];
 
-            let firstday = (new Date(curr.setDate(first + 1))).toString();
+            // let firstday = (new Date(curr.setDate(first + 1))).toString();
 
-            for (let i = 1; i < 8; i++) {
-                let next = first + i;
-                let nextday = (new Date(curr.setDate(next))).toLocaleString('ru-RU', options);
+            // for (let i = 1; i < 8; i++) {
+            //     let next = first + i;
+            //     let nextday = (new Date(curr.setDate(next))).toLocaleString('ru-RU', options);
+            //
+            //     document.getElementById("weekdays").innerHTML +=
+            //         `<div class="radio-input">
+            //     <input type="checkbox" name="dayNumber" id="weekday-${i}" value="${i}" >
+            //         <label for="weekday-${i}">
+            //             ${nextday}
+            //         </label>
+            // </div>`;
+            // }
 
-                document.getElementById("weekdays").innerHTML +=
-                    `<div class="radio-input">
-                <input type="checkbox" name="dayNumber" id="weekday-${i}" value="${i}" >
-                    <label for="weekday-${i}">
-                        ${nextday}
-                    </label>
-            </div>`;
-            }
-
-            let startTimes = [], timeTags = [], i = 0;
 
             addTimeBtn.addEventListener('click', () => {
 
@@ -330,9 +403,14 @@
                             timeTags.forEach(tag => {
                                 tag.addEventListener('click', () => {
                                     tag.remove();
-                                    let tagIndex = tag.dataset.index;
+                                    if(tag.dataset.exindex){
+                                        deletedStartTime.push(tag.dataset.exindex);
+                                    }
+                                    else{
+                                        let tagIndex = tag.dataset.index;
 
-                                    startTimes.splice(tagIndex, 1);
+                                        startTimes.splice(tagIndex, 1);
+                                    }
                                 });
                             });
 
@@ -356,19 +434,22 @@
             input.addEventListener('change', onChange);
 
             function onChange(e) {
+                document.querySelectorAll('.photo-tag[data-exindex]').forEach(el => {
+                    el.remove();
+                    deletedPhotos.push(el.dataset.exindex);
+                })
                 photoTags.style.visibility = 'visible';
                 [...input.files].forEach(file => {
                     const reader = new FileReader;
                     reader.addEventListener('loadend', () => {
                         const item = document.createElement('div');
-                        item.classList.add('tag');
+                        item.classList.add('photo-tag');
                         item.innerText = file.name;
                         item.setAttribute('data-index', k++);
                         const image = new Image;
                         image.src = `data:${file.type};base64,${btoa(reader.result)}`;
                         item.appendChild(image);
                         preview.appendChild(item);
-
                     });
                     reader.readAsBinaryString(file);
 
@@ -377,10 +458,11 @@
 
             clear.addEventListener('click', () => {
                 input.value = "";
+                document.querySelectorAll('.photo-tag[data-exindex]').forEach(el => deletedPhotos.push(el.dataset.exindex))
                 preview.innerHTML = "";
                 // console.log(input.files);
             });
 
         </script>
         <script src="/Public/js/accordion.js"></script>
-        <script src="/public/js/createExcursion.js"></script>
+        <script src="/public/js/editExcursion.js"></script>

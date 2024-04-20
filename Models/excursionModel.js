@@ -83,8 +83,8 @@ class ExcursionModel {
         await ThemeExcursions.destroy({ where: { excursionId: id } });
         await DaysExcursions.destroy({ where: { excursionId: id } });
         await StartTimes.destroy({ where: { excursionId: id } });
-        
-        //Reviews 
+
+        //Reviews
         return await Excursions.destroy({ where: { id } });
     }
 
@@ -249,6 +249,94 @@ class ExcursionModel {
         return await Formats.findAll();
     }
 
+    async update(body, files){
+        await ThemeExcursions.destroy({where:{excursionId: +body.id}});
+        await DaysExcursions.destroy({where:{excursionId: +body.id}});
+
+        if (Array.isArray(body.themes)) {
+            await body.themes.forEach(theme => {
+                ThemeExcursions.create({ themeId: theme, excursionId: +body.id });
+            });
+        } else {
+            ThemeExcursions.create({ themeId: body.themes, excursionId: +body.id });
+        }
+
+        if (Array.isArray(body.dayNumber)) {
+            await body.dayNumber.forEach(day => {
+                DaysExcursions.create({ dayNumber: day, excursionId: +body.id });
+            });
+        } else {
+            DaysExcursions.create({ dayNumber: body.dayNumber, excursionId: +body.id });
+        }
+
+        if (body.deletedStartTime && !Array.isArray(body.deletedStartTime)) {
+            body.deletedStartTime = [body.deletedStartTime];
+        }
+        else if (!body.deletedStartTime){
+            body.deletedStartTime = [];
+        }
+
+        if (body.deletedStartTime.length != 0 && (body?.startTimes?.length ?? 0 - body.deletedStartTime.length ?? 0) >= 0){
+            for (const time of body.deletedStartTime) {
+                await StartTimes.destroy({where:{id: +time}})
+            }
+
+            if (Array.isArray(body.startTimes)) {
+                await body.startTimes.forEach(time => {
+                    StartTimes.create({ time: time, excursionId: +body.id });
+                });
+            } else if (body.startTimes){
+                StartTimes.create({ time: body.startTimes, excursionId: +body.id });
+            }
+        }
+        else if(((await StartTimes.findAll({where:{excursionId: +body.id}})).length == 0 || body.deletedStartTime.length != 0) && (body?.startTimes?.length ?? 0 - body.deletedStartTime.length ?? 0) < 0){
+            return {
+                errors: [{ type: 'field', value: '', msg: 'Заполните поле', path: 'startTimes', location: 'body' }]
+            };
+        }
+        else if (body?.startTimes?.length ?? 0 > 0) {
+            if (Array.isArray(body.startTimes)) {
+                await body.startTimes.forEach(time => {
+                    StartTimes.create({ time: time, excursionId: +body.id });
+                });
+            } else if (body.startTimes){
+                StartTimes.create({ time: body.startTimes, excursionId: +body.id });
+            }
+        }
+
+
+        if (body.deletedPhotos && !Array.isArray(body.deletedPhotos)) {
+            body.deletedPhotos = [body.deletedPhotos];
+        }
+        else if (!body.deletedPhotos){
+            body.deletedPhotos = [];
+        }
+
+        if (body.deletedPhotos.length != 0 && (files?.photos?.length ?? 0 - body.deletedPhotos.length ?? 0) >= 0) {
+            for (const photo of body.deletedPhotos) {
+                await ImagesExcursions.destroy({where:{id: +photo}})
+            }
+
+            if (Array.isArray(files.photos)) {
+                await files.photos.forEach(file => {
+                    let rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
+                    ImagesExcursions.create({ imgSRC: '/public/guideImages/' + rand + file.name, excursionId: body.id });
+                    file.mv('public/guideImages/' + rand + file.name);
+                });
+            }
+        }
+        else if(((await ImagesExcursions.findAll({where:{excursionId: +body.id}})).length == 0 || body.deletedPhotos.length != 0) && (files?.photos?.length ?? 0 - body.deletedPhotos.length ?? 0) < 0){
+            return {
+                errors: [{ type: 'field', value: '', msg: 'Выберите 4 или более изображений', path: 'photos', location: 'body' }]
+            };
+        }
+
+        return await Excursions.update(body, {
+            where:{
+                id: body.id
+            }
+        })
+    }
 
 }
 

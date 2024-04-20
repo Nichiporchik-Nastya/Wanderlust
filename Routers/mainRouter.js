@@ -61,10 +61,42 @@ router.get('/excursions/create', middlewareController.checkSession, middlewareCo
   res.render('guidePages/createExcursionPage', { data: excursionStructure, user: req.session.user.id  }); //, guideId: req.session.user.id
 });
 
-router.get('/excursions/edit/:id', middlewareController.checkSession, middlewareController.checkGuide, async (req, res) => {
+router.get('/excursions/edit/:id', async (req, res) => {
   let excursionStructure = await excursionModel.getStructure();
-  res.render('guidePages/editExcursionPage', { data: excursionStructure, user: req.session.user.id  }); 
+  let excursion = await excursionModel.get(+req.params?.id);
+  let themes = excursion.themesData.map(el => el.themeId);
+  const daysWeek = {
+      1: "понедельник",
+      2: "вторник",
+      3: "среда",
+      4: "четверг",
+      5: "пятница",
+      6: "суббота",
+      7: "воскресенье",
+  }
+  let excursionDaysWeek = excursion.daysExcursionsData.map(el => el.dayNumber);
+  res.render('guidePages/editExcursionPage', {
+      data: excursionStructure, user: 1,
+      excursion: excursion, themes: themes,
+      daysWeek: daysWeek, excursionDaysWeek: excursionDaysWeek,
+  });
 });
+
+router.post('/api/excursions/edit',
+    [
+        body('name').not().isEmpty().withMessage('Заполните поле'),
+        body('description').not().isEmpty().withMessage('Заполните поле'),
+        body('description').isLength({ max: 800 }).withMessage('Максимальное количество символов: 800'),
+        body('duration').not().isEmpty().withMessage('Заполните поле'),
+        body('duration').isLength({ min: 1, max: 12 }).withMessage('Длительность экскурсии должна быть в пределах от 1 до 12'),
+        body('adultCost').not().isEmpty().withMessage('Заполните поле'),
+        body('formatId').not().isEmpty().withMessage('Заполните поле'),
+        body('typeId').not().isEmpty().withMessage('Заполните поле'),
+        body('themes').not().isEmpty().withMessage('Выберите одно или несколько значений'),
+        body('dayNumber').not().isEmpty().withMessage('Выберите одно или несколько значений'),
+        body('startLocation').not().isEmpty().withMessage('Заполните поле'),
+        body('endLocation').not().isEmpty().withMessage('Заполните поле'),
+    ], controller.editExcursion);
 
 router.get('/excursions/show/:id', controller.showExcursion);
 

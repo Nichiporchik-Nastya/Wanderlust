@@ -99,7 +99,7 @@ class mainController {
             // else {
 
                 let result = await ExcursionModel.delete(req.body.id);
-                
+
                 res.status(200).json(result);
             // }
 
@@ -178,6 +178,25 @@ class mainController {
             console.log(e);
         }
     }
+
+    async editExcursion(req, res) {
+        try {
+            let errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+            else if ((!req.files?.photos || !Array.isArray(req.files?.photos) || req.files?.photos.lenght < 4) && req.body?.deletedPhotos?.length == 0) {
+                errors = [{ type: 'field', value: '', msg: 'Выберите 4 или более изображений', path: 'photos', location: 'body' }];
+                return res.status(400).json({ errors: errors });
+            }
+            let result = await ExcursionModel.update(req.body, req.files);
+            res.status(200).json(result);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+
 }
 
 module.exports = new mainController();
