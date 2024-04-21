@@ -41,15 +41,13 @@ router.post('/api/excursions/create',
     body('description').not().isEmpty().withMessage('Заполните поле'),
     body('description').isLength({ max: 800 }).withMessage('Максимальное количество символов: 800'),
     body('duration').not().isEmpty().withMessage('Заполните поле'),
-    body('duration').isLength({ min: 1, max: 12 }).withMessage('Длительность экскурсии должна быть в пределах от 1 до 12'),
+    body('duration').isLength({ min: 0.5, max: 12 }).withMessage('Длительность экскурсии должна быть в пределах от 0,5 до 12'),
     body('adultCost').not().isEmpty().withMessage('Заполните поле'),
     body('formatId').not().isEmpty().withMessage('Заполните поле'),
     body('typeId').not().isEmpty().withMessage('Заполните поле'),
     body('themes').not().isEmpty().withMessage('Выберите одно или несколько значений'),
     body('dayNumber').not().isEmpty().withMessage('Выберите одно или несколько значений'),
     body('startTimes').not().isEmpty().withMessage('Заполните поле'),
-    body('startLocation').not().isEmpty().withMessage('Заполните поле'),
-    body('endLocation').not().isEmpty().withMessage('Заполните поле'),
   ],
   controller.createExcursion);
 
@@ -88,14 +86,12 @@ router.post('/api/excursions/edit',
         body('description').not().isEmpty().withMessage('Заполните поле'),
         body('description').isLength({ max: 800 }).withMessage('Максимальное количество символов: 800'),
         body('duration').not().isEmpty().withMessage('Заполните поле'),
-        body('duration').isLength({ min: 1, max: 12 }).withMessage('Длительность экскурсии должна быть в пределах от 1 до 12'),
+        body('duration').isLength({ min: 0.5, max: 12 }).withMessage('Длительность экскурсии должна быть в пределах от 0,5 до 12'),
         body('adultCost').not().isEmpty().withMessage('Заполните поле'),
         body('formatId').not().isEmpty().withMessage('Заполните поле'),
         body('typeId').not().isEmpty().withMessage('Заполните поле'),
         body('themes').not().isEmpty().withMessage('Выберите одно или несколько значений'),
         body('dayNumber').not().isEmpty().withMessage('Выберите одно или несколько значений'),
-        body('startLocation').not().isEmpty().withMessage('Заполните поле'),
-        body('endLocation').not().isEmpty().withMessage('Заполните поле'),
     ], controller.editExcursion);
 
 router.get('/excursions/show/:id', controller.showExcursion);
@@ -120,7 +116,7 @@ router.get('/excursions/searchfilter', controller.searchFilter);
 router.get('/excursions/all', async (req, res) => {
   const data = {};
   let user = req.session?.user ? true : false;
-  console.log(user);
+  // console.log(user);
   data.types = await excursionModel.getAllTypes();
   data.formats = await excursionModel.getAllFormats();
   data.user = user;

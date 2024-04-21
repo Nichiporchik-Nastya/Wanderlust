@@ -11,6 +11,15 @@ async function CreateExcursionSubmit(event) {
             formData.append("photos", file);
         });
 
+        let p = document.querySelector("#photo-input");
+
+        if (formData.get("filesCount")) {
+            formData.delete("filesCount");
+            formData.append("filesCount", preview.childElementCount);
+        } else {
+            formData.append("filesCount", preview.childElementCount);
+        }
+
         if (formData.get("childCost") == "") {
             formData.delete("childCost");
         }
@@ -47,7 +56,7 @@ async function CreateExcursionSubmit(event) {
             document.querySelector(".status").innerHTML = "Экскурсия создана";
             document.querySelector(".status").classList.add("show-status");
             setTimeout(function () { window.location.href = "/guide-dashbord"; }, 2000);
-            
+
         }
     } catch (error) {
         console.log(error);

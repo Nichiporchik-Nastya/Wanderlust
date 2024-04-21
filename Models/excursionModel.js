@@ -231,7 +231,7 @@ class ExcursionModel {
                     model: ImagesExcursions,
                     as: 'images',
                     order: [
-                        ['createdAt', 'ASC']
+                        ['createdAt', 'DESC']
                     ]
                 }
             ],

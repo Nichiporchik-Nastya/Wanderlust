@@ -62,11 +62,13 @@ class mainController {
 
     async createExcursion(req, res) {
         try {
+            console.log(req.body.filesCount);
+            
             let errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
             }
-            else if (!req.files?.photos || !Array.isArray(req.files?.photos) || req.files?.photos.lenght < 4) {
+            else if (!req.files?.photos || !Array.isArray(req.files?.photos) || req.body.filesCount < 4) {
                 errors = [{ type: 'field', value: '', msg: 'Выберите 4 или более изображений', path: 'photos', location: 'body' }];
                 return res.status(400).json({ errors: errors });
             }
@@ -162,6 +164,8 @@ class mainController {
     async searchFilter(req, res){
         try {
             let {str, startCost, endCost, formatId, typeId, sort} = req.query;
+            if(startCost == "") startCost = 0;
+            if(endCost == "") endCost = 1000;
             if (!formatId) {
                 formatId = (await ExcursionModel.getAllFormats()).map(el => el.dataValues.id);
             }

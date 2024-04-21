@@ -17,7 +17,7 @@
         <% } else {%>
             <%- include('./guidePages/partials/header'); %>
            <%  }%>
-        <br><br><br><br><br><br><br><br><br><br><br><br><br>
+        <br><br><br><br><br><br><br>
         <div class="container">
             <h2>Все экскурсии</h2>
 
@@ -34,12 +34,12 @@
                     <div class="input-wrap">
                         <h4 class="box-input__title">Цена</h4>
                         <div class="box-input">
-                            <input type="number" oninput="SubmitSearch()" name="startCost" placeholder=" " value="50">
+                            <input type="number" oninput="SubmitSearch()" name="startCost" placeholder=" " min="0">
                             <label>от</label>
                             <div class="box-input__error-text startCost-error"></div>
                         </div>
                         <div class="box-input">
-                            <input type="number" oninput="SubmitSearch()" name="endCost" placeholder=" " value="200">
+                            <input type="number" oninput="SubmitSearch()" name="endCost" placeholder=" " min="0">
                             <label>до</label>
                             <div class="box-input__error-text endCost-error"></div>
                         </div>
@@ -115,6 +115,8 @@
             const formData = new FormData(form);
             const queryString = new URLSearchParams(formData).toString();
 
+            console.log(queryString);
+
             let response = await fetch(`/excursions/searchfilter?${queryString}`);
 
             let result = await response.json();
@@ -123,17 +125,17 @@
             result.forEach(el => {
                 let days = el.days.map(el=>el.dayNumber);
                 let dayNow = getLocalDay(new Date());
-                el.images = el.images.sort((a, b)=> a.id - b.id);
-                container.innerHTML += `<div class="excursion-card">
-                                            <img class="excursion-card__img" src="${el.images[0].imgSRC}" alt="">
-                                            <h4 class="excursion-card__title">${el.name.slice(0, 50)}...</h4>
+                // el.images = el.images.sort((a, b)=> a.id - b.id);
+                container.innerHTML += `<a href="/excursions/show/${el.id}" class="excursion-card">
+                                            <img class="excursion-card__img" src="${el.images[1].imgSRC}" alt="">
+                                            <h4 class="excursion-card__title">${el.name}</h4>
                                             <h3 class="excursion-card__cost">${el.adultCost} Br</h3>
 
 
                                             <p class="excursion-card__type">${el.type.name}</p>
                                             <p class="excursion-card__format">${el.format.name}</p>
                                             <p class="excursion-card__duration">${el.duration} часа</p>
-                                        </div>`;
+                                        </a>`;
             });
         }
         function getLocalDay(date) {

@@ -82,7 +82,9 @@
                                         <% }); %>
                                 </p>
                             </div>
+                            <% if(data.excursionData.startLocation || data.excursionData.endLocation) {%>
                             <div class=" extreme-points">
+                                <% if(data.excursionData.startLocation) {%>
                                                                             <div class="extreme-points__item">
                                                                                 <h5 class="extreme-points__title">Место
                                                                                     встречи</h5>
@@ -90,7 +92,8 @@
                                                                                     <%= data.excursionData.startLocation
                                                                                         %>
                                                                                 </p>
-                                                                            </div>
+                                                                            </div> <%}%>
+                                                                            <% if(data.excursionData.endLocation) {%>
                                                                             <div class="extreme-points__item">
                                                                                 <h5 class="extreme-points__title">Место
                                                                                     окончания
@@ -99,14 +102,12 @@
                                                                                     <%= data.excursionData.endLocation
                                                                                         %>
                                                                                 </p>
-                                                                            </div>
-
-
+                                                                            </div> <%}%>
                                                                             <!-- <div class="tertiary-btn btn-with-icon">
                                     <img src="/Public/icons/map-pin.svg">
                                     Показать на карте
                                 </div> -->
-                                            </div>
+                                            </div> <%}%>
                                             <div class="excursion-type-block">
                                                 <img src="/Public/icons/group.svg">
                                                 <p class="paragraph">
@@ -491,7 +492,7 @@
                                                 </span>
                                                 <img class="question-icon" src="/Public/icons/Question.svg" alt="">
                                                 <div class="tooltip">
-                                                    <%= data.typeData.description %>>
+                                                    <%= data.typeData.description %>
                                                 </div>
                                             </div>
 

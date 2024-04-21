@@ -56,9 +56,9 @@ async function EditExcursionSubmit(event) {
 
 
         } else {
-            document.querySelector(".status").innerHTML = "Экскурсия создана";
+            document.querySelector(".status").innerHTML = "Экскурсия отредактирована";
             document.querySelector(".status").classList.add("show-status");
-            // setTimeout(function () { window.location.href = "/guide-dashbord"; }, 2000);
+            setTimeout(function () { window.location.href = "/guide-dashbord"; }, 2000);
 
         }
     } catch (error) {

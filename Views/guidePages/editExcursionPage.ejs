@@ -92,7 +92,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Длительность экскурсии</h4>
                                 <div class="box-input">
-                                    <input type="number" name="duration" placeholder=" " value="<%= excursion.excursionData.duration %>">
+                                    <input type="number" name="duration" placeholder=" " min="0.5" max="12" step="0.5" value="<%= excursion.excursionData.duration %>">
                                     <label>Длительность экскурсии</label>
                                     <div class="box-input__error-text duration-error"></div>
                                     <p class="input-help-text">Введите длительность экскурсии в часах</p>
@@ -243,9 +243,7 @@
                                 <h4 class="accordion__title">Фотографии</h4>
                                 <img class="accordion__arrow" src="/Public/icons/arrow.svg">
                             </div>
-                            <p class="input-help-text">Загрузите минимум 4 фотографии основных
-                                достопримечательностей в
-                                высоком качестве. Запрещено использовать фотографии с надписями и водяными знаками
+                            <p class="input-help-text">При загрузке новых фотографий предыдущие будут очищены
                             </p>
                         </div>
 
@@ -296,7 +294,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Взрослый</h4>
                                 <div class="box-input">
-                                    <input type="number" name="adultCost" placeholder=" " value="<%= excursion.excursionData.adultCost %>">
+                                    <input type="number" name="adultCost" min="0" placeholder=" " value="<%= excursion.excursionData.adultCost %>">
                                     <label>Введите стоимость</label>
                                     <div class="box-input__error-text adultCost-error"></div>
                                 </div>
@@ -305,7 +303,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Детский</h4>
                                 <div class="box-input">
-                                    <input type="number" name="childCost" placeholder=" " value="<%= excursion.excursionData.childCost %>">
+                                    <input type="number" name="childCost" placeholder=" " min="0" value="<%= excursion.excursionData.childCost %>">
                                     <label>Введите стоимость</label>
                                     <p class="input-help-text">Можно не заполнять, если не предусмотрено </p>
                                 </div>
@@ -315,7 +313,7 @@
                 </ul>
                 <!-- </div> -->
 
-                <input type="submit" class="btn" value="Создать">
+                <input type="submit" class="btn" value="Редактировать">
 
             </form>
 

@@ -69,7 +69,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Место начала экскурсии</h4>
                                 <div class="box-input">
-                                    <input type="text" name="startLocation" placeholder=" " value="ЖД Вокзал">
+                                    <input type="text" name="startLocation" placeholder=" " value="">
                                     <label>Место встречи</label>
                                     <div class="box-input__error-text startLocation-error"></div>
                                     <p class="input-help-text">Укажите конкретный адрес или общеизвестное место.
@@ -80,7 +80,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Место окончания экскурсии</h4>
                                 <div class="box-input">
-                                    <input type="text" name="endLocation" placeholder=" " value="пл. Свободы 2а (Ратуша), у скульптуры ВОЙТ">
+                                    <input type="text" name="endLocation" placeholder=" " value="">
                                     <label>Место окончания</label>
                                     <div class="box-input__error-text endLocation-error"></div>
                                     <p class="input-help-text">Укажите конкретный адрес или общеизвестное место.
@@ -91,10 +91,10 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Длительность экскурсии</h4>
                                 <div class="box-input">
-                                    <input type="number" name="duration" placeholder=" " value="">
+                                    <input type="number" name="duration" placeholder=" " value="" min="0.5" max="12" step="0.5">
                                     <label>Длительность экскурсии</label>
                                     <div class="box-input__error-text duration-error"></div>
-                                    <p class="input-help-text">Введите длительность экскурсии в часах</p>
+                                    <p class="input-help-text">Введите длительность экскурсии в часах с шагом в 0,5</p>
                                 </div>
                             </div>
 
@@ -109,9 +109,10 @@
                                             <label for="format-<%= item.id; %>">
                                                 <%= item.name; %>
                                             </label>
-                                            <div class="box-input__error-text formatId-error"></div>
+                                            
                                         </div>
                                         <% }); %>
+                                        <div class="box-input__error-text formatId-error"></div>
                                 </div>
                                 <div class="input-wrap">
                                     <h4 class="box-input__title">Тип</h4>
@@ -122,9 +123,10 @@
                                             <label for="type-<%= item.id; %>">
                                                 <%= item.name; %>
                                             </label>
-                                            <div class="box-input__error-text typeId-error"></div>
+                                            
                                         </div>
                                         <% }); %>
+                                        <div class="box-input__error-text typeId-error"></div>
                                 </div>
                                 <div class="input-block-wrap">
                                     <h4 class="box-input__title">Тема</h4>
@@ -206,7 +208,7 @@
                             <div class="input-wrap">
 
                                 <label class="btn secondary-btn btn-with-icon">
-                                    <input name="photos" type="file" hidden class="input__file" multiple
+                                    <input name="photos" id="photo-input" type="file" hidden class="input__file" multiple
                                         accept="image/*" />
                                     <img src="/Public/icons/pic.svg">
                                     Выбрать изображение
@@ -239,7 +241,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Взрослый</h4>
                                 <div class="box-input">
-                                    <input type="number" name="adultCost" placeholder=" " value="150">
+                                    <input type="number" name="adultCost" placeholder=" " value="" min="0">
                                     <label>Введите стоимость</label>
                                     <div class="box-input__error-text adultCost-error"></div>
                                 </div>
@@ -248,7 +250,7 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Детский</h4>
                                 <div class="box-input">
-                                    <input type="number" name="childCost" placeholder=" ">
+                                    <input type="number" name="childCost" placeholder=" " min="0">
                                     <label>Введите стоимость</label>
                                     <p class="input-help-text">Можно не заполнять, если не предусмотрено </p>
                                 </div>

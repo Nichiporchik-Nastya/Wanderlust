@@ -56,11 +56,9 @@ module.exports = {
         type: Sequelize.STRING
       },
       startLocation: {
-        allowNull: false,
         type: Sequelize.STRING
       },
       endLocation: {
-        allowNull: false,
         type: Sequelize.STRING
       },
       createdAt: {
