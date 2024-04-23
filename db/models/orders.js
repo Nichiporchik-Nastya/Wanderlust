@@ -10,7 +10,12 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      // define association here
+      this.hasOne(models.Excursions, {
+        as: 'statuses',
+        foreignKey: 'id',
+        onDelete: 'RESTRICT',
+        onUpdate: 'RESTRICT'
+      });
     }
   }
   Orders.init({
@@ -21,6 +26,7 @@ module.exports = (sequelize, DataTypes) => {
     numberOfAdults: DataTypes.INTEGER,
     numberOfChildren: DataTypes.INTEGER,
     day: DataTypes.DATE,
+    statusId: DataTypes.INTEGER,
     startTimeId: DataTypes.INTEGER,
   }, {
     sequelize,

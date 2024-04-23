@@ -128,6 +128,8 @@ header {
   display: flex;
   flex-direction: column;
   gap: 16px;
+  align-self: end;
+
 }
 
 .social-icons {
@@ -891,7 +893,8 @@ h5 {
 
 .extreme-points {
   display: flex;
-  justify-content: space-between;
+  /* justify-content: space-between; */
+  gap: 20px;
   align-items: flex-start;
 }
 
@@ -1011,6 +1014,7 @@ h5 {
 
 .accessible-day{
   background-color: var(--light-bg);
+  border-radius: var(--radius);
 }
 
 .selected {

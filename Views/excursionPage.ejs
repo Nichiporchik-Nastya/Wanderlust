@@ -26,30 +26,15 @@
                                     src="<%= data.imagesExcursionsData[i].imgSRC %>" alt="">
                                 <% } %>
                         </div>
-                        <div class="container two-part-container">
-                            <h2 class="first-container-part">
-                                <%= data.excursionData.name %>
-                            </h2>
-
-                            <div class="share-block">
-                                <div class="tertiary-btn btn-with-icon share-btn">
-                                    <img src="/Public/icons/share-network.svg">
-                                    Поделиться
-                                </div>
-
-                                <div class="social-icons">
-                                    <div class="ya-share2" data-curtain data-shape="normal"
-                                        data-services="vkontakte,odnoklassniki,telegram,viber" data-copy="extraItem"
-                                        data-title="<%= data.excursionData.name %>"
-                                        data-image="<%= data.imagesExcursionsData[0].imgSRC %>"
-                                        data-description="Вот так экскурсия"
-                                        data-url="/excursions/show/<%= data.excursionData.id %>"></div>
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         <div class="container two-part-container">
                             <div class="first-container-part">
+
+                                <h2 class="first-container-part">
+                                    <%= data.excursionData.name %>
+                                </h2>
+
                                 <div class="accordeon-tabs__wrapper">
                                     <a href="#description" onclick="scrollToBlock()"
                                         class="accordeon-tabs__tab">Описание</a>
@@ -340,6 +325,9 @@
                                 <form class="order-form" id="order-form" onsubmit="OrderSubmit(event)">
                                     <input type="number" hidden name="excursionId" id="excursionId"
                                         value="<%= data.excursionData.id %>">
+
+                                    <input type="number" hidden name="statusId" id="statusId"
+                                        value="1">
                                     <h3>Забронировать экскурсию</h3>
                                     <div style="display: flex; align-items: flex-end; gap: 20px; margin-bottom: 20px;">
                                         <div class="calendar-wrapper">
@@ -362,7 +350,7 @@
                                                 <ul class="days"></ul>
                                             </div>
                                         </div>
-                                        <div>
+                                        <div style="display: flex; flex-direction: column; gap: 8px;">
                                             <div class="calendar-help-block">
                                                 <div class="accessible-day">32</div>
                                                 Доступный для бронирования день
@@ -474,17 +462,32 @@
                                 </form>
                             </div>
                             <div class="second-container-part">
+                                <div class="share-block">
+                                    <div class="tertiary-btn btn-with-icon share-btn">
+                                        <img src="/Public/icons/share-network.svg">
+                                        Поделиться
+                                    </div>
+    
+                                    <div class="social-icons">
+                                        <div class="ya-share2" data-curtain data-shape="normal"
+                                            data-services="vkontakte,odnoklassniki,telegram,viber" data-copy="extraItem"
+                                            data-title="<%= data.excursionData.name %>"
+                                            data-image="<%= data.imagesExcursionsData[0].imgSRC %>"
+                                            data-description="Вот так экскурсия"
+                                            data-url="/excursions/show/<%= data.excursionData.id %>"></div>
+                                    </div>
+                                </div>
                                 <aside class="excursion-extra-info">
                                     <div class="excursion-extra-info__item">
-                                        <div class="excursion-extra-info__group">
-                                            <div class="visitors-number">
+                                        <!-- <div class="excursion-extra-info__group"> -->
+                                            <!-- <div class="visitors-number">
                                                 Посетили: <span>75</span> <span>чел.</span>
                                             </div>
                                             <div class="reviews-number">
                                                 Отзывы: <img src="/Public/icons/Star.svg" alt="">
                                                 <span>4,7</span> <span class="extra-info">(51)</span>
-                                            </div>
-                                        </div>
+                                            </div> -->
+                                        <!-- </div> -->
                                         <div class="excursion-extra-info__group">
                                             <div class="cost">
                                                 <span>
