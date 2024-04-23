@@ -981,7 +981,6 @@ h5 {
 .calendar .days li,
 .accessible-day {
   /* z-index: 1; */
-  cursor: pointer;
   /* position: relative; */
   /* margin-top: 30px; */
   padding: 12px;
@@ -1005,7 +1004,9 @@ h5 {
 }
 
 .days li.active {
-  background: var(--main-green);
+  /* background: var(--main-green); */
+  border: 2px solid var(--main-green);
+  color: #000;
 }
 
 .accessible-day{
@@ -1020,6 +1021,7 @@ h5 {
 
 .isOrderDay:hover {
   background: var(--border-color);
+  cursor: pointer;
 }
 
 .days li.inactive:hover {

@@ -34,7 +34,8 @@ const daysTag = document.querySelector(".days"),
 // getting new date, current year and month
 let date = new Date(),
     currYear = date.getFullYear(),
-    currMonth = date.getMonth();
+    currMonth = date.getMonth(),
+    month = date.getMonth();
 
 // storing full name of all months in array
 const months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль",
@@ -44,7 +45,8 @@ const renderCalendar = (value) => {
     let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(),  //номер дня недели, начиная с 0
         lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(),
         lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(),
-        lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate();
+        lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(),
+        curDate = new Date().getDate();
     let liTag = "";
 
     // console.log(value);
@@ -53,19 +55,23 @@ const renderCalendar = (value) => {
         liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
     }
 
-    let calDate, isOrderDay;
+    let calDate, isOrderDay, i = 1;
 
-    for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
+    if (month === currMonth) {
+        for (i = firstDayofMonth; i < curDate; i++) {
+            liTag += `<li class="inactive">${i}</li>`;
+        }
+        i = curDate;
+    }
 
+    for (i; i <= lastDateofMonth; i++) { // creating li of all days of current month
 
         let isToday = i === date.getDate() && currMonth === new Date().getMonth()
             && currYear === new Date().getFullYear() ? "active" : "";
 
         calDate = new Date(currYear, currMonth, i);
-        // console.log(calDate);
         dayOfWeek = calDate.getDay();
         dayOfWeek++;
-
 
         value.forEach(element => {
             if (dayOfWeek == element.dayNumber) {
@@ -83,18 +89,33 @@ const renderCalendar = (value) => {
     currentDate.innerHTML = `<strong>${months[currMonth]},</strong> ${currYear}`; // passing current mon and yr as currentDate text
     daysTag.innerHTML = liTag;
 }
-// renderCalendar();
+// document.querySelector("#prev").style.opacity = 0.2;
 
-prevNextIcon.forEach(icon => { // getting prev and next icons
-    icon.addEventListener("click", () => { // adding click event on both icons
-        // if clicked icon is previous icon then decrement current month by 1 else increment it by 1
-        currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+prevNextIcon.forEach(icon => {
+    icon.addEventListener("click", () => {
+        // if (icon.id === "next") {
+        //     document.querySelector("#prev").style.opacity = 1;
+        // }
 
-        if (currMonth < 0 || currMonth > 11) { // if current month is less than 0 or greater than 11
-            // creating a new date of current year & month and pass it as date value
+        if (month === currMonth) {
+            // document.querySelector("#prev").style.opacity = 0.2;
+            currMonth = icon.id === "next" ? currMonth + 1 : currMonth;
+        } else {
+            document.querySelector("#prev").style.opacity = 1;
+            if (Math.abs(currMonth - month) < 3) {
+                currMonth = icon.id === "prev" ? currMonth - 1 : currMonth + 1;
+            } else {
+                currMonth = icon.id === "prev" ? currMonth - 1 : currMonth;
+            }
+
+        }
+
+
+        if (currMonth < 0 || currMonth > 11) {
+
             date = new Date(currYear, currMonth, new Date().getDate());
-            currYear = date.getFullYear(); // updating current year with new date year
-            currMonth = date.getMonth(); // updating current month with new date month
+            currYear = date.getFullYear();
+            currMonth = date.getMonth();
         } else {
             date = new Date(); // pass the current date as date value
         }
