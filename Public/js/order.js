@@ -4,10 +4,10 @@ async function OrderSubmit(event) {
         let formData = new FormData(event.target);
         let orderDay = document.querySelector(".isOrderDay.selected");
         if (!orderDay) {
-            document.querySelector(`.orderDay-error`).innerText = "Выберите один из доступных дней";
-        }
-        formData.append('day', orderDay.dataset.caldate);
-        
+            document.querySelector(`.day-error`).innerText = "Выберите один из доступных дней";
+        } else
+            formData.append('day', orderDay.dataset.caldate);
+
         // formData.append("adultCost", Number(clientCountCounts[0].innerText));
 
 

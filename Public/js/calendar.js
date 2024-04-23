@@ -110,6 +110,7 @@ const canSelectday = () => {
     let daysLi = document.querySelectorAll(".isOrderDay");
     daysLi.forEach(element => {
         element.addEventListener("click", () => {
+            console.log(element.innerText);
             daysLi.forEach(element => {
                 element.classList.remove("selected");
             });

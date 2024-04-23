@@ -103,7 +103,7 @@ router.post('/api/excursions/order',
     body('clientPhone').not().isEmpty().withMessage('Заполните поле'),
     body('clientEmail').isEmail().withMessage('Введите корректный адрес электронной почты'),
     body('clientPhone').isMobilePhone().withMessage('Введите корректный номер телефона'),
-    body('day').not().isEmpty().isNumeric().withMessage('Выберите день недели'),
+    body('day').not().isEmpty().withMessage('Выберите день'),
     body('startTimeId').not().isEmpty().isNumeric().withMessage('Выберите время начала'),
   ],
   controller.orderExcursion);
