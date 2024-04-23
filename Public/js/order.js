@@ -2,7 +2,12 @@ async function OrderSubmit(event) {
     try {
         event.preventDefault();
         let formData = new FormData(event.target);
-        formData.append('day', '1');
+        let orderDay = document.querySelector(".isOrderDay.selected");
+        if (!orderDay) {
+            document.querySelector(`.orderDay-error`).innerText = "Выберите один из доступных дней";
+        }
+        formData.append('day', orderDay.dataset.caldate);
+        
         // formData.append("adultCost", Number(clientCountCounts[0].innerText));
 
 

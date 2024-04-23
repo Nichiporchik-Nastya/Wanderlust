@@ -918,6 +918,10 @@ h5 {
   padding: 20px 0 0;
 }
 
+.isOrderDay{
+  background-color: var(--light-bg);
+}
+
 .calendar-top {
   display: flex;
   justify-content: space-between;
@@ -1004,13 +1008,17 @@ h5 {
   background: var(--main-green);
 }
 
+.accessible-day{
+  background-color: var(--light-bg);
+}
+
 .selected {
   background: var(--light-green);
   width: fit-content;
   border-radius: var(--radius);
 }
 
-.days li:not(.active):hover {
+.isOrderDay:hover {
   background: var(--border-color);
 }
 

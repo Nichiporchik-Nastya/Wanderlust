@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       this.hasOne(models.Excursions, {
         as: 'excursion',
-        foreignKey: 'typeId',
+        foreignKey: 'id',
         onDelete: 'RESTRICT',
         onUpdate: 'RESTRICT'
       });

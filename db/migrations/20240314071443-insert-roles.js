@@ -1,5 +1,5 @@
 'use strict';
-/** @type {import('sequelize-cli').Migration} */ // это js doc нотация, нет типизации по умолчанию, так как это обычный js файл и эта директива добавляет типизацию
+/** @type {import('sequelize-cli').Migration} */ 
 module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.bulkInsert('Roles', [
@@ -11,3 +11,4 @@ module.exports = {
     await queryInterface.bulkDelete('Roles', null, {});
   }
 };
+

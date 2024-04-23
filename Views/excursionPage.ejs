@@ -84,39 +84,48 @@
                             </div>
                             <% if(data.excursionData.startLocation || data.excursionData.endLocation) {%>
                             <div class=" extreme-points">
-                                <% if(data.excursionData.startLocation) {%>
-                                                                            <div class="extreme-points__item">
-                                                                                <h5 class="extreme-points__title">Место
-                                                                                    встречи</h5>
-                                                                                <p class="extreme-points__text">
-                                                                                    <%= data.excursionData.startLocation
-                                                                                        %>
-                                                                                </p>
-                                                                            </div> <%}%>
-                                                                            <% if(data.excursionData.endLocation) {%>
-                                                                            <div class="extreme-points__item">
-                                                                                <h5 class="extreme-points__title">Место
-                                                                                    окончания
-                                                                                </h5>
-                                                                                <p class="extreme-points__text">
-                                                                                    <%= data.excursionData.endLocation
-                                                                                        %>
-                                                                                </p>
-                                                                            </div> <%}%>
-                                                                            <!-- <div class="tertiary-btn btn-with-icon">
+                                                                            <% if(data.excursionData.startLocation) {%>
+                                                                                <div class="extreme-points__item">
+                                                                                    <h5 class="extreme-points__title">
+                                                                                        Место
+                                                                                        встречи</h5>
+                                                                                    <p class="extreme-points__text">
+                                                                                        <%= data.excursionData.startLocation
+                                                                                            %>
+                                                                                    </p>
+                                                                                </div>
+                                                                                <%}%>
+                                                                                    <% if(data.excursionData.endLocation)
+                                                                                        {%>
+                                                                                        <div
+                                                                                            class="extreme-points__item">
+                                                                                            <h5
+                                                                                                class="extreme-points__title">
+                                                                                                Место
+                                                                                                окончания
+                                                                                            </h5>
+                                                                                            <p
+                                                                                                class="extreme-points__text">
+                                                                                                <%= data.excursionData.endLocation
+                                                                                                    %>
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <%}%>
+                                                                                            <!-- <div class="tertiary-btn btn-with-icon">
                                     <img src="/Public/icons/map-pin.svg">
                                     Показать на карте
                                 </div> -->
-                                            </div> <%}%>
-                                            <div class="excursion-type-block">
-                                                <img src="/Public/icons/group.svg">
-                                                <p class="paragraph">
-                                                    <strong>
-                                                        <%= data.typeData.name %>
-                                                    </strong> –
-                                                    <%= data.typeData.description %>
-                                                </p>
                                             </div>
+                                            <%}%>
+                                                <div class="excursion-type-block">
+                                                    <img src="/Public/icons/group.svg">
+                                                    <p class="paragraph">
+                                                        <strong>
+                                                            <%= data.typeData.name %>
+                                                        </strong> –
+                                                        <%= data.typeData.description %>
+                                                    </p>
+                                                </div>
                                         </div>
 
                                     </li>
@@ -332,33 +341,40 @@
                                     <input type="number" hidden name="excursionId" id="excursionId"
                                         value="<%= data.excursionData.id %>">
                                     <h3>Забронировать экскурсию</h3>
-                                    <!-- <div style="display: flex; align-items: flex-end; gap: 20px; margin-bottom: 20px;">
-                        <div class="calendar-wrapper">
-                            <h5>Дата бронирования</h5>
-                            <div class="calendar-top">
-                                <span id="prev" class="icons"> </span>
-                                <p class="current-date"></p>
-                                <span id="next" class="icons"> </span>
-                            </div>
-                            <div class="calendar">
-                                <ul class="weeks">
-                                    <li>пн</li>
-                                    <li>вт</li>
-                                    <li>ср</li>
-                                    <li>чт</li>
-                                    <li>пт</li>
-                                    <li style="color: var(--main-green)">сб</li>
-                                    <li style="color: var(--main-green)">вс</li>
-                                </ul>
-                                <ul class="days"></ul>
-                            </div>
-                        </div>
-                        <div class="calendar-help-block">
-                            <div class="accessible-day selected">32</div>
-                            Доступный для бронирования день
-                        </div>
-                    </div> -->
+                                    <div style="display: flex; align-items: flex-end; gap: 20px; margin-bottom: 20px;">
+                                        <div class="calendar-wrapper">
+                                            <h5>Дата бронирования</h5>
+                                            <div class="calendar-top">
+                                                <span id="prev" class="icons"> </span>
+                                                <p class="current-date"></p>
+                                                <span id="next" class="icons"> </span>
+                                            </div>
+                                            <div class="calendar">
+                                                <ul class="weeks">
+                                                    <li>пн</li>
+                                                    <li>вт</li>
+                                                    <li>ср</li>
+                                                    <li>чт</li>
+                                                    <li>пт</li>
+                                                    <li style="color: var(--main-green)">сб</li>
+                                                    <li style="color: var(--main-green)">вс</li>
+                                                </ul>
+                                                <ul class="days"></ul>
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <div class="calendar-help-block">
+                                                <div class="accessible-day">32</div>
+                                                Доступный для бронирования день
+                                            </div>
+                                            <div class="calendar-help-block">
+                                                <div class="accessible-day selected">32</div>
+                                                Выбранный день
+                                            </div>
+                                        </div>
 
+                                    </div>
+                                    <div class="box-input__error-text orderDay-error"></div>
                                     <div style="display: flex; gap: 40px; width: 100%;">
                                         <div style="display: flex; flex-direction: column;
                            gap: 8px; width: 100%;">
@@ -522,6 +538,7 @@
                             </div>
                         </div>
 
+                        <script src="/public/js/calendar.js"></script>
                         <script>
 
 
@@ -606,7 +623,7 @@
 
 
                         <script src="/public/js/anchorScroll.js"></script>
-                        <!-- <script src="/public/js/calendar.js"></script> -->
+
                         <script src="/public/js/accordion.js"></script>
                         <script src="/public/js/slider.js"></script>
                         <script src="https://yastatic.net/share2/share.js"></script>

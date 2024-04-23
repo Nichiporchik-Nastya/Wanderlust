@@ -9,19 +9,20 @@ async function getCalendarDays() {
     });
 
     let result = await response.json();
+
     if (result.errors) {
         console.log(result.errors[0]);
     } else {
         return result;
     }
-    
+
 }
 
 // calendayDaysArr = getCalendarDays().then();
 // console.log(Promise.resolve(calendayDaysArr)[0]);
 
 getCalendarDays().then(value => renderCalendar(value));
-
+getCalendarDays().then(value => canSelectday());
 
 
 
@@ -40,30 +41,49 @@ const months = ["Январь", "Февраль", "Март", "Апрель", "�
     "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
 
 const renderCalendar = (value) => {
-    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(), // getting first day of month
-        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(), // getting last date of month
-        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(), // getting last day of month
-        lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate(); // getting last date of previous month
+    let firstDayofMonth = new Date(currYear, currMonth, 1).getDay(),  //номер дня недели, начиная с 0
+        lastDateofMonth = new Date(currYear, currMonth + 1, 0).getDate(),
+        lastDayofMonth = new Date(currYear, currMonth, lastDateofMonth).getDay(),
+        lastDateofLastMonth = new Date(currYear, currMonth, 0).getDate();
     let liTag = "";
+
+    // console.log(value);
 
     for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
         liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
     }
 
+    let calDate, isOrderDay;
+
     for (let i = 1; i <= lastDateofMonth; i++) { // creating li of all days of current month
-        // adding active class to li if the current day, month, and year matched
+
+
         let isToday = i === date.getDate() && currMonth === new Date().getMonth()
             && currYear === new Date().getFullYear() ? "active" : "";
-        liTag += `<li class="${isToday}">${i}</li>`;
+
+        calDate = new Date(currYear, currMonth, i);
+        // console.log(calDate);
+        dayOfWeek = calDate.getDay();
+        dayOfWeek++;
+
+
+        value.forEach(element => {
+            if (dayOfWeek == element.dayNumber) {
+                isOrderDay = "isOrderDay";
+            }
+        });
+
+        liTag += `<li class="${isToday} ${isOrderDay}" data-caldate="${calDate}">${i}</li>`;
+        isOrderDay = "";
     }
 
     for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
         liTag += `<li class="inactive">${i - lastDayofMonth + 1}</li>`
     }
-    currentDate.innerHTML = `<strong>${months[currMonth]} ${value[2].dayNumber},</strong> ${currYear}`; // passing current mon and yr as currentDate text
+    currentDate.innerHTML = `<strong>${months[currMonth]},</strong> ${currYear}`; // passing current mon and yr as currentDate text
     daysTag.innerHTML = liTag;
 }
-renderCalendar();
+// renderCalendar();
 
 prevNextIcon.forEach(icon => { // getting prev and next icons
     icon.addEventListener("click", () => { // adding click event on both icons
@@ -78,6 +98,27 @@ prevNextIcon.forEach(icon => { // getting prev and next icons
         } else {
             date = new Date(); // pass the current date as date value
         }
-        renderCalendar(); // calling renderCalendar function
+        getCalendarDays().then(value => renderCalendar(value));
+        getCalendarDays().then(value => canSelectday());
+
+        // renderCalendar(); // calling renderCalendar function
     });
 });
+
+const canSelectday = () => {
+
+    let daysLi = document.querySelectorAll(".isOrderDay");
+    daysLi.forEach(element => {
+        element.addEventListener("click", () => {
+            daysLi.forEach(element => {
+                element.classList.remove("selected");
+            });
+            element.classList.add("selected");
+
+        });
+    });
+
+};
+
+
+
