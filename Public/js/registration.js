@@ -3,15 +3,15 @@ async function RegistrationSubmit(event) {
         event.preventDefault();
         let formData = new FormData(event.target);
 
-        let rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)), path;
+        // let rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)), path;
 
-        fileList.forEach(file => {
-            formData.append("photos", file); 
-        });
+        // fileList.forEach(file => {
+        //     formData.append("photos", file); 
+        // });
 
-        path = '/public/guideImages/' + rand + formData.get("photos").name;
+        // path = '/public/guideImages/' + rand + formData.get("photos").name;
 
-        formData.append("imgSRC", path);
+        // formData.append("imgSRC", path);
 
         for (let [key, value] of formData.entries()) {
             console.log(key, value); 
