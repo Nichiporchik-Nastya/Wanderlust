@@ -200,24 +200,24 @@ imgOpenBtns.forEach(imgSlide => {
   });
 });
 
-// closeModalBtn.addEventListener('click', () => {
-//   modalWrapper.classList.remove('modal-open');
-// });
+closeModalBtn.addEventListener('click', () => {
+  modalWrapper.classList.remove('modal-open');
+});
 
-// modalWrapper.addEventListener('click', () => {
-//   modalWrapper.classList.remove('modal-open');
-// });
+modalWrapper.addEventListener('click', () => {
+  modalWrapper.classList.remove('modal-open');
+});
 
-/////////////////**///// */
+///////////////**///// */
 
-// closePart.addEventListener('click', () => {
-//   modalWrapper.classList.remove('modal-open');
-// });
+closePart.addEventListener('click', () => {
+  modalWrapper.classList.remove('modal-open');
+});
 
-// nextPart.addEventListener('click', () => {
-//   curImgIndex++;
-//   modalImg.src = imgs[curImgIndex];
-// });
+nextPart.addEventListener('click', () => {
+  curImgIndex++;
+  modalImg.src = imgs[curImgIndex];
+});
 
-// prevPart.addEventListener('click', () => {
-// });
+prevPart.addEventListener('click', () => {
+});

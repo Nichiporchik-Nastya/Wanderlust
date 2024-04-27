@@ -6,6 +6,7 @@
   --light-bg: #EFF5E9;
   --light-text: #B5B7B4;
   --dark-text: #464646;
+  --black: #171D41;
   --radius: 5px;
 }
 
@@ -91,7 +92,7 @@ header {
 
 .secondary-btn {
   border: 2px solid var(--main-green);
-  color: black;
+  color: var(--black);
   background-color: white;
 }
 
@@ -355,7 +356,7 @@ textarea {
   font-size: 14px;
   top: -24px;
   padding: 6px;
-  color: black
+  color: var(--black);
 }
 
 .box-input__error-text {
@@ -375,7 +376,7 @@ input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
   border: 1px solid var(--border-color);
-  -webkit-text-fill-color: black;
+  -webkit-text-fill-color: var(--black);
   -webkit-box-shadow: 0 0 0px 1000px #fff inset;
   transition: background-color 5000s ease-in-out 0s;
 }
@@ -965,7 +966,7 @@ h5 {
 } */
 
 .calendar li {
-  color: #000;
+  color: var(--black);
   width: calc(100% / 7);
   border-radius: var(--radius);
   /* font-size: 16px; */
@@ -1009,7 +1010,7 @@ h5 {
 .days li.active {
   /* background: var(--main-green); */
   border: 2px solid var(--main-green);
-  color: #000;
+  color: var(--black);
 }
 
 .accessible-day{

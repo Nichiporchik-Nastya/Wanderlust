@@ -16,18 +16,17 @@
                 <a href="/excursions/all">Экскурсии</a>
             </li>
             <li class="nav-nemu__item">
-                <a href="#">Контакты</a>
+                <a href="#">О компании</a>
             </li>
             <li class="nav-nemu__item">
-                <a href="#">Ещё</a>
+                <span id="more">Ещё</span>
                 <img src="/Public/icons/lil-arrow.svg">
             </li>
         </ul>
     </nav>
 
     <div class="btn-block">
-        <a href="tel:+375335070037">+375 (33) 507–00–37</a>
-        <a href="/excursions/all" class="btn secondary-btn">Выбрать экскурию</a>
+        <a href="tel:+375335070037"><span class="extra-info">+375 (33)</span> 507–00–37</a>
     </div>
 
     <div class="search-bar__block">
@@ -42,6 +41,84 @@
         </div>
     </div>
 
+    <div class="menu-more__block">
+        <div class="menu-more__part-wrapper">
+            <h5 class="extra-info h5">
+                Частые вопросы
+            </h5>
+            <div class="menu-more__links">
+                <a href="#" class="menu-more__item">
+                    Как забронировать экскурсию?
+                </a>
+                <a href="#" class="menu-more__item">
+                    Как отменить бронирование?
+                </a>
+                <a href="#" class="menu-more__item">
+                    Как стать гидом?
+                </a>
+                <a href="#" class="menu-more__item">
+                    Как оставить отзыв?
+                </a>
+                <a href="/auth/login" class="link">
+                    Читать все
+                    <img src="/Public/icons/btn-arrow.svg">
+                </a>
+            </div>
+        </div>
+        <div class="vr"> </div>
+        <div class="menu-more__part-wrapper">
+            <h5 class="extra-info h5">
+                Выбор туристов
+            </h5>
+            <div class="menu-more__links">
+                <a href="#" class="menu-more__item">
+                    Популярные экскурсии
+                </a>
+                <a href="#" class="menu-more__item">
+                    Дешёвые экскурсии
+                </a>
+                <div class="hr"></div>
+                <p class="extra-info" style="width: 180px">
+                    Не знаете, что выбрать? Сервис предложит вам лучший вариант!
+                </p>
+                <a href="#" class="btn">Случайный маршрут</a>
+            </div>
+        </div>
+        <div class="vr"> </div>
+        <div class="menu-more__part-wrapper" style="display: flex; flex-direction: column; gap: 16px;">
+            <div>
+                <h5 class="extra-info h5">
+                    Опытные экскурсоводы
+                </h5>
+                <div class="menu-more__links">
+                    <div class="guides-imgs__wrapper">
+                        <img src="/Public/guideImages/guide1.jpg" alt="" class="guides-imgs__img">
+                        <img src="/Public/guideImages/image 2185.png" alt="" class="guides-imgs__img">
+                        <img src="/Public/guideImages/image 510.png" alt="" class="guides-imgs__img">
+                        <img src="/Public/guideImages/image 511.png" alt="" class="guides-imgs__img">
+                        <img src="/Public/guideImages/image 512.png" alt="" class="guides-imgs__img">
+                    </div>
+                    <div style="display: flex; gap: 20px;">
+                        <p class="extra-info" style="width: 190px;">
+                            Ещё больше маршрутов от наших гидов
+                        </p>
+                        <a href="#" class="btn secondary-btn">Смотреть все</a>
+                    </div>
+                </div>
+            </div>
+            <div class="hr"></div>
+            <div style="display: flex; align-items: end;">
+                <p class="extra-info" style="width: 190px;">
+                    Только для зарегистрированных
+                </p>
+                <a href="/auth/login" class="link">
+                    Войти
+                    <img src="/Public/icons/btn-arrow.svg">
+                </a>
+            </div>
+        </div>
+    </div>
+
 </header>
 
 <script>
@@ -52,11 +129,11 @@
         Search(event.target);
     })
 
-    async function Search(target){
+    async function Search(target) {
         let formData = new FormData();
         formData.append('str', target.value);
 
-        let response = await fetch('/excursions/search?str='+target.value, {
+        let response = await fetch('/excursions/search?str=' + target.value, {
             method: "GET"
         });
 
@@ -64,7 +141,7 @@
         console.log(result)
         let container = document.querySelector('.search-results__wrapper');
         container.innerHTML = '';
-        for (let i = 0; i < 4 && i < result.length; i++ ){
+        for (let i = 0; i < 4 && i < result.length; i++) {
             let item = result[i];
             container.innerHTML += `
                 <a href="/excursions/show/${item?.id}" class="search-results__item">
@@ -72,7 +149,7 @@
                     <img class="search-results__img"
                         src="${item?.images[0]?.imgSRC}"
                         alt="">
-                    <div class="search-results__title">${item?.name}...</div>
+                    <div class="search-results__title">${item?.name}</div>
                     </div>
                     <div class="search-results__item-info">
                         <span class="extra-info">${item?.duration} часа</span>
@@ -81,4 +158,11 @@
                 </a>`
         }
     }
+
+    let more = document.querySelector("#more"),
+        moreBlock = document.querySelector(".menu-more__block");
+
+    more.addEventListener("click", () => {
+        moreBlock.classList.add("show");
+    });
 </script>
