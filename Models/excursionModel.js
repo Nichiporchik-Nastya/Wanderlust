@@ -236,7 +236,7 @@ class ExcursionModel {
                 }
             ],
             order: [
-                ['createdAt', order]
+                ['adultCost', order]
             ]
         })
     }
