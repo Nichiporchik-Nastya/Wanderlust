@@ -18,15 +18,14 @@
             <li class="nav-nemu__item">
                 <a href="#">О компании</a>
             </li>
-            <li class="nav-nemu__item">
-                <a href="#">Ещё</a>
-                <img src="/Public/icons/lil-arrow.svg">
-            </li>
+            
         </ul>
     </nav>
 
     <div class="btn-block">
-        <a href="/guide-dashbord">Профиль</a>
+        <li class="nav-nemu__item">
+            <a href="/guide-dashbord">Профиль</a>
+        </li>
         <a href="/auth/logout" class="btn secondary-btn">Выйти</a>
     </div>
 
@@ -42,6 +41,8 @@
         </div>
     </div>
 
+    
+
 </header>
 
 <script>
@@ -50,13 +51,17 @@
     searchBar.addEventListener("focus", (event) => {
         searchBarBlock.classList.add("show");
         Search(event.target);
-    })
 
-    async function Search(target){
+
+        
+
+    });
+
+    async function Search(target) {
         let formData = new FormData();
         formData.append('str', target.value);
 
-        let response = await fetch('/excursions/search?str='+target.value, {
+        let response = await fetch('/excursions/search?str=' + target.value, {
             method: "GET"
         });
 
@@ -64,10 +69,10 @@
         console.log(result)
         let container = document.querySelector('.search-results__wrapper');
         container.innerHTML = '';
-        for (let i = 0; i < 4 && i < result.length; i++ ){
+        for (let i = 0; i < 4 && i < result.length; i++) {
             let item = result[i];
             container.innerHTML += `
-            <a href="/excursions/show/${item?.id}" class="search-results__item">
+                <a href="/excursions/show/${item?.id}" class="search-results__item">
                     <div style='display: flex; gap: 8px; align-items: center;'>
                     <img class="search-results__img"
                         src="${item?.images[0]?.imgSRC}"
@@ -81,4 +86,10 @@
                 </a>`
         }
     }
+
+    
+
+
+
+
 </script>

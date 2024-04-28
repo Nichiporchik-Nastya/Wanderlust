@@ -18,6 +18,29 @@
                 <%- include('./guidePages/partials/header'); %>
                     <% }%>
 
+                        <!-- <div class="modal-wrapper modal-open">
+
+                            <div class="close-part"></div>
+                            <div class="modal-btns">
+                                <img class="close-modal-btn" src="/Public/icons/white-cross.svg" alt="">
+                                <img src="/Public/icons/left-arrow-white.svg" alt="" class="prev-modal-btn">
+                                <img src="/Public/icons/right-arrow-white.svg" alt="" class="next-modal-btn">
+                            </div>
+
+                            <div class="img-place">
+
+                                <div class="clickable-parts">
+                                    <div class="prev-part"></div>
+                                    <div class="next-part"></div>
+                                </div>
+
+                                <img class="slide-img modal-img"
+                                    src="/Public/guideImages/1382906ea77e-40aa-11ee-852e-622d9ee3ddae.1200x1000.jpeg"
+                                    alt="">
+                            </div>
+
+                        </div> -->
+
                         <div class="status">Экскурсия забронирована. Менеджер свяжется с вами в ближайшее время</div>
 
                         <div class="main-images__wrapper container">
@@ -26,9 +49,9 @@
                                     src="<%= data.imagesExcursionsData[i].imgSRC %>" alt="">
                                 <% } %>
                         </div>
-                        
 
-                        <div class="container two-part-container">
+
+                        <div class="container two-part-container" style="margin-top: 40px;">
                             <div class="first-container-part">
 
                                 <h2 class="first-container-part">
@@ -218,11 +241,12 @@
                                             <div class="slider">
                                                 <div class="slider-list">
                                                     <div class="slider-track">
-                                                        <% data.imagesExcursionsData.forEach(item=> { %>
+                                                        <% data.imagesExcursionsData.forEach((item, index)=> { %>
                                                             <div class="slide">
                                                                 <img class="img-open-btn"
-                                                                    src="/Public/icons/GlassPlus.svg" alt="">
-                                                                <img class="slide-img" src="<%= item.imgSRC %>" alt="">
+                                                                    src="/Public/icons/GlassPlus.svg" width="40px"
+                                                                    alt="">
+                                                                <img class="slide-img" src="<%= item.imgSRC %>" alt="" data-imageindex="<%= index %>">
                                                             </div>
                                                             <% }); %>
                                                     </div>
@@ -326,8 +350,7 @@
                                     <input type="number" hidden name="excursionId" id="excursionId"
                                         value="<%= data.excursionData.id %>">
 
-                                    <input type="number" hidden name="statusId" id="statusId"
-                                        value="1">
+                                    <input type="number" hidden name="statusId" id="statusId" value="1">
                                     <h3>Забронировать экскурсию</h3>
                                     <div style="display: flex; align-items: flex-end; gap: 20px; margin-bottom: 20px;">
                                         <div class="calendar-wrapper">
@@ -352,11 +375,11 @@
                                         </div>
                                         <div style="display: flex; flex-direction: column; gap: 8px;">
                                             <div class="calendar-help-block">
-                                                <div class="accessible-day">32</div>
+                                                <div class="accessible-day"></div>
                                                 Доступный для бронирования день
                                             </div>
                                             <div class="calendar-help-block">
-                                                <div class="accessible-day selected">32</div>
+                                                <div class="accessible-day selected"></div>
                                                 Выбранный день
                                             </div>
                                         </div>
@@ -433,7 +456,17 @@
                                         <div style="min-width: 240px;">
                                             <div class="input-wrap">
                                                 <h5>Время начала экскурсии</h5>
+                                                <% data.startTimesData.sort((a, b) => {
+                                                    if (a.time < b.time) {
+                                                      return -1;
+                                                    }
+                                                    if (a.time > b.time) {
+                                                      return 1;
+                                                    }
+                                                    return 0;
+                                                  }); %>
                                                 <% data.startTimesData.forEach(item=> { %>
+                                                    
                                                     <div class="radio-input">
                                                         <input type="radio" name="startTimeId"
                                                             id="startTime-<%= item.id %>" value="<%= item.id %>"
@@ -462,12 +495,12 @@
                                 </form>
                             </div>
                             <div class="second-container-part">
-                                <div class="share-block">
+                                <div class="share-block" >
                                     <div class="tertiary-btn btn-with-icon share-btn">
                                         <img src="/Public/icons/share-network.svg">
                                         Поделиться
                                     </div>
-    
+
                                     <div class="social-icons">
                                         <div class="ya-share2" data-curtain data-shape="normal"
                                             data-services="vkontakte,odnoklassniki,telegram,viber" data-copy="extraItem"
@@ -480,7 +513,7 @@
                                 <aside class="excursion-extra-info">
                                     <div class="excursion-extra-info__item">
                                         <!-- <div class="excursion-extra-info__group"> -->
-                                            <!-- <div class="visitors-number">
+                                        <!-- <div class="visitors-number">
                                                 Посетили: <span>75</span> <span>чел.</span>
                                             </div>
                                             <div class="reviews-number">

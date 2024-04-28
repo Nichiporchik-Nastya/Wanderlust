@@ -14,7 +14,7 @@
 <body>
     <%- include('./partials/header'); %>
 
-        <div class="container two-part-container">
+        <div class="container two-part-container" style="justify-content: start; gap: 120px; align-items: center;">
 
             <form class="login-form" onsubmit="LoginSubmit(event)">
                 <h2>Вход</h2>
@@ -35,15 +35,14 @@
             </form>
 
             <div class="paragraph-wrap">
-                <p class="paragraph">
+                <h4>
                     Вход доступен только для гидов
-                </p>
-                <p class="paragraph">
+                </h4>
+                <p class="paragraph" style="width: 500px; margin-bottom: 20px;">
                     Если у вас есть соответствующие опыт, знания и желание ими поделиться, приглашаем вас стать частью
-                    нашей
-                    большой команды энтузиастов. Присылайте своё резюме по адресу
-                    <a href="mailto:hr@wanderlust.ru">hr@wanderlust.ru</a>
+                    нашей большой команды энтузиастов
                 </p>
+                <a class="btn secondary-btn" href="mailto:hr@wanderlust.ru"> Прислать резюме </a>
             </div>
         </div>
         <script src="/public/js/login.js"></script>

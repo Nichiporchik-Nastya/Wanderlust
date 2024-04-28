@@ -193,9 +193,12 @@ arrows.addEventListener('click', function () {
   slide();
 });
 
+let curImgIndex = 0;
+
 imgOpenBtns.forEach(imgSlide => {
   imgSlide.addEventListener('click', () => {
-    imgPlace.innerHTML = imgSlide.parentElement.innerHTML;
+    modalImg.src = imgSlide.parentElement.querySelector(".slide-img").src;
+    curImgIndex = imgSlide.parentElement.querySelector(".slide-img").dataset.imageindex;
     modalWrapper.classList.add('modal-open');
   });
 });
@@ -210,9 +213,9 @@ modalWrapper.addEventListener('click', () => {
 
 ///////////////**///// */
 
-closePart.addEventListener('click', () => {
-  modalWrapper.classList.remove('modal-open');
-});
+// closePart.addEventListener('click', () => {
+//   modalWrapper.classList.remove('modal-open');
+// });
 
 nextPart.addEventListener('click', () => {
   curImgIndex++;

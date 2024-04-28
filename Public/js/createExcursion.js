@@ -1,7 +1,24 @@
+function timeStringToNumber(timeString) {
+    var parts = timeString.split(':');
+    var hours = parseInt(parts[0]);
+    var minutes = parseInt(parts[1]);
+    var decimalTime = hours + (minutes / 60);
+    return decimalTime;
+  }
+  
+
 async function CreateExcursionSubmit(event) {
     try {
         event.preventDefault();
+
+        if(fileErr != ""){
+            input.value = "";
+            preview.innerHTML = "";
+            photoTags.style.visibility = 'hidden';
+        }
+
         let formData = new FormData(event.target);
+
 
         startTimes.forEach(time => {
             formData.append("startTimes", time);
@@ -11,7 +28,7 @@ async function CreateExcursionSubmit(event) {
             formData.append("photos", file);
         });
 
-        let p = document.querySelector("#photo-input");
+        // let p = document.querySelector("#photo-input");
 
         if (formData.get("filesCount")) {
             formData.delete("filesCount");
@@ -28,10 +45,16 @@ async function CreateExcursionSubmit(event) {
             formData.delete("extraInfo");
         }
 
-        // for (let [key, value] of formData.entries()) {
-        //     console.log(key, value); 
-        // }
+        if (formData.get("duration")) {
+            formData.delete("duration");
+            formData.append("duration", timeStringToNumber(durationInput.value));
+        }
 
+        for (let [key, value] of formData.entries()) {
+            console.log(key, value); 
+        }
+
+        return;
 
         let response = await fetch('/api/excursions/create', { //объект отправки и получения запроса, путь прописывается без точки, так как бек и фронт находятся на одном ломене
             method: "POST",

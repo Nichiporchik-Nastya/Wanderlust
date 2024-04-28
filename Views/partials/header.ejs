@@ -127,7 +127,11 @@
     searchBar.addEventListener("focus", (event) => {
         searchBarBlock.classList.add("show");
         Search(event.target);
-    })
+
+
+        
+
+    });
 
     async function Search(target) {
         let formData = new FormData();
@@ -164,5 +168,15 @@
 
     more.addEventListener("click", () => {
         moreBlock.classList.add("show");
+        document.addEventListener('mouseup', function (e) {
+
+            if (!moreBlock.contains(e.target)) {
+                moreBlock.classList.remove('show');
+            }
+        });
     });
+
+
+
+
 </script>

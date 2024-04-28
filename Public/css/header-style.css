@@ -62,6 +62,7 @@ header nav {
 .menu-more__block{
   visibility: hidden;
   display: flex;
+  justify-content: center;
   gap: 44px;
   position: absolute;
   background-color: #fff;
@@ -69,14 +70,19 @@ header nav {
   border: 1px solid var(--border-color);
   width: 100%;
   left: 0;
-  padding: 40px 260px;
+  padding-top: 40px;
+  padding-bottom: 40px;
   top: 100%;
   transform: translateY(-20%);
   opacity: 0;
   transition: .2s ease;
 }
 
-
+/* .menu-more__part-wrapper{
+  margin: 0 auto;
+  width: 1
+  px;
+} */
 
 .menu-more__links{
   display: flex;
