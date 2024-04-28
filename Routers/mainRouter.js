@@ -35,13 +35,21 @@ router.get('/admin/registration', (req, res) => {
   res.render('adminPages/registrationPage');
 });
 
+router.get('/allInfo', (req, res) => {
+  // const data = {};
+  // data.f = 1;
+  // data.fo = 1;
+  // res.render('allInfo', data);
+  res.render('allInfo');
+});
+
 router.post('/api/excursions/create',
   [
     body('name').not().isEmpty().withMessage('Заполните поле'),
     body('description').not().isEmpty().withMessage('Заполните поле'),
     body('description').isLength({ max: 800 }).withMessage('Максимальное количество символов: 800'),
     body('duration').not().isEmpty().withMessage('Заполните поле'),
-    body('duration').isLength({ min: 0.5, max: 12 }).withMessage('Длительность экскурсии должна быть в пределах от 0,5 до 12 часов'),
+    // body('duration').isLength({ min: 0.5, max: 12 }).withMessage('Длительность экскурсии должна быть в пределах от 0,5 до 12 часов'),
     body('adultCost').not().isEmpty().withMessage('Заполните поле'),
     body('formatId').not().isEmpty().withMessage('Выберите одно из значений'),
     body('typeId').not().isEmpty().withMessage('Выберите одно из значений'),
@@ -86,7 +94,7 @@ router.post('/api/excursions/edit',
     body('description').not().isEmpty().withMessage('Заполните поле'),
     body('description').isLength({ max: 800 }).withMessage('Максимальное количество символов: 800'),
     body('duration').not().isEmpty().withMessage('Заполните поле'),
-    body('duration').isLength({ min: 0.5, max: 12 }).withMessage('Длительность экскурсии должна быть в пределах от 0,5 до 12 часов'),
+    // body('duration').isLength({ min: 0.5, max: 12 }).withMessage('Длительность экскурсии должна быть в пределах от 0,5 до 12 часов'),
     body('adultCost').not().isEmpty().withMessage('Заполните поле'),
     body('formatId').not().isEmpty().withMessage('Выберите одно из значений'),
     body('typeId').not().isEmpty().withMessage('Выберите одно из значений'),
@@ -96,11 +104,15 @@ router.post('/api/excursions/edit',
 
 router.get('/excursions/show/:id', controller.showExcursion);
 
+router.get('/excursions/random', controller.randomExcursion);
+
+
 router.post('/api/excursions/order',
   [
     body('clientName').not().isEmpty().withMessage('Заполните поле'),
     body('clientEmail').not().isEmpty().withMessage('Заполните поле'),
     body('clientPhone').not().isEmpty().withMessage('Заполните поле'),
+    body('numberOfAdults').not().equals("0").withMessage('Введите количество человек'),
     body('clientEmail').isEmail().withMessage('Введите корректный адрес электронной почты'),
     body('clientPhone').isMobilePhone().withMessage('Введите корректный номер телефона'),
     body('day').not().isEmpty().withMessage('Выберите день'),

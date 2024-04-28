@@ -28,6 +28,40 @@
     position: relative;
 }
 
+.guide-card{
+    position: relative;
+    display: flex;
+    gap: 20px;
+    width: calc(100% / 3 - 40px);
+}
+
+.guide-cards__wrapper{
+    display: flex;
+    column-gap: 20px;
+    row-gap: 40px;
+    flex-wrap: wrap;
+    padding-top: 24px;
+    justify-content: space-between;
+    border-top: 1px solid var(--border-color);
+}
+
+.admin-dashboard{
+    display: flex;
+    flex-direction: column;
+    gap: 60px;
+}
+
+.admin-dashboard__header{
+    display: flex;
+    justify-content: space-between;
+}
+
+.guide-card__img{
+    border-radius: 100%;
+    width: 80px;
+    height: 80px;
+}
+
 .action-menu {
     visibility: hidden;
     background-color: #fff;

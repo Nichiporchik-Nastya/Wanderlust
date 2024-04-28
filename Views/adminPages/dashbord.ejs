@@ -7,6 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Личный кабинет администратора</title>
     <link rel="stylesheet" href="/public/css/normalize.css">
+    <link rel="stylesheet" href="/public/css/dashbord.css">
     <link rel="stylesheet" href="/public/css/header-style.css">
     <link rel="stylesheet" href="/public/css/style.css">
 </head>
@@ -14,17 +15,202 @@
 <body>
     <%- include('./partials/header'); %>
 
+        <div class="info-window__wrapper">
+            <div class="info-window">
+                <p class="window__text">Вы действительно хотите удалить экскурсию <span class="ex-name"></span>?</з>
+                <div class="window-btns">
+                    <div class="btn secondary-btn reset-btn">Отмена</div>
+                    <div onclick="RemoveSubmit(event)" class="btn remove-btn">Да, удалить</div>
+                </div>
+            </div>
+        </div>
+
         <div class="container two-part-container">
 
-            <div class="first-container-part">
 
-                <a class="btn" href="/admin/registration">Добавить гида</a>
+            <div class="admin-dashboard">
+                <div class="admin-dashboard__header">
+                    <h2>Административная панель</h2>
+                    <a class="btn" href="/admin/registration">Добавить гида</a>
+                </div>
+
+                <div class="guide-cards__wrapper">
+                    <div class="guide-card">
+                        <div class="action-menu">
+                            <a href="#" class="action-menu__item">
+                                <img src="/Public/icons/Eye.svg" alt="">
+                                Посмотреть
+                            </a>
+                            <a href="#" class="action-menu__item">
+                                <img src="/Public/icons/PencilSimpleLine.svg" alt="">
+                                Редактировать
+                            </a>
+                            <span class="action-menu__item remove-excursion__btn" data-exname="" data-exid="">
+                                <img src="/Public/icons/Trash.svg" alt="">
+                                Удалить
+                            </span>
+                        </div>
+                        <img src="/Public/guideImages/guide1.jpg" alt="" class="guide-card__img">
+
+                        <div>
+                            <div class="excursion-block__header">
+                                <h5 class="guide-card__name">dsfdrgfthyjk</h5>
+                                <img class="excursion-block__dots" src="/Public/icons/DotsThreeVertical.svg" alt="">
+                            </div>
+                            <p class="paragraph">ОписаниеОписаниеОписа ниеОписаниеОписаниеОписани еОписаниеОписаниеОп
+                                исаниеОписание
+                            </p>
+                            <div class="excursion-block__data-wrap">
+                                <p class="extra-info">Экскурсий: </p>
+                                <p class="excursion-block__type excursion-block__data">
+                                    8
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="guide-card">
+                        <div class="action-menu">
+                            <a href="#" class="action-menu__item">
+                                <img src="/Public/icons/Eye.svg" alt="">
+                                Посмотреть
+                            </a>
+                            <a href="#" class="action-menu__item">
+                                <img src="/Public/icons/PencilSimpleLine.svg" alt="">
+                                Редактировать
+                            </a>
+                            <span class="action-menu__item remove-excursion__btn" data-exname="" data-exid="">
+                                <img src="/Public/icons/Trash.svg" alt="">
+                                Удалить
+                            </span>
+                        </div>
+                        <img src="/Public/guideImages/guide1.jpg" alt="" class="guide-card__img">
+
+                        <div>
+                            <div class="excursion-block__header">
+                                <h5 class="guide-card__name">dsfdrgfthyjk</h5>
+                                <img class="excursion-block__dots" src="/Public/icons/DotsThreeVertical.svg" alt="">
+                            </div>
+                            <p class="paragraph">ОписаниеОписаниеОписа ниеОписаниеОписаниеОписани еОписаниеОписаниеОп
+                                исаниеОписание
+                            </p>
+                            <div class="excursion-block__data-wrap">
+                                <p class="extra-info">Экскурсий</p>
+                                <p class="excursion-block__type excursion-block__data">
+                                    8
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="guide-card">
+                        <div class="action-menu">
+                            <a href="#" class="action-menu__item">
+                                <img src="/Public/icons/Eye.svg" alt="">
+                                Посмотреть
+                            </a>
+                            <a href="#" class="action-menu__item">
+                                <img src="/Public/icons/PencilSimpleLine.svg" alt="">
+                                Редактировать
+                            </a>
+                            <span class="action-menu__item remove-excursion__btn" data-exname="" data-exid="">
+                                <img src="/Public/icons/Trash.svg" alt="">
+                                Удалить
+                            </span>
+                        </div>
+                        <img src="/Public/guideImages/guide1.jpg" alt="" class="guide-card__img">
+
+                        <div>
+                            <div class="excursion-block__header">
+                                <h5 class="guide-card__name">dsfdrgfthyjk</h5>
+                                <img class="excursion-block__dots" src="/Public/icons/DotsThreeVertical.svg" alt="">
+                            </div>
+                            <p class="paragraph">ОписаниеОписаниеОписа ниеОписаниеОписаниеОписани еОписаниеОписаниеОп
+                                исаниеОписание
+                            </p>
+                            <div class="excursion-block__data-wrap">
+                                <p class="extra-info">Экскурсий</p>
+                                <p class="excursion-block__type excursion-block__data">
+                                    8
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="guide-card">
+                        <div class="action-menu">
+                            <a href="#" class="action-menu__item">
+                                <img src="/Public/icons/Eye.svg" alt="">
+                                Посмотреть
+                            </a>
+                            <a href="#" class="action-menu__item">
+                                <img src="/Public/icons/PencilSimpleLine.svg" alt="">
+                                Редактировать
+                            </a>
+                            <span class="action-menu__item remove-excursion__btn" data-exname="" data-exid="">
+                                <img src="/Public/icons/Trash.svg" alt="">
+                                Удалить
+                            </span>
+                        </div>
+                        <img src="/Public/guideImages/guide1.jpg" alt="" class="guide-card__img">
+
+                        <div>
+                            <div class="excursion-block__header">
+                                <h5 class="guide-card__name">dsfdrgfthyjk</h5>
+                                <img class="excursion-block__dots" src="/Public/icons/DotsThreeVertical.svg" alt="">
+                            </div>
+                            <p class="paragraph">ОписаниеОписаниеОписа ниеОписаниеОписаниеОписани еОписаниеОписаниеОп
+                                исаниеОписание
+                            </p>
+                            <div class="excursion-block__data-wrap">
+                                <p class="extra-info">Экскурсий</p>
+                                <p class="excursion-block__type excursion-block__data">
+                                    8
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
 
 
 
+        <script>
 
+            let dots = document.querySelectorAll(".excursion-block__dots"),
+                actionMenu = document.querySelectorAll(".action-menu");
+
+
+            dots.forEach((element, index) => {
+
+                element.addEventListener('click', () => {
+                    actionMenu[index].classList.add('visible');
+                });
+                document.addEventListener('mouseup', function (e) {
+
+                    if (!actionMenu[index].contains(e.target)) {
+                        actionMenu[index].classList.remove('visible');
+                    }
+                });
+            });
+
+            let removeExcursionBtns = document.querySelectorAll(".remove-excursion__btn"),
+                infoWindow = document.querySelector(".info-window"),
+                removeBtn = document.querySelector(".remove-btn"),
+                resetBtn = document.querySelector(".reset-btn"),
+                infoWindowWrapper = document.querySelector(".info-window__wrapper"),
+                exNamePlace = document.querySelector(".ex-name");
+            removeExcursionBtns.forEach(element => {
+                element.addEventListener("click", () => {
+                    infoWindowWrapper.classList.add("show-info-window");
+                    removeBtn.dataset.exid = element.dataset.exid;
+                    exNamePlace.innerText = element.dataset.exname;
+                })
+            });
+            resetBtn.addEventListener("click", () => {
+                infoWindowWrapper.classList.remove("show-info-window");
+            });
+
+        </script>
 </body>
 
 </html>

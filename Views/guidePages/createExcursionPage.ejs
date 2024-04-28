@@ -24,7 +24,7 @@
                 <h2>Создание новой экскурсии</h2>
 
 
-                <!-- <div class="accordion__wrap"> -->
+
                 <ul class="accordion__list">
                     <li class="accordion__item long-field" data-accitemindex="0">
                         <div class="accordion__title-block" id="allInfo">
@@ -91,10 +91,10 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Длительность экскурсии</h4>
                                 <div class="box-input">
-                                    <input type="time" id="duration" name="duration" placeholder=" " value="">
+                                    <input type="time" id="duration" name="duration" placeholder=" " value="" step="300" min="00:30" max="12:00">
                                     <label>Длительность экскурсии</label>
                                     <div class="box-input__error-text duration-error"></div>
-                                    <p class="input-help-text">Введите длительность экскурсии в часах с шагом в 0,5</p>
+                                    <p class="input-help-text">Введите длительность экскурсии</p>
                                 </div>
                             </div>
 
@@ -258,7 +258,7 @@
                         </div>
                     </li>
                 </ul>
-                <!-- </div> -->
+
 
                 <input type="submit" class="btn" value="Создать">
 

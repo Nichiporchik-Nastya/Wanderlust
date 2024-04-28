@@ -16,7 +16,7 @@
                 <a href="/excursions/all">Экскурсии</a>
             </li>
             <li class="nav-nemu__item">
-                <a href="#">О компании</a>
+                <a href="/allInfo">О компании</a>
             </li>
             <li class="nav-nemu__item">
                 <span id="more">Ещё</span>
@@ -32,7 +32,7 @@
     <div class="search-bar__block">
         <div class="search-bar__block-title">
             <h4>Популярные экскурсии</h4>
-            <a href="#" class="link">
+            <a href="/allInfo#answer0" class="link">
                 Смотреть все
                 <img src="/Public/icons/btn-arrow.svg">
             </a>
@@ -47,19 +47,19 @@
                 Частые вопросы
             </h5>
             <div class="menu-more__links">
-                <a href="#" class="menu-more__item">
+                <a href="/allInfo#answer1" class="menu-more__item" onclick="scrollToBlock()">
                     Как забронировать экскурсию?
                 </a>
-                <a href="#" class="menu-more__item">
+                <a href="/allInfo#answer2" class="menu-more__item" onclick="scrollToBlock()">
                     Как отменить бронирование?
                 </a>
-                <a href="#" class="menu-more__item">
+                <a href="/allInfo#answer3" class="menu-more__item" onclick="scrollToBlock()">
                     Как стать гидом?
                 </a>
-                <a href="#" class="menu-more__item">
+                <a href="/allInfo#answer4" class="menu-more__item" onclick="scrollToBlock()">
                     Как оставить отзыв?
                 </a>
-                <a href="/auth/login" class="link">
+                <a href="/allInfo" class="link">
                     Читать все
                     <img src="/Public/icons/btn-arrow.svg">
                 </a>
@@ -71,17 +71,17 @@
                 Выбор туристов
             </h5>
             <div class="menu-more__links">
-                <a href="#" class="menu-more__item">
+                <a href="/excursions/all" class="menu-more__item">
                     Популярные экскурсии
                 </a>
-                <a href="#" class="menu-more__item">
+                <a href="/excursions/all" class="menu-more__item">
                     Дешёвые экскурсии
                 </a>
                 <div class="hr"></div>
                 <p class="extra-info" style="width: 180px">
                     Не знаете, что выбрать? Сервис предложит вам лучший вариант!
                 </p>
-                <a href="#" class="btn">Случайный маршрут</a>
+                <a href="/excursions/random" class="btn">Случайный маршрут</a>
             </div>
         </div>
         <div class="vr"> </div>
@@ -102,7 +102,7 @@
                         <p class="extra-info" style="width: 190px;">
                             Ещё больше маршрутов от наших гидов
                         </p>
-                        <a href="#" class="btn secondary-btn">Смотреть все</a>
+                        <a href="/allInfo#guides0" class="btn secondary-btn">Смотреть все</a>
                     </div>
                 </div>
             </div>

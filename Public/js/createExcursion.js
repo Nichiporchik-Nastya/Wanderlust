@@ -54,7 +54,7 @@ async function CreateExcursionSubmit(event) {
             console.log(key, value); 
         }
 
-        return;
+        // return;
 
         let response = await fetch('/api/excursions/create', { //объект отправки и получения запроса, путь прописывается без точки, так как бек и фронт находятся на одном ломене
             method: "POST",

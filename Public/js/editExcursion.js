@@ -55,7 +55,7 @@ async function EditExcursionSubmit(event) {
             console.log(key, value);
         }
 
-        return;
+        // return;
 
         let response = await fetch('/api/excursions/edit', {
             method: "POST",

@@ -1,4 +1,11 @@
-const { where, Op } = require("sequelize");
+// const { where, Op} = require("sequelize");
+
+const { Sequelize, Op } = require('sequelize');
+const sequelize = new Sequelize('Wanderlust', 'root', 'root', {
+    host: 'localhost',
+    dialect: 'mysql'
+});
+
 
 const Excursions = require("../db/models/index").Excursions;
 const Users = require("../db/models/index").Users;
@@ -17,8 +24,8 @@ class ExcursionModel {
         try {
             // console.log(body);
             let id = await Excursions.create(body),
-            // let id = 1,
-            rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
+                // let id = 1,
+                rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
 
 
             id = id.id;
@@ -93,7 +100,7 @@ class ExcursionModel {
             where: {
                 id,
             },
-            include:[
+            include: [
                 {
                     model: Users,
                     as: 'guide'
@@ -135,14 +142,63 @@ class ExcursionModel {
         };
     }
 
-    async getDays(id){
-        console.log(id);
-        return await DaysExcursions.findAll({
-            where: {
-                excursionId: id.excursionId,
-            },
-        });
+    async getDays(id) {
+        try {
+            const results = await Orders.findAll({
+                attributes: [
+                    [Sequelize.literal('DATE(day)'), 'day'],
+                    'startTimeId',
+                    [Sequelize.fn('SUM', Sequelize.literal('COALESCE(numberOfAdults, 0) + COALESCE(numberOfChildren, 0)')), 'count']
+                ],
+                where: {
+                    excursionId: id
+                },
+                group: ['day', 'startTimeId']
+            });
+
+            const resultArray = results.map(result => ({
+                day: result.get('day'),
+                startTimeId: result.get('startTimeId'),
+                count: result.get('count')
+            }));
+
+            const excursion = await Excursions.findOne({
+                attributes: ['typeId'],
+                where: {
+                    id: id
+                }
+            });
+
+            let typeId = excursion.typeId;
+
+            const type = await Types.findOne({
+                where: {
+                    id: typeId
+                }
+            });
+
+            const days = await DaysExcursions.findAll({
+                where: {
+                    excursionId: id,
+                },
+            });
+
+            return { days: days, daysResult: resultArray, maxCount: type.clientMaxNumber };
+
+        } catch (error) {
+            console.error('Ошибка при выполнении запроса:', error);
+            throw error;
+        }
     }
+
+
+    async getIds() {
+        return {
+            max: await Excursions.max('id'),
+            min: await Excursions.min('id')
+        }
+    }
+
     async search(str = '') {//имя поля и направление сортировки
         return await Excursions.findAll({
             where: {
@@ -155,11 +211,11 @@ class ExcursionModel {
                     }
                 },
             },
-            include:[
+            include: [
                 {
                     model: Formats,
                     as: 'format',
-                },{
+                }, {
                     model: Types,
                     as: 'type',
                 },
@@ -176,11 +232,11 @@ class ExcursionModel {
             where: {
                 guideId: id,
             },
-            include:[
+            include: [
                 {
                     model: Formats,
                     as: 'format',
-                },{
+                }, {
                     model: Types,
                     as: 'type',
                 },
@@ -241,17 +297,17 @@ class ExcursionModel {
         })
     }
 
-    async getAllTypes (){
+    async getAllTypes() {
         return await Types.findAll();
     }
 
-    async getAllFormats(){
+    async getAllFormats() {
         return await Formats.findAll();
     }
 
-    async update(body, files){
-        await ThemeExcursions.destroy({where:{excursionId: +body.id}});
-        await DaysExcursions.destroy({where:{excursionId: +body.id}});
+    async update(body, files) {
+        await ThemeExcursions.destroy({ where: { excursionId: +body.id } });
+        await DaysExcursions.destroy({ where: { excursionId: +body.id } });
 
         if (Array.isArray(body.themes)) {
             await body.themes.forEach(theme => {
@@ -272,24 +328,24 @@ class ExcursionModel {
         if (body.deletedStartTime && !Array.isArray(body.deletedStartTime)) {
             body.deletedStartTime = [body.deletedStartTime];
         }
-        else if (!body.deletedStartTime){
+        else if (!body.deletedStartTime) {
             body.deletedStartTime = [];
         }
 
-        if (body.deletedStartTime.length != 0 && (body?.startTimes?.length ?? 0 - body.deletedStartTime.length ?? 0) >= 0){
+        if (body.deletedStartTime.length != 0 && (body?.startTimes?.length ?? 0 - body.deletedStartTime.length ?? 0) >= 0) {
             for (const time of body.deletedStartTime) {
-                await StartTimes.destroy({where:{id: +time}})
+                await StartTimes.destroy({ where: { id: +time } })
             }
 
             if (Array.isArray(body.startTimes)) {
                 await body.startTimes.forEach(time => {
                     StartTimes.create({ time: time, excursionId: +body.id });
                 });
-            } else if (body.startTimes){
+            } else if (body.startTimes) {
                 StartTimes.create({ time: body.startTimes, excursionId: +body.id });
             }
         }
-        else if(((await StartTimes.findAll({where:{excursionId: +body.id}})).length == 0 || body.deletedStartTime.length != 0) && (body?.startTimes?.length ?? 0 - body.deletedStartTime.length ?? 0) < 0){
+        else if (((await StartTimes.findAll({ where: { excursionId: +body.id } })).length == 0 || body.deletedStartTime.length != 0) && (body?.startTimes?.length ?? 0 - body.deletedStartTime.length ?? 0) < 0) {
             return {
                 errors: [{ type: 'field', value: '', msg: 'Заполните поле', path: 'startTimes', location: 'body' }]
             };
@@ -299,7 +355,7 @@ class ExcursionModel {
                 await body.startTimes.forEach(time => {
                     StartTimes.create({ time: time, excursionId: +body.id });
                 });
-            } else if (body.startTimes){
+            } else if (body.startTimes) {
                 StartTimes.create({ time: body.startTimes, excursionId: +body.id });
             }
         }
@@ -308,13 +364,13 @@ class ExcursionModel {
         if (body.deletedPhotos && !Array.isArray(body.deletedPhotos)) {
             body.deletedPhotos = [body.deletedPhotos];
         }
-        else if (!body.deletedPhotos){
+        else if (!body.deletedPhotos) {
             body.deletedPhotos = [];
         }
 
         if (body.deletedPhotos.length != 0 && (files?.photos?.length ?? 0 - body.deletedPhotos.length ?? 0) >= 0) {
             for (const photo of body.deletedPhotos) {
-                await ImagesExcursions.destroy({where:{id: +photo}})
+                await ImagesExcursions.destroy({ where: { id: +photo } })
             }
 
             if (Array.isArray(files.photos)) {
@@ -325,14 +381,14 @@ class ExcursionModel {
                 });
             }
         }
-        else if(((await ImagesExcursions.findAll({where:{excursionId: +body.id}})).length == 0 || body.deletedPhotos.length != 0) && (files?.photos?.length ?? 0 - body.deletedPhotos.length ?? 0) < 0){
+        else if (((await ImagesExcursions.findAll({ where: { excursionId: +body.id } })).length == 0 || body.deletedPhotos.length != 0) && (files?.photos?.length ?? 0 - body.deletedPhotos.length ?? 0) < 0) {
             return {
                 errors: [{ type: 'field', value: '', msg: 'Выберите 4 или более изображений', path: 'photos', location: 'body' }]
             };
         }
 
         return await Excursions.update(body, {
-            where:{
+            where: {
                 id: body.id
             }
         })

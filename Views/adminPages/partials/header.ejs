@@ -1,42 +1,20 @@
 <header class="container">
     <nav>
-        <a href="/">
+        <a href="#">
             <img src="/public/logo.svg" alt="" class="logo">
         </a>
 
-        <div class="search-bar">
-            <label for="search">
-                <img src="/public/icons/search.svg" />
-            </label>
-            <input type="text" id="search" placeholder="Найти экскурсию" oninput="Search(this)" autocomplete="off">
-        </div>
+        
 
-        <ul class="nav-nemu">
-            <li class="nav-nemu__item">
-                <a href="/excursions/all">Экскурсии</a>
-            </li>
-            <li class="nav-nemu__item">
-                <a href="#">О компании</a>
-            </li>
-        </ul>
+        
     </nav>
 
     <div class="btn-block">
-        <a href="/dashbord">Профиль</a>
+        <a href="/dashbord" class="nav-nemu__item">Профиль</a>
         <a href="/auth/logout" class="btn secondary-btn">Выйти</a>
     </div>
 
-    <div class="search-bar__block">
-        <div class="search-bar__block-title">
-            <h4>Популярные экскурсии</h4>
-            <a href="#" class="link">
-                Смотреть все
-                <img src="/Public/icons/btn-arrow.svg">
-            </a>
-        </div>
-        <div class="search-results__wrapper">
-        </div>
-    </div>
+    
 
     
 

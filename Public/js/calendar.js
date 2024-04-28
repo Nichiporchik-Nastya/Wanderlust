@@ -15,15 +15,10 @@ async function getCalendarDays() {
     } else {
         return result;
     }
-
 }
-
-// calendayDaysArr = getCalendarDays().then();
-// console.log(Promise.resolve(calendayDaysArr)[0]);
 
 getCalendarDays().then(value => renderCalendar(value));
 getCalendarDays().then(value => canSelectday());
-
 
 
 
@@ -31,13 +26,11 @@ const daysTag = document.querySelector(".days"),
     currentDate = document.querySelector(".current-date"),
     prevNextIcon = document.querySelectorAll(".icons");
 
-// getting new date, current year and month
 let date = new Date(),
     currYear = date.getFullYear(),
     currMonth = date.getMonth(),
     month = date.getMonth();
 
-// storing full name of all months in array
 const months = ["Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль",
     "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"];
 
@@ -50,6 +43,7 @@ const renderCalendar = (value) => {
     let liTag = "";
 
     // console.log(value);
+    // return;
 
     for (let i = firstDayofMonth; i > 0; i--) { // creating li of previous month last days
         liTag += `<li class="inactive">${lastDateofLastMonth - i + 1}</li>`;
@@ -72,15 +66,48 @@ const renderCalendar = (value) => {
         calDate = new Date(currYear, currMonth, i);
         dayOfWeek = calDate.getDay();
         dayOfWeek++;
+        count = 0;
 
-        value.forEach(element => {
-            if (dayOfWeek == element.dayNumber) {
+
+        value.days.forEach(el => {
+            if (dayOfWeek == el.dayNumber) {
+                let checkingdate = new Date(currYear, currMonth, i + 1)
+                const formattedDate = checkingdate.toISOString().slice(0, 10);
+
+                value.daysResult.forEach(element => {
+                    
+                    if (formattedDate === element.day) {
+                        count = element.count;
+                        strtTmId = document.querySelector('input[type="radio"][name="startTimeId"]:checked').dataset.sttid;
+                        if (strtTmId === String(element.startTimeId)) {
+                            if (element.count >= value.maxCount) {
+
+                                console.log("нет свободных мест");
+                            }
+                        }
+                        isOrderDay = "isOrderDay";
+                        return;
+                    }
+                });
                 isOrderDay = "isOrderDay";
             }
+
         });
 
-        liTag += `<li class="${isToday} ${isOrderDay}" data-caldate="${calDate}">${i}</li>`;
+
+
+
+        console.log(value.daysResult);
+
+        // console.log();
+
+        if (!(value.maxCount - count)) {
+            isOrderDay = "";
+        }
+
+        liTag += `<li class="${isToday} ${isOrderDay}" data-caldate="${calDate}" data-orderscount="${value.maxCount - count}">${i}</li>`;
         isOrderDay = "";
+        count = 0;
     }
 
     for (let i = lastDayofMonth; i < 6; i++) { // creating li of next month first days
@@ -89,16 +116,12 @@ const renderCalendar = (value) => {
     currentDate.innerHTML = `<strong>${months[currMonth]},</strong> ${currYear}`; // passing current mon and yr as currentDate text
     daysTag.innerHTML = liTag;
 }
-// document.querySelector("#prev").style.opacity = 0.2;
+
 
 prevNextIcon.forEach(icon => {
     icon.addEventListener("click", () => {
-        // if (icon.id === "next") {
-        //     document.querySelector("#prev").style.opacity = 1;
-        // }
 
         if (month === currMonth) {
-            // document.querySelector("#prev").style.opacity = 0.2;
             currMonth = icon.id === "next" ? currMonth + 1 : currMonth;
         } else {
             document.querySelector("#prev").style.opacity = 1;
@@ -107,7 +130,6 @@ prevNextIcon.forEach(icon => {
             } else {
                 currMonth = icon.id === "prev" ? currMonth - 1 : currMonth;
             }
-
         }
 
 
@@ -121,13 +143,10 @@ prevNextIcon.forEach(icon => {
         }
         getCalendarDays().then(value => renderCalendar(value));
         getCalendarDays().then(value => canSelectday());
-
-        // renderCalendar(); // calling renderCalendar function
     });
 });
 
 const canSelectday = () => {
-
     let daysLi = document.querySelectorAll(".isOrderDay");
     daysLi.forEach(element => {
         element.addEventListener("click", () => {
@@ -137,10 +156,42 @@ const canSelectday = () => {
             });
             element.classList.add("selected");
 
+
+            if (!(element.dataset.orderscount)) {
+                document.querySelector(".status").innerText = "на эти день и время доступно мест: " + element.dataset.orderscount;
+                document.querySelector(".status").classList.add("show-status");
+                setTimeout(() => document.querySelector(".status").classList.remove("show-status"), 3000);
+            }
+
+
+
+            ////////////не удалять!!!!!!!!!!!!!!!!!!!!!!!!///////////
+
+
+            // let startTimesstrs = document.querySelectorAll('label[for^="startTime-"]');
+            // const currentTime = new Date(); 
+            // const modifiedTime = new Date(currentTime.getTime() - 2 * 60 * 60 * 1000); //бронирование за 2 часа до начала
+
+            // startTimesstrs.forEach(element => {
+            //     let timeParts = element.innerText.split(":");
+            //     let time = new Date();
+            //     time.setHours(parseInt(timeParts[0], 10));
+            //     time.setMinutes(parseInt(timeParts[1], 10));
+
+            //     console.log(time, modifiedTime);
+
+            //     if (time < modifiedTime) {
+            //         element.remove();
+            //         document.querySelector(`#${element.getAttribute("for")}`).remove();
+            //     }
+            // });
+
+
+
         });
     });
-
 };
+
 
 
 

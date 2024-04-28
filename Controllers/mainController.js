@@ -141,8 +141,8 @@ class mainController {
 
     async getExcursionDays(req, res){
         try {
-
-            let result = await ExcursionModel.getDays(req.body);
+            let id = req.body.excursionId;
+            let result = await ExcursionModel.getDays(id);
             console.log(result);
             res.status(200).send(result);
 
@@ -150,6 +150,18 @@ class mainController {
             console.log(e);
         }
     }
+
+    // async getDayOrdersCount(req, res){
+    //     try {
+    //         let id = req.body.excursionId;
+
+    //         let result = await ExcursionModel.getDaysOrdersCount(id);
+    //         res.status(200).send(result);
+
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
 
     async search(req, res){
         try {
@@ -195,6 +207,16 @@ class mainController {
             }
             let result = await ExcursionModel.update(req.body, req.files);
             res.status(200).json(result);
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async randomExcursion(req, res) {
+        try {
+            let result = await ExcursionModel.getIds();
+            let id = (Math.floor(Math.random() * (result.max - result.min) + result.min));
+            res.redirect(`/excursions/show/${id}`);
         } catch (e) {
             console.log(e);
         }

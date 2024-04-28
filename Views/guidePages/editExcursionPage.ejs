@@ -97,15 +97,13 @@
                             <div class="input-wrap">
                                 <h4 class="box-input__title">Длительность экскурсии</h4>
                                 <div class="box-input">
-                                    <% let hours=Math.floor(excursion.excursionData.duration); %>
-                                        <% let minutes=(excursion.excursionData.duration - hours) * 60; %>
-                                            <% let result=hours + ':' + minutes; %>
+                                    
 
                                                 <input type="time" id="duration" name="duration" placeholder=" "
-                                                    data-dur="<%= excursion.excursionData.duration %>" value="">
+                                                    data-dur="<%= excursion.excursionData.duration %>" value="" step="300" min="00:30" max="12:00">
                                                 <label>Длительность экскурсии</label>
                                                 <div class="box-input__error-text duration-error"></div>
-                                                <p class="input-help-text">Введите длительность экскурсии в часах</p>
+                                                <p class="input-help-text">Введите длительность экскурсии</p>
                                 </div>
                             </div>
 
@@ -231,28 +229,25 @@
                                 <h4 class="box-input__title">Время начала экскурсий</h4>
 
                                 <div class="box-input">
-                                    <input type="time" value="" id="time" step="300">
+                                    <input type="time" value="" id="time" step="300" min="00:30" max="12:00">
                                     <!-- 5 минут-->
                                     <div class="box-input__error-text startTimes-error" id="time-error"></div>
                                     <div class="tags-wrap">
                                         <p>Выбрано:</p>
-                                        <% excursion.startTimesData.sort((a, b) => {
-                                            if (a.time < b.time) {
-                                              return -1;
-                                            }
-                                            if (a.time > b.time) {
-                                              return 1;
-                                            }
-                                            return 0;
-                                          }); %>
-                                        <div class="tags" id="time-tags">
-                                            <% for(let i = 0; i < excursion.startTimesData.length; i++) {%>
-                                                <div class="tag time-tag"
-                                                    data-exindex="<%=excursion.startTimesData[i].id%>">
-                                                    <%=excursion.startTimesData[i].time.slice(0,5)%>
+                                        <% excursion.startTimesData.sort((a, b)=> {
+                                            if (a.time < b.time) { return -1; } if (a.time> b.time) {
+                                                return 1;
+                                                }
+                                                return 0;
+                                                }); %>
+                                                <div class="tags" id="time-tags">
+                                                    <% for(let i=0; i < excursion.startTimesData.length; i++) {%>
+                                                        <div class="tag time-tag"
+                                                            data-exindex="<%=excursion.startTimesData[i].id%>">
+                                                            <%=excursion.startTimesData[i].time.slice(0,5)%>
+                                                        </div>
+                                                        <% } %>
                                                 </div>
-                                                <% } %>
-                                        </div>
                                     </div>
 
                                 </div>
@@ -369,12 +364,15 @@
             }
 
             function convertToTimeFormat(number) {
+                // console.log(number);
                 let hours = Math.floor(number);
                 if (hours < 10) {
                     hours = '0' + hours; // Добавляем 0 в начало, если количество часов меньше 10
                 }
                 let minutes = (number - hours) * 60;
+                minutes = Math.floor(minutes);
                 if (minutes == 0) minutes = '0' + minutes;
+                // console.log(hours, minutes);
                 return hours + ':' + minutes;
             }
 
@@ -386,10 +384,15 @@
                 durationInput = document.querySelector("#duration");
             let deletedStartTime = [], deletedPhotos = [];
             let startTimes = [], timeTags = [], i = 0;
+            timeTags = document.querySelectorAll(".time-tag");
+            timeTags.forEach(item => {
+                startTimes.push(item.innerText);
+            });
+            console.log(convertToTimeFormat(durationInput.dataset.dur));
 
             durationInput.value = convertToTimeFormat(durationInput.dataset.dur);
 
-            timeTags = document.querySelectorAll(".time-tag");
+            
             timeTags.forEach(tag => {
                 tag.addEventListener('click', () => {
                     tag.remove();
@@ -400,6 +403,8 @@
                         let tagIndex = tag.dataset.index;
 
                         startTimes.splice(tagIndex, 1);
+
+                        console.log(startTimes);
                     }
                 });
             });

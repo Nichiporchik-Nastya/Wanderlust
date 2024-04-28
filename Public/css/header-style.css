@@ -97,6 +97,10 @@ header nav {
   font-size: 18px;
 }
 
+.menu-more__item:hover{
+  font-weight: 600;
+}
+
 .guides-imgs__img{
   border-radius: 100%;
   width: 80px;
