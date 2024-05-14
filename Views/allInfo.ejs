@@ -18,10 +18,10 @@
 
 
         <div class="container two-part-container">
-            <div class="first-container-part">
+            <div class="second-container-part long-field">
                 <h2>О компании Wanderlust Minsk</h2>
             </div>
-            <div class="input-wrap second-container-part">
+            <div class="input-wrap first-container-part">
                 <p class="paragraph">В компании «Wanderlust» по всему миру работает огромное количество
                     человек, которые оказывают услуги в сфере туризма. «Wanderlust Minsk» — белорусский
                     филиал основной организации – не исключение</p>
@@ -41,106 +41,215 @@
             <div class="first-container-part">
                 <h2>Экскурсоводы из Wanderlust Minsk</h2>
             </div>
-            hjkkkkkkkkkkkkk
         </div>
 
-        <div class="container two-part-container" id="answer0">
-            <div class="first-container-part">
-                <h2>Ответы на часто задаваемые вопросы</h2>
-            </div>
-            <ul class="accordion__list second-container-part">
-                <li class="accordion__item" id="answer1">
-                    <div class="accordion__title-block" id="allInfo">
-                        <div class="accordion__title-content">
-                            <h3 class="accordion__title">Как забронировать экскурсию?</h3>
-                            <img class="accordion__arrow" src="/Public/icons/arrow.svg">
-                        </div>
+
+
+
+        <% data.forEach(item=> { %>
+
+            <% if(item.excursions.length !==0) {%>
+
+                <div class="container two-part-container">
+
+                    <div class="second-part-container">
+                        <aside>
+                            <h2>
+                                <%= item.user.name %>
+                            </h2>
+
+                        </aside>
                     </div>
-                    <div class="accordion__text-block">
-                        <div class="input-wrap">
-                            <p class="paragraph">Для бронирования экскурсии необходимо выбрать экскурсию из <a
-                                    href="/excursions/all" class="link">списка всех доступных</a>, на странице экскурсии
-                                нажать кнопку «Забронировать», чтобы перейти к форме бронирования. В форме необходимо
-                                выбрать один из доступных дней для бронирования, указать свои контактные данные,
-                                количество человек и, убедившись, что все данные введены верно, а стоимость
-                                соответствует вашим ожиданиям, нажать кнопку «Забронировать». </p>
-                            <p class="paragraph">После отправки данных гид свяжется с вами в ближайшее время для
-                                уточнения всех деталей. Это необходимо для того, чтобы подтвердить, что вы реальный
-                                человек, так как на сайте не нужна регистрация и предоблата для осуществления
-                                бронирования</p>
-                            <div class="window-btns">
-                                <a href="/excursions/all" class="btn">Все экскурсии</a>
-                                <a href="/excursions/random" class="btn secondary-btn">Случайный маршрут</a>
+
+                    <div class="first-container-part">
+
+                        <% item.excursions.forEach(excursion=> { %>
+
+                            <a href="/excursions/show/<%=excursion.id%>" class="excursion-block"
+                                id="excursion-<%=excursion.id%>">
+
+                                <div class="excursion-block__header">
+                                    <h5 class="excursion-name">
+                                        <%=excursion.name%>
+                                    </h5>
+                                </div>
+
+                                <div class="excursion-block__body">
+                                    <div>
+                                        <div class="excursion-block__data-wrap">
+                                            <p class="extra-info">Формат</p>
+                                            <p class="excursion-block__format excursion-block__data">
+                                                <%=excursion.format.name%>
+                                            </p>
+
+                                        </div>
+                                        <div class="excursion-block__data-wrap">
+                                            <p class="extra-info">Тип</p>
+                                            <p class="excursion-block__type excursion-block__data">
+                                                <%=excursion.type.name%>
+                                            </p>
+
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <div class="excursion-block__data-wrap">
+                                            <p class="extra-info">Длительность</p>
+                                            <p class="excursion-block__type excursion-block__data">
+                                                <%=excursion.duration%> часа
+                                            </p>
+
+                                        </div>
+                                        <div class="excursion-block__data-wrap">
+                                            <p class="extra-info">Стоимость</p>
+                                            <p class="excursion-block__type excursion-block__data">
+                                                <%=excursion.adultCost%> Br
+                                            </p>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </a>
+                            <%}); %>
+
+                    </div>
+
+                </div>
+
+                <%}%>
+                    <%});%>
+
+
+
+
+
+
+
+
+
+                        <div class="container two-part-container" id="answer0">
+                            <div class="second-container-part">
+                                <aside>
+                                    <h2>Ответы на часто задаваемые вопросы</h2>
+                                </aside>
                             </div>
+                            <ul class="accordion__list first-container-part">
+                                <li class="accordion__item long-field" id="answer1">
+                                    <div class="accordion__title-block" id="allInfo">
+                                        <div class="accordion__title-content">
+                                            <h3 class="accordion__title">Как забронировать экскурсию?</h3>
+                                            <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                                        </div>
+                                    </div>
+                                    <div class="accordion__text-block">
+                                        <div class="input-wrap">
+                                            <p class="paragraph">Для бронирования экскурсии необходимо выбрать экскурсию
+                                                из <a href="/excursions/all" class="link">списка всех доступных</a>, на
+                                                странице экскурсии
+                                                нажать кнопку «Забронировать», чтобы перейти к форме бронирования. В
+                                                форме необходимо
+                                                выбрать один из доступных дней для бронирования, указать свои контактные
+                                                данные,
+                                                количество человек и, убедившись, что все данные введены верно, а
+                                                стоимость
+                                                соответствует вашим ожиданиям, нажать кнопку «Забронировать». </p>
+                                            <p class="paragraph">После отправки данных гид свяжется с вами в ближайшее
+                                                время для
+                                                уточнения всех деталей. Это необходимо для того, чтобы подтвердить, что
+                                                вы реальный
+                                                человек, так как на сайте не нужна регистрация и предоблата для
+                                                осуществления
+                                                бронирования</p>
+                                            <div class="window-btns">
+                                                <a href="/excursions/all" class="btn">Все экскурсии</a>
+                                                <a href="/excursions/random" class="btn secondary-btn">Случайный
+                                                    маршрут</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="accordion__item " id="answer2">
+                                    <div class="accordion__title-block" id="allInfo">
+                                        <div class="accordion__title-content">
+                                            <h3 class="accordion__title">Как отменить бронирование?</h3>
+                                            <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                                        </div>
+                                    </div>
+                                    <div class="accordion__text-block">
+                                        <div class="input-wrap">
+                                            <p class="paragraph">После бронирования экскурсии на указанную вами почту
+                                                приходит
+                                                электронный билет, который содержит основную информацию об экскурсии,
+                                                гиде и других
+                                                организационных моментах. В электронном билете есть кнопка «Отменить
+                                                бронирование»,
+                                                нажимая на которую вы отменяете бронирование и автоматически переходите
+                                                на наш сайт </p>
+                                            <p class="paragraph">Обратите внимание, что если вам на почту не пришёл
+                                                электронный билет,
+                                                значит вы возможно указали неверную почту или сообщение попало в список
+                                                «Спам» вашего
+                                                почтового ящика. Для уточнения деталей вы можете обратиться по телефону
+                                                <a href="tel:+375335070037" class="link">+375 (33) 507–00–37</a> в
+                                                рабочие часы
+                                                компании
+                                            </p>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="accordion__item" id="answer3">
+                                    <div class="accordion__title-block" id="allInfo">
+                                        <div class="accordion__title-content">
+                                            <h3 class="accordion__title">Как стать гидом?</h3>
+                                            <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                                        </div>
+                                    </div>
+                                    <div class="accordion__text-block">
+                                        <div class="input-wrap">
+                                            <p class="paragraph">В компании «Wanderlust» по всему миру работает огромное
+                                                количество
+                                                человек, которые оказывают услуги в сфере туризма. «Wanderlust Minsk» —
+                                                белорусский
+                                                филиал основной организации – не исключение</p>
+                                            <p class="paragraph">Если у вас есть соответствующие опыт, знания и желание
+                                                ими поделиться,
+                                                приглашаем вас стать частью
+                                                нашей большой команды энтузиастов и прислать своё резюме нам на почту
+                                            </p>
+                                            <a class="btn secondary-btn" href="mailto:hr@wanderlust.ru"> Прислать резюме
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="accordion__item " id="answer4">
+                                    <div class="accordion__title-block" id="allInfo">
+                                        <div class="accordion__title-content">
+                                            <h3 class="accordion__title">Как стать гидом?</h3>
+                                            <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                                        </div>
+                                    </div>
+                                    <div class="accordion__text-block">
+                                        <div class="input-wrap">
+                                            <p class="paragraph">В компании «Wanderlust» по всему миру работает огромное
+                                                количество
+                                                человек, которые оказывают услуги в сфере туризма. «Wanderlust Minsk» —
+                                                белорусский
+                                                филиал основной организации – не исключение</p>
+                                            <p class="paragraph">Если у вас есть соответствующие опыт, знания и желание
+                                                ими поделиться,
+                                                приглашаем вас стать частью
+                                                нашей большой команды энтузиастов и прислать своё резюме нам на почту
+                                            </p>
+                                            <a class="btn secondary-btn" href="mailto:hr@wanderlust.ru"> Прислать резюме
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
                         </div>
-                    </div>
-                </li>
-                <li class="accordion__item " id="answer2">
-                    <div class="accordion__title-block" id="allInfo">
-                        <div class="accordion__title-content">
-                            <h3 class="accordion__title">Как отменить бронирование?</h3>
-                            <img class="accordion__arrow" src="/Public/icons/arrow.svg">
-                        </div>
-                    </div>
-                    <div class="accordion__text-block">
-                        <div class="input-wrap">
-                            <p class="paragraph">После бронирования экскурсии на указанную вами почту приходит
-                                электронный билет, который содержит основную информацию об экскурсии, гиде и других
-                                организационных моментах. В электронном билете есть кнопка «Отменить бронирование»,
-                                нажимая на которую вы отменяете бронирование и автоматически переходите на наш сайт </p>
-                            <p class="paragraph">Обратите внимание, что если вам на почту не пришёл электронный билет,
-                                значит вы возможно указали неверную почту или сообщение попало в список «Спам» вашего
-                                почтового ящика. Для уточнения деталей вы можете обратиться по телефону <a
-                                    href="tel:+375335070037" class="link">+375 (33) 507–00–37</a> в рабочие часы
-                                компании</p>
-                        </div>
-                    </div>
-                </li>
-                <li class="accordion__item" id="answer3">
-                    <div class="accordion__title-block" id="allInfo">
-                        <div class="accordion__title-content">
-                            <h3 class="accordion__title">Как стать гидом?</h3>
-                            <img class="accordion__arrow" src="/Public/icons/arrow.svg">
-                        </div>
-                    </div>
-                    <div class="accordion__text-block">
-                        <div class="input-wrap">
-                            <p class="paragraph">В компании «Wanderlust» по всему миру работает огромное количество
-                                человек, которые оказывают услуги в сфере туризма. «Wanderlust Minsk» — белорусский
-                                филиал основной организации – не исключение</p>
-                            <p class="paragraph">Если у вас есть соответствующие опыт, знания и желание ими поделиться,
-                                приглашаем вас стать частью
-                                нашей большой команды энтузиастов и прислать своё резюме нам на почту
-                            </p>
-                            <a class="btn secondary-btn" href="mailto:hr@wanderlust.ru"> Прислать резюме </a>
-                        </div>
-                    </div>
-                </li>
-                <li class="accordion__item " id="answer4">
-                    <div class="accordion__title-block" id="allInfo">
-                        <div class="accordion__title-content">
-                            <h3 class="accordion__title">Как стать гидом?</h3>
-                            <img class="accordion__arrow" src="/Public/icons/arrow.svg">
-                        </div>
-                    </div>
-                    <div class="accordion__text-block">
-                        <div class="input-wrap">
-                            <p class="paragraph">В компании «Wanderlust» по всему миру работает огромное количество
-                                человек, которые оказывают услуги в сфере туризма. «Wanderlust Minsk» — белорусский
-                                филиал основной организации – не исключение</p>
-                            <p class="paragraph">Если у вас есть соответствующие опыт, знания и желание ими поделиться,
-                                приглашаем вас стать частью
-                                нашей большой команды энтузиастов и прислать своё резюме нам на почту
-                            </p>
-                            <a class="btn secondary-btn" href="mailto:hr@wanderlust.ru"> Прислать резюме </a>
-                        </div>
-                    </div>
-                </li>
-            </ul>
-        </div>
 
-        <script src="/public/js/anchorScroll.js"></script>
-        <script src="/Public/js/accordion.js"></script>
+                        <script src="/public/js/anchorScroll.js"></script>
+                        <script src="/Public/js/accordion.js"></script>
 </body>
 
 </html>

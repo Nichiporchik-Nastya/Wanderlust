@@ -2,6 +2,7 @@
 const bcrypt = require('bcrypt');
 
 const Users = require("../db/models/index").Users;
+const ExcursionModel = require('./excursionModel');
 
 class UserModel {
   async create(body, files) {
@@ -42,6 +43,18 @@ class UserModel {
       },
     });
     return await user?.role;
+  }
+
+  async getUsersExcursions() {
+    let users = await Users.findAll();
+    let result = [];
+
+    for (let user of users) {
+      let excursions = await ExcursionModel.getByUserId(user.id);
+      result.push({ user: user, excursions: excursions });
+    }
+
+    return result;
   }
 
 }

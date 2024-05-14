@@ -1,14 +1,17 @@
 //npm start
 //nodemon index.js
 
+
+// const bcrypt = require('bcrypt');
+
+
+// const bodyParser = require('body-parser');
+// const cookieParser = require('cookie-parser');
+
+
 const express = require('express');
 const fileUpload = require('express-fileupload');
-// const middlewareController = require('./Controllers/middlewareController');
-const bcrypt = require('bcrypt');
 const PORT = process.env.PORT || 4001;
-
-const bodyParser = require('body-parser');
-// const cookieParser = require('cookie-parser');
 
 
 const app = express();
@@ -28,18 +31,26 @@ app.use(session({
     cookie: {
         path: '/',
         httpOnly: true,
-        maxAge: 24*60*60*1000
+        maxAge: 24 * 60 * 60 * 1000
     }
 }));
 
 const authRouter = require('./Routers/authRouter');
 const mainRouter = require('./Routers/mainRouter');
+
 app.use("/auth", authRouter);
 app.use("/", mainRouter);
 
+app.get('/*', function (req, res) {
+    res.status(404);
+    const user = req.session.user;
+    res.render('404', { data: user });
+});
+
+
 const start = () => {
     try {
-        app.listen(PORT, () =>{
+        app.listen(PORT, () => {
             console.log(`server started on port ${PORT}`);
             // console.log(bcrypt.hash(123 + '123', 3));
         }

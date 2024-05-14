@@ -14,35 +14,38 @@
 <body>
     <%- include('./partials/header'); %>
 
-        <div class="container two-part-container" style="justify-content: start; gap: 120px; align-items: center;">
+        <div class="login-page">
+            <div class="form-wrapper">
+                <form class="login-form" onsubmit="LoginSubmit(event)">
+                    <h2>Вход</h2>
+                    <div class="box-input">
+                        <input type="email" name="email" id="email" class="input" placeholder=" ">
+                        <label>Адрес электронной почты</label>
+                        <div class="box-input__error-text email-error"></div>
+                    </div>
 
-            <form class="login-form" onsubmit="LoginSubmit(event)">
-                <h2>Вход</h2>
-                <div class="box-input">
-                    <input type="email" name="email" id="email" class="input" placeholder=" ">
-                    <label>Адрес электронной почты</label>
-                    <div class="box-input__error-text email-error"></div>
+                    <div class="box-input">
+                        <input type="password" name="password" id="password" class="input" placeholder=" ">
+                        <label>Пароль</label>
+                        <div class="box-input__error-text password-error"></div>
+                    </div>
+
+                    <input type="submit" class="btn" value="Войти">
+                </form>
+
+                <div class="paragraph-wrapper">
+                    <h4>
+                        Вход доступен только для гидов
+                    </h4>
+                    <p class="paragraph" style="max-width: 500px; margin-bottom: 20px; margin-top: 10px">
+                        Если у вас есть соответствующие опыт, знания и желание ими поделиться, приглашаем вас стать
+                        частью
+                        нашей большой команды энтузиастов
+                    </p>
+                    <p class="paragraph">
+                        <a class="link" href="mailto:hr@wanderlust.ru"> Прислать резюме </a>
+                    </p>
                 </div>
-
-                <div class="box-input">
-                    <input type="password" name="password" id="password" class="input" placeholder=" ">
-                    <label>Пароль</label>
-                    <div class="box-input__error-text password-error"></div>
-                </div>
-
-                <input type="submit" class="btn" value="Войти">
-
-            </form>
-
-            <div class="paragraph-wrap">
-                <h4>
-                    Вход доступен только для гидов
-                </h4>
-                <p class="paragraph" style="width: 500px; margin-bottom: 20px;">
-                    Если у вас есть соответствующие опыт, знания и желание ими поделиться, приглашаем вас стать частью
-                    нашей большой команды энтузиастов
-                </p>
-                <a class="btn secondary-btn" href="mailto:hr@wanderlust.ru"> Прислать резюме </a>
             </div>
         </div>
         <script src="/public/js/login.js"></script>

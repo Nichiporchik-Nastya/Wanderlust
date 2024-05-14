@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Страница не найдена</title>
+    <link rel="stylesheet" href="/public/css/normalize.css">
+    <link rel="stylesheet" href="/public/css/header-style.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+</head>
+
+<body>
+
+    <% if(!data) {%>
+        <%- include('./partials/header'); %>
+            <% } else {%>
+                <%- include('./guidePages/partials/header'); %>
+                    <% }%>
+
+                        <div class="container">
+                            <div class="images-404__wrapper">
+                                <img src="/Public/images/1589f9c69c1c7e826aecd34e1d39e7e1.jpg" alt="">
+                                <img src="/Public/images/4d108c928e755e7f5f39859f56b5ce8b.jpg" alt="">
+                                <img src="/Public/images/58791_800.jpg" alt="">
+                                <img src="/Public/images/b446319c30fe80f6c04bbdaaac5662fa.jpg" alt="">
+                                <img src="/Public/images/672866f00cfb9587907ff2302f0f1ce7.jpg" alt="">
+                            </div>
+                        </div>
+                        <div class="container two-part-container">
+
+                            <div class="first-container-part">
+                                <h2>Страница не найдена</h2>
+
+                            </div>
+                            <div class="second-container-part">
+                                <h3 style="margin-bottom: 20px;">Ошибка 404</h3>
+                                <h5>Что-то пошло не так</h5>
+
+                                <p class="paragraph" style="width: 500px;">
+                                    Страница, которую вы ищите, была удалена, перемещена, переименована или никогда
+                                    не существовала
+                                </p>
+
+                                <div class="window-btns">
+                                    <div class="btn secondary-btn back-btn">Назад</div>
+                                    <a class="btn" href="/excursions/all">Найти экскурсию</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            let backBtn = document.querySelector(".back-btn");
+                            if (backBtn) {
+                                backBtn.onclick = () => {
+                                    history.back();
+                                }
+                            }
+                        </script>
+
+                        <script src="/public/js/anchorScroll.js"></script>
+                        <script src="./index.js"></script>
+</body>
+
+</html>

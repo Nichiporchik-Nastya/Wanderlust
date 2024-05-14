@@ -18,19 +18,98 @@
             <% } else {%>
                 <%- include('./guidePages/partials/header'); %>
                     <% }%>
-                        <img src="/Public/images/main.png" alt="">
+                        <img class="hero-img" src="/Public/images/main.png" alt="">
 
-                        <div class="container two-part-container">
 
-                            <h2>Новая серия туристических маршрутов по Минску</h2>
-
-                            <a class="btn" href="/auth/login">Войти</a>
-
+                        <div class="container two-part-container hero-header"
+                            style="padding-top: 40px; padding-bottom: 40px; margin: 0;">
+                            <div class="first-container-part">
+                                <h1 class="h2">Новая серия туристических маршрутов по Минску</h1>
+                                <a href="/excursions/all" class="btn">Выбрать экскурсию</a>
+                            </div>
+                            <div class="second-container-part">
+                                <h5>Мы предлагаем разнообразные виды экскурсий, включая: </h5>
+                                <ul class="custom-ul">
+                                    <li>программы для детей и учащихся</li>
+                                    <li>пешеходные экскурсии выходного дня</li>
+                                    <li>возможность организации индивидуальных, групповых экскурсий и мини-групп</li>
+                                </ul>
+                            </div>
                         </div>
 
+                        <div class="container about-block">
+                            <h3 class="h3"><span class="colored-text">Команда страстных путешественников</span>
+                                и опытных гидов с радостью проведёт вас в удивительное путешествие по сердцу Беларуси:
+                            </h3>
+                            <img src="/Public/images/about.png" alt="Фонтан в парке Якуба Коласа">
+                            <h3>От старинных улочек до архитектурных шедевров нового времени, <span
+                                    class="colored-text">покажет вам своеобразие Минска в его неповторимой
+                                    атмосфере</span></h3>
+                        </div>
+
+                        
+
+                        <div class="container advantages-block">
+                            <h3>Wanderlust minsk — это</h3>
+                            <div class="slider">
+                                <div class="slider-list" style="height: 400px">
+                                    <div class="slider-track">
+                                        <div class="slide slide-card">
+                                            <div class="slide-card__top">
+                                                <h4 class="slide-card__title">Опытные экскурсоводы</h4>
+                                                <p class="slide-card__text paragraph">
+                                                    Профессиональные гиды с опытом работы от 3-х лет
+                                                </p>
+                                            </div>
+                                            <div class="slide-card__bottom"></div>
+                                        </div>
+                                        <div class="slide slide-card">
+                                            <div class="slide-card__top">
+                                                <h4 class="slide-card__title">Маршрут на карте</h4>
+                                                <p class="slide-card__text paragraph">
+                                                    Большое количество фотографий и отмеченный на карте маршрут
+                                                    позволяют точно понять, что вас ждёт
+                                                </p>
+                                            </div>
+                                            <div class="slide-card__bottom"></div>
+                                        </div>
+                                        <div class="slide slide-card">
+                                            <div class="slide-card__top">
+                                                <h4 class="slide-card__title">удобная классификация</h4>
+                                                <p class="slide-card__text paragraph">
+                                                    С категориями на сайте можно быстро найти то, что нужно именно вам
+                                                </p>
+                                            </div>
+                                            <div class="slide-card__bottom"></div>
+                                        </div>
+                                        <div class="slide slide-card">
+                                            <div class="slide-card__top">
+                                                <h4 class="slide-card__title">Регистрация не нужна!</h4>
+                                                <p class="slide-card__text paragraph">
+                                                    Для бронирования экскурсии не нужно регистрироваться и вносить
+                                                    предоплату
+                                                </p>
+                                            </div>
+                                            <div class="slide-card__bottom">
+                                                <img src="/Public/images/advantages.png" alt="Инфографика преимущества">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="slider-arrows">
+                                    <div type="button" class="prev disabled"> </div>
+                                    <div type="button" class="next"> </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        
 
                         <script src="/public/js/anchorScroll.js"></script>
                         <script src="./index.js"></script>
+                        <script src="/Public/js/slider.js"></script>
 </body>
 
 </html>

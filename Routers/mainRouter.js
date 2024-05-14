@@ -35,13 +35,15 @@ router.get('/admin/registration', (req, res) => {
   res.render('adminPages/registrationPage');
 });
 
-router.get('/allInfo', (req, res) => {
-  // const data = {};
-  // data.f = 1;
-  // data.fo = 1;
-  // res.render('allInfo', data);
-  res.render('allInfo');
-});
+// router.get('/allInfo', (req, res) => {
+//   // const data = {};
+//   // data.f = 1;
+//   // data.fo = 1;
+//   // res.render('allInfo', data);
+//   res.render('allInfo', {data: result});
+// });
+
+router.get('/allInfo', controller.allInfo);
 
 router.post('/api/excursions/create',
   [

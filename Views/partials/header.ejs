@@ -1,7 +1,8 @@
+<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 <header class="container">
     <nav>
         <a href="/">
-            <img src="/public/logo.svg" alt="" class="logo">
+            <img src="/public/logo.svg" alt="Логотип" class="logo">
         </a>
 
         <div class="search-bar">
@@ -25,18 +26,26 @@
         </ul>
     </nav>
 
+    <a href="/excursions/all">
+        <img src="/public/icons/search.svg" class="search-bar__icon" />
+    </a>
+
     <div class="btn-block">
         <a href="tel:+375335070037"><span class="extra-info">+375 (33)</span> 507–00–37</a>
     </div>
 
+    <lottie-player class="burger-btn reverseEffect" src="/Public/animations/menuV2.json" speed="1"
+        style="min-width: 40px; max-width:40px; height: 40px" alt="Бургер-меню"></lottie-player>
+
     <div class="search-bar__block">
         <div class="search-bar__block-title">
             <h4>Популярные экскурсии</h4>
-            <a href="/allInfo#answer0" class="link">
+            <a href="/excursions/all" class="link">
                 Смотреть все
                 <img src="/Public/icons/btn-arrow.svg">
             </a>
         </div>
+
         <div class="search-results__wrapper">
         </div>
     </div>
@@ -78,19 +87,19 @@
                     Дешёвые экскурсии
                 </a>
                 <div class="hr"></div>
-                <p class="extra-info" style="width: 180px">
+                <p class="extra-info btn-text">
                     Не знаете, что выбрать? Сервис предложит вам лучший вариант!
                 </p>
-                <a href="/excursions/random" class="btn">Случайный маршрут</a>
+                <a href="/excursions/random" style="white-space: nowrap;" class="btn">Случайный маршрут</a>
             </div>
         </div>
         <div class="vr"> </div>
-        <div class="menu-more__part-wrapper" style="display: flex; flex-direction: column; gap: 16px;">
+        <div class="menu-more__part-wrapper">
             <div>
                 <h5 class="extra-info h5">
                     Опытные экскурсоводы
                 </h5>
-                <div class="menu-more__links">
+                <div class="menu-more__links guides">
                     <div class="guides-imgs__wrapper">
                         <img src="/Public/guideImages/guide1.jpg" alt="" class="guides-imgs__img">
                         <img src="/Public/guideImages/image 2185.png" alt="" class="guides-imgs__img">
@@ -98,7 +107,7 @@
                         <img src="/Public/guideImages/image 511.png" alt="" class="guides-imgs__img">
                         <img src="/Public/guideImages/image 512.png" alt="" class="guides-imgs__img">
                     </div>
-                    <div style="display: flex; gap: 20px;">
+                    <div class="guides-text__wrapper">
                         <p class="extra-info" style="width: 190px;">
                             Ещё больше маршрутов от наших гидов
                         </p>
@@ -107,7 +116,7 @@
                 </div>
             </div>
             <div class="hr"></div>
-            <div style="display: flex; align-items: end;">
+            <div class="guides-info">
                 <p class="extra-info" style="width: 190px;">
                     Только для зарегистрированных
                 </p>
@@ -124,13 +133,10 @@
 <script>
     let searchBar = document.querySelector('#search'),
         searchBarBlock = document.querySelector('.search-bar__block');
+
     searchBar.addEventListener("focus", (event) => {
         searchBarBlock.classList.add("show");
         Search(event.target);
-
-
-        
-
     });
 
     async function Search(target) {
@@ -164,19 +170,36 @@
     }
 
     let more = document.querySelector("#more"),
-        moreBlock = document.querySelector(".menu-more__block");
+        moreBlock = document.querySelector(".menu-more__block"),
+        burgerBtn = document.querySelector(".burger-btn");
 
     more.addEventListener("click", () => {
         moreBlock.classList.add("show");
         document.addEventListener('mouseup', function (e) {
-
             if (!moreBlock.contains(e.target)) {
                 moreBlock.classList.remove('show');
             }
         });
     });
 
+    //кнопка бургер-меню
+    let player = document.querySelector(".reverseEffect");
+    let clicked = false;
+    player.addEventListener("click", () => {
 
+        moreBlock.classList.add("show");
+
+        if (clicked) {
+            player.setDirection(-1);
+            clicked = false;
+            moreBlock.classList.remove('show');
+        } else {
+            player.setDirection(1);
+            clicked = true;
+        }
+        player.play();
+
+    });
 
 
 </script>

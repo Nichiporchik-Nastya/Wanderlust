@@ -193,34 +193,31 @@ arrows.addEventListener('click', function () {
   slide();
 });
 
-let curImgIndex = 0;
-
 imgOpenBtns.forEach(imgSlide => {
   imgSlide.addEventListener('click', () => {
-    modalImg.src = imgSlide.parentElement.querySelector(".slide-img").src;
-    curImgIndex = imgSlide.parentElement.querySelector(".slide-img").dataset.imageindex;
+    imgPlace.innerHTML = imgSlide.parentElement.innerHTML;
     modalWrapper.classList.add('modal-open');
   });
 });
 
-closeModalBtn.addEventListener('click', () => {
-  modalWrapper.classList.remove('modal-open');
-});
+// closeModalBtn.addEventListener('click', () => {
+//   modalWrapper.classList.remove('modal-open');
+// });
 
-modalWrapper.addEventListener('click', () => {
-  modalWrapper.classList.remove('modal-open');
-});
+// modalWrapper.addEventListener('click', () => {
+//   modalWrapper.classList.remove('modal-open');
+// });
 
-///////////////**///// */
+/////////////////**///// */
 
 // closePart.addEventListener('click', () => {
 //   modalWrapper.classList.remove('modal-open');
 // });
 
-nextPart.addEventListener('click', () => {
-  curImgIndex++;
-  modalImg.src = imgs[curImgIndex];
-});
+// nextPart.addEventListener('click', () => {
+//   curImgIndex++;
+//   modalImg.src = imgs[curImgIndex];
+// });
 
-prevPart.addEventListener('click', () => {
-});
+// prevPart.addEventListener('click', () => {
+// });

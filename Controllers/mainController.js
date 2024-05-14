@@ -3,7 +3,7 @@ const { validationResult } = require('express-validator');
 const UserModel = require("../Models/userModel");
 const ExcursionModel = require('../Models/excursionModel');
 const OrderModel = require('../Models/orderModel');
-const {logger} = require("sequelize/lib/utils/logger");
+const { logger } = require("sequelize/lib/utils/logger");
 
 
 
@@ -24,7 +24,7 @@ class mainController {
             const user = req.session.user;
             let excursions = await ExcursionModel.getByUserId(user.id);
             console.log(excursions);
-            res.render('guidePages/dashbord', { user:user, excursions:excursions });
+            res.render('guidePages/dashbord', { user: user, excursions: excursions });
         } catch (e) {
             console.log(e);
         }
@@ -34,9 +34,18 @@ class mainController {
         try {
             let isSession = req.session?.user ? true : false;
             console.log(isSession);
-            res.render('index', { data: isSession});
+            res.render('index', { data: isSession });
         } catch (e) {
             console.log(e);
+        }
+    }
+
+    async allInfo(req, res){
+        try {
+            let data = await UserModel.getUsersExcursions();
+            res.render('allInfo', { data: data });
+        } catch (error) {
+            console.log(error);
         }
     }
 
@@ -63,7 +72,7 @@ class mainController {
     async createExcursion(req, res) {
         try {
             console.log(req.body.filesCount);
-            
+
             let errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
@@ -100,9 +109,9 @@ class mainController {
             // }
             // else {
 
-                let result = await ExcursionModel.delete(req.body.id);
+            let result = await ExcursionModel.delete(req.body.id);
 
-                res.status(200).json(result);
+            res.status(200).json(result);
             // }
 
         } catch (e) {
@@ -139,7 +148,7 @@ class mainController {
         }
     }
 
-    async getExcursionDays(req, res){
+    async getExcursionDays(req, res) {
         try {
             let id = req.body.excursionId;
             let result = await ExcursionModel.getDays(id);
@@ -163,7 +172,7 @@ class mainController {
     //     }
     // }
 
-    async search(req, res){
+    async search(req, res) {
         try {
             let result = await ExcursionModel.search(req.query?.str);
             console.log(result);
@@ -173,11 +182,11 @@ class mainController {
         }
     }
 
-    async searchFilter(req, res){
+    async searchFilter(req, res) {
         try {
-            let {str, startCost, endCost, formatId, typeId, sort} = req.query;
-            if(startCost == "") startCost = 0;
-            if(endCost == "") endCost = 1000;
+            let { str, startCost, endCost, formatId, typeId, sort } = req.query;
+            if (startCost == "") startCost = 0;
+            if (endCost == "") endCost = 1000;
             if (!formatId) {
                 formatId = (await ExcursionModel.getAllFormats()).map(el => el.dataValues.id);
             }
@@ -188,7 +197,7 @@ class mainController {
             typeId = typeof typeId === 'string' ? [typeId] : typeId;
             formatId = formatId.map(el => +el);
             typeId = typeId.map(el => +el);
-            let result = await ExcursionModel.searchForFilter(str, startCost, endCost, formatId, typeId, sort );
+            let result = await ExcursionModel.searchForFilter(str, startCost, endCost, formatId, typeId, sort);
             res.status(200).send(result);
         } catch (e) {
             console.log(e);

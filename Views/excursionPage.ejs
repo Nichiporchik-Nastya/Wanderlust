@@ -49,14 +49,37 @@
                                     src="<%= data.imagesExcursionsData[i].imgSRC %>" alt="">
                                 <% } %>
                         </div>
-
-
-                        <div class="container two-part-container" style="margin-top: 40px;">
+                        <div class="container two-part-container excursion-header" style="margin-top: 40px;">
                             <div class="first-container-part">
-
-                                <h2 class="first-container-part">
+                                <h2>
                                     <%= data.excursionData.name %>
                                 </h2>
+                            </div>
+                            <div class="second-container-part excursion-aside">
+                                <div class="share-block">
+                                    <div class="tertiary-btn btn-with-icon share-btn">
+                                        <img src="/Public/icons/share-network.svg">
+                                        Поделиться
+                                    </div>
+
+                                    <div class="social-icons">
+                                        <div class="ya-share2" data-curtain data-shape="normal"
+                                            data-services="vkontakte,odnoklassniki,telegram,viber" data-copy="extraItem"
+                                            data-title="<%= data.excursionData.name %>"
+                                            data-image="<%= data.imagesExcursionsData[0].imgSRC %>"
+                                            data-description="Вот так экскурсия"
+                                            data-url="localhost:4001/excursions/show/<%= data.excursionData.id %>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container two-part-container excursion-header" style="margin-top: 0px;">
+                            <div class="first-container-part">
+
+                                <!-- <h2>
+                                    <%= data.excursionData.name %>
+                                </h2> -->
 
                                 <div class="accordeon-tabs__wrapper">
                                     <a href="#description" onclick="scrollToBlock()"
@@ -353,7 +376,7 @@
 
                                     <input type="number" hidden name="statusId" id="statusId" value="1">
                                     <h3>Забронировать экскурсию</h3>
-                                    <div style="display: flex; align-items: flex-end; gap: 20px; margin-bottom: 20px;">
+                                    <div class="calendar-wrapper-block">
                                         <div class="calendar-wrapper">
                                             <h5>Дата бронирования</h5>
                                             <div class="calendar-top">
@@ -388,8 +411,7 @@
                                     </div>
                                     <div class="box-input__error-text day-error"></div>
                                     <div style="display: flex; gap: 40px; width: 100%;">
-                                        <div style="display: flex; flex-direction: column;
-                           gap: 8px; width: 100%;">
+                                        <div style="display: flex; flex-direction: column; gap: 8px;">
                                             <h5>Введите контактные данные</h5>
                                             <div class="box-input">
                                                 <input type="name" name="clientName" id="name" class="input"
@@ -462,12 +484,11 @@
                                                         </div>
                                                         <div class="box-input__error-text count-error"></div>
                                                     </div>
-                                                    <% }%>
-
+                                                <% }%>
                                             </div>
                                         </div>
-                                        <div style="min-width: 240px;">
-                                            <div class="input-wrap">
+                                        <div>
+                                            <div>
                                                 <h5>Время начала экскурсии</h5>
                                                 <% data.startTimesData.sort((a, b)=> {
                                                     if (a.time < b.time) { return -1; } if (a.time> b.time) {
@@ -479,7 +500,8 @@
 
                                                             <div class="radio-input">
                                                                 <input type="radio" name="startTimeId"
-                                                                    id="startTime-<%= item.id %>" data-sttid="<%= item.id %>" value="<%= item.id %>"
+                                                                    id="startTime-<%= item.id %>"
+                                                                    data-sttid="<%= item.id %>" value="<%= item.id %>"
                                                                     checked>
                                                                 <label for="startTime-<%= item.id; %>">
                                                                     <% let itemText=item.time.slice(0, -3); %>
@@ -497,7 +519,9 @@
                                     <div class="final-cost">Итого: <span class="final-cost-place">0</span> BYN</div>
                                     <div style="display: flex; column-gap: 12px;">
                                         <input type="submit" class="btn" value="Забронировать экскурсию">
-                                        <p class="extra-info">Оформляя заказ, вы соглашаетесь на обработку персональных
+                                        <p class="extra-info" style="max-width: 300px;">Оформляя заказ, вы соглашаетесь
+                                            на обработку
+                                            персональных
                                             данных
                                         </p>
                                     </div>
@@ -505,8 +529,8 @@
 
                                 </form>
                             </div>
-                            <div class="second-container-part">
-                                <div class="share-block">
+                            <div class="second-container-part excursion-aside">
+                                <!-- <div class="share-block">
                                     <div class="tertiary-btn btn-with-icon share-btn">
                                         <img src="/Public/icons/share-network.svg">
                                         Поделиться
@@ -520,8 +544,9 @@
                                             data-description="Вот так экскурсия"
                                             data-url="/excursions/show/<%= data.excursionData.id %>"></div>
                                     </div>
-                                </div>
+                                </div> -->
                                 <aside class="excursion-extra-info">
+
                                     <div class="excursion-extra-info__item">
                                         <!-- <div class="excursion-extra-info__group"> -->
                                         <!-- <div class="visitors-number">
@@ -532,17 +557,24 @@
                                                 <span>4,7</span> <span class="extra-info">(51)</span>
                                             </div> -->
                                         <!-- </div> -->
-                                        <div class="excursion-extra-info__group">
-                                            <div class="cost">
-                                                <span>
-                                                    <%= data.excursionData.adultCost %>
-                                                </span> Br
+                                        <div class="excursion-extrainfo">
+
+                                            <div class="excursion-extra-info__group">
+                                                <p>Взрослый билет</p>
+                                                <h5 class="h5 cost">
+                                                    <%= data.excursionData.adultCost %> Br
+                                                </h5>
                                             </div>
-                                            <div class="duration">
-                                                <span>
-                                                    <%= data.excursionData.duration %>
-                                                </span> <span>часа</span>
+
+                                            <div class="excursion-extra-info__group">
+                                                <p>Длительность</p>
+                                                <h5 class="h5">
+                                                    <%= data.excursionData.duration %> ч.
+                                                </h5>
                                             </div>
+
+
+
                                         </div>
                                         <a href="#order-form" onclick="scrollToBlock" class="btn">Забронировать</a>
                                     </div>
@@ -558,7 +590,6 @@
                                                     <%= data.typeData.description %>
                                                 </div>
                                             </div>
-
                                         </div>
                                         <div class="excursion-extra-info__group">
                                             <h5 class="h5">Формат</h5>
@@ -567,6 +598,7 @@
                                             </p>
                                         </div>
                                     </div>
+
                                     <div class="excursion-extra-info__item">
                                         <div style="display: flex; align-items: center;">
                                             <img class="guide-img" src="<%= data.excursionData.guide.imgSRC %>" alt="">
@@ -585,12 +617,16 @@
                             </div>
                         </div>
 
+                        <div class="container">
+                            <h2>
+                                Смотрите так же
+                            </h2>
+                            <div class="excursion-cards__wrapper">
+                            </div>
+                        </div>
+
 
                         <script>
-
-
-
-
                             let accordeonTabs = document.querySelectorAll('.accordeon-tabs__tab');
                             accordeonTabs.forEach(tab => {
                                 tab.addEventListener('click', () => {
@@ -662,8 +698,37 @@
                             }
                             renderFinalCost();
 
+                            async function ShowMore() {
+                                // let formData = new FormData();
+                                // formData.append('str', target.value);
+
+                                let response = await fetch('/excursions/search?str=', {
+                                    method: "GET"
+                                });
+
+                                let result = await response.json();
+
+                                let container = document.querySelector('.excursion-cards__wrapper');
+                                container.innerHTML = '';
+                                for (let i = 0; i < 4 && i < result.length; i++) {
+                                    let item = result[i];
+
+                                    container.innerHTML += `<a href="/excursions/show/${item?.id}" class="excursion-card">
+                                            <img class="excursion-card__img" src="${item?.images[0]?.imgSRC}" alt="">
+                                            <h4 class="excursion-card__title">${item?.name}</h4>
+                                            <h3 class="excursion-card__cost">${item?.adultCost} Br</h3>
 
 
+                                            <p class="excursion-card__type">${item?.type?.name}</p>
+                                            <p class="excursion-card__format">${item?.format?.name}</p>
+                                            <p class="excursion-card__duration">${item?.duration} ч.</p>
+                                        </a>`;
+
+
+
+                                }
+                            }
+                            ShowMore();
                         </script>
 
 
@@ -672,7 +737,7 @@
                         <script src="/public/js/anchorScroll.js"></script>
                         <script src="/public/js/calendar.js"></script>
                         <script src="/public/js/accordion.js"></script>
-                        <!-- <script src="/public/js/slider.js"></script> -->
+                        <script src="/public/js/slider.js"></script>
                         <script src="https://yastatic.net/share2/share.js"></script>
                         <script src="/public/js/order.js"></script>
 </body>

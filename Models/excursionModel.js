@@ -227,7 +227,7 @@ class ExcursionModel {
         })
     }
 
-    async getByUserId(id) {//имя поля и направление сортировки
+    async getByUserId(id) {
         return await Excursions.findAll({
             where: {
                 guideId: id,
