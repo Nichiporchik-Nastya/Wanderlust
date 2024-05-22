@@ -37,17 +37,12 @@ module.exports = {
       numberOfChildren: {
         type: Sequelize.INTEGER
       },
-      day: {
-        allowNull: false,
+      code: {
         type: Sequelize.INTEGER
       },
-      startTimeId: {
+      day: {
         allowNull: false,
-        references: {
-          model: { tableName: 'StartTimes' },
-          key: 'id'
-        },
-        type: Sequelize.INTEGER
+        type: Sequelize.DATE
       },
       createdAt: {
         allowNull: false,

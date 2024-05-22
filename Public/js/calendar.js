@@ -149,13 +149,21 @@ prevNextIcon.forEach(icon => {
 const canSelectday = () => {
     let daysLi = document.querySelectorAll(".isOrderDay");
     daysLi.forEach(element => {
-        element.addEventListener("click", () => {
+        element.addEventListener("click", async () => {
             console.log(element.innerText);
             daysLi.forEach(element => {
                 element.classList.remove("selected");
             });
             element.classList.add("selected");
 
+            let response = await fetch(`/api/excursions/places/${document.querySelector('#excursionId').value}/${element.dataset.caldate}`);
+
+            let result = await response.json();
+            document.querySelector('.free-places').innerHTML = 'Доступно мест: '+ result;
+            element.dataset.orderscount = result;
+            document.querySelectorAll('.count-error').forEach(el => {
+                el.innerHTML = '';
+            })
 
             if (!(element.dataset.orderscount)) {
                 document.querySelector(".status").innerText = "на эти день и время доступно мест: " + element.dataset.orderscount;

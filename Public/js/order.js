@@ -40,7 +40,7 @@ async function OrderSubmit(event) {
             document.querySelector(".status").classList.add("show-status");
            
 
-            setTimeout(() =>  window.location.reload(), 3000);
+            // setTimeout(() =>  window.location.reload(), 3000);
 
             // let orderForm = document.querySelector(".order-form"),
             //     userSelectedDay = document.querySelector(".isOrderDay.selected"),

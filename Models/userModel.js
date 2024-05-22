@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt');
 
 const Users = require("../db/models/index").Users;
 const ExcursionModel = require('./excursionModel');
+const { literal } = require('sequelize');
 
 class UserModel {
   async create(body, files) {
@@ -57,6 +58,41 @@ class UserModel {
     return result;
   }
 
+  async getGuides(){
+    return await Users.findAll({
+      where:{
+        role: 2
+      },
+      attributes:{
+          include:[
+              [literal('(SELECT COUNT(*) FROM `excursions` WHERE `excursions`.`guideId` = `users`.`id`)'), 'excursionsCount']
+          ]
+      },
+    })
+  }
+  async getGuide(id) {
+    return (await Users.findOne({
+      where: {
+        id
+      },
+    }));
+  }
+  
+  async updateGuide(body){
+    return await Users.update(body, {
+        where: {
+            id: body.id
+        }
+    })
+  }
+  async deleteGuide(id){
+    return await Users.destroy( {
+        where: {
+            id,
+            role: 2
+        }
+    })
+  }
 }
 
 module.exports = new UserModel();

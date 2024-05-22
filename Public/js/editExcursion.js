@@ -10,12 +10,6 @@ async function EditExcursionSubmit(event) {
     try {
         event.preventDefault();
 
-        if(fileErr != ""){
-            input.value = "";
-            preview.innerHTML = "";
-            photoTags.style.visibility = 'hidden';
-        }
-
         let formData = new FormData(event.target);
 
         startTimes.forEach(time => {

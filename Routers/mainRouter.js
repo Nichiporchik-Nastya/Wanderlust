@@ -28,7 +28,8 @@ router.post('/api/admin/registration', [
       throw new Error('Пароли должны совпадать');
     }
     return true;
-  })
+  }),
+  body('description').isLength({ min: 10 }).withMessage('Описание должно содержать не менее 10 символов'),
 ], controller.registration);
 
 router.get('/admin/registration', (req, res) => {
@@ -57,7 +58,6 @@ router.post('/api/excursions/create',
     body('typeId').not().isEmpty().withMessage('Выберите одно из значений'),
     body('themes').not().isEmpty().withMessage('Выберите одно или несколько значений'),
     body('dayNumber').not().isEmpty().withMessage('Выберите одно или несколько значений'),
-    body('startTimes').not().isEmpty().withMessage('Заполните поле'),
   ],
   controller.createExcursion);
 
@@ -118,11 +118,11 @@ router.post('/api/excursions/order',
     body('clientEmail').isEmail().withMessage('Введите корректный адрес электронной почты'),
     body('clientPhone').isMobilePhone().withMessage('Введите корректный номер телефона'),
     body('day').not().isEmpty().withMessage('Выберите день'),
-    body('startTimeId').not().isEmpty().isNumeric().withMessage('Выберите время начала'),
   ],
   controller.orderExcursion);
 
 router.post('/api/excursions/getExcursionDays', controller.getExcursionDays);
+router.get('/api/excursions/places/:excursionId/:day', controller.getFreePlaces);
 
 router.get('/excursions/search', controller.search);
 router.get('/excursions/searchfilter', controller.searchFilter);
@@ -138,5 +138,25 @@ router.get('/excursions/all', async (req, res) => {
 });
 
 router.post('/api/excursions/delete', controller.deleteExcursion);
+router.get('/delete/order/:id/:code', controller.deleteOrder);
 
+router.get('/guide/edite/:id', middlewareController.checkSession, controller.renderGuide);
+router.post('/api/guide/edite/', [
+  body('name').isLength({ min: 5 }).withMessage('Имя пользователя должно содержать не менее 5 символов'),
+  body('description').isLength({ min: 10 }).withMessage('Описание должно содержать не менее 10 символов'),
+  body('email').isEmail().withMessage('Введите корректный адрес электронной почты'),
+  body('secondPassword').custom((value, { req }) => {
+    if (req.body?.secondPassword){
+      if (!req.body?.password || req.body?.password?.length < 6 ) {
+        throw new Error('Пароль должен содержать не менее 6 символов');
+      }
+      if (value !== req.body.password) {
+        throw new Error('Пароли должны совпадать');
+      }
+
+    }
+    return true;
+  })
+], controller.edite);
+router.delete('/api/guide/:id', controller.deleteUser);
 module.exports = router;

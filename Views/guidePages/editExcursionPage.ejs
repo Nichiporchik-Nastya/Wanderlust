@@ -225,38 +225,6 @@
                                 <div class="box-input__error-text dayNumber-error"></div>
                             </div>
 
-                            <div class="input-wrap">
-                                <h4 class="box-input__title">Время начала экскурсий</h4>
-
-                                <div class="box-input">
-                                    <input type="time" value="" id="time" step="300" min="00:30" max="12:00">
-                                    <!-- 5 минут-->
-                                    <div class="box-input__error-text startTimes-error" id="time-error"></div>
-                                    <div class="tags-wrap">
-                                        <p>Выбрано:</p>
-                                        <% excursion.startTimesData.sort((a, b)=> {
-                                            if (a.time < b.time) { return -1; } if (a.time> b.time) {
-                                                return 1;
-                                                }
-                                                return 0;
-                                                }); %>
-                                                <div class="tags" id="time-tags">
-                                                    <% for(let i=0; i < excursion.startTimesData.length; i++) {%>
-                                                        <div class="tag time-tag"
-                                                            data-exindex="<%=excursion.startTimesData[i].id%>">
-                                                            <%=excursion.startTimesData[i].time.slice(0,5)%>
-                                                        </div>
-                                                        <% } %>
-                                                </div>
-                                    </div>
-
-                                </div>
-                            </div>
-
-                            <div class="btn secondary-btn btn-with-icon" id="add-time-btn">
-                                <img src="/Public/icons/add-time.svg">
-                                Добавить время
-                            </div>
 
                         </div>
                     </li>
@@ -377,9 +345,6 @@
             }
 
             let
-                addTimeBtn = document.querySelector("#add-time-btn"),
-                timeInput = document.getElementById("time"),
-                timeError = document.querySelector("#time-error"),
                 fileInput = document.querySelector(".input__file"),
                 durationInput = document.querySelector("#duration");
             let deletedStartTime = [], deletedPhotos = [];
@@ -431,61 +396,6 @@
             // </div>`;
             // }
 
-
-            addTimeBtn.addEventListener('click', () => {
-                timeError.innerHTML = "";
-                if (timeInput.value) {
-                    if (!durationInput?.value) {
-                        timeError.innerHTML = "Укажите длительность экскурсии, чтобы продолжить";
-                    }
-                    else if (startTimes.length >= 3) {
-                        timeError.innerHTML = "Максимально допустимое количество: 3";
-                        timeInput.value = " ";
-                    }
-                    else if (startTimes.includes(timeInput.value)) {
-                        timeError.innerHTML = "Время начала экскурсий не должно повторяться";
-                    }
-                    else {
-                        startTimes.forEach(item => {
-
-                            const newTimeInMinutes = convertTimeToMinutes(timeInput.value);
-                            const startTimeInMinutes = convertTimeToMinutes(item);
-                            const durationInMinutes = convertTimeToMinutes(durationInput.value);
-
-                            if (newTimeInMinutes < startTimeInMinutes + durationInMinutes) {
-                                timeError.innerHTML = "Следующая экскурсия может начаться только после окончания предыдущей";
-                            }
-                        });
-                    }
-                } else {
-                    timeError.innerHTML = "Введите значение";
-                }
-            });
-
-            if (!timeError.innerHTML) {
-                timeError.innerHTML = "";
-                let time = timeInput.value;
-
-                startTimes.push(time);
-
-                timeTags = document.querySelectorAll(".time-tag");
-                timeTags.forEach(tag => {
-                    tag.addEventListener('click', () => {
-                        tag.remove();
-                        if (tag.dataset.exindex) {
-                            deletedStartTime.push(tag.dataset.exindex);
-                        }
-                        else {
-                            let tagIndex = tag.dataset.index;
-
-                            startTimes.splice(tagIndex, 1);
-                        }
-                    });
-                });
-
-                timeInput.value = " ";
-            }
-
             let k = 0, clear = document.querySelector(".clear-file-input"),
                 photoTags = document.querySelector(".photo-tags");
 
@@ -504,6 +414,7 @@
                     deletedPhotos.push(el.dataset.exindex);
                 })
                 photoTags.style.visibility = 'visible';
+                preview.innerHTML = "";
                 [...input.files].forEach(file => {
                     const reader = new FileReader;
                     reader.addEventListener('loadend', () => {

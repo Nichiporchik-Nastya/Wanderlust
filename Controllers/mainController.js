@@ -3,7 +3,10 @@ const { validationResult } = require('express-validator');
 const UserModel = require("../Models/userModel");
 const ExcursionModel = require('../Models/excursionModel');
 const OrderModel = require('../Models/orderModel');
-const { logger } = require("sequelize/lib/utils/logger");
+const nodemailer = require('nodemailer');
+const ejs = require('ejs');
+const userModel = require('../Models/userModel');
+const bcrypt = require('bcrypt');
 
 
 
@@ -13,7 +16,9 @@ class mainController {
     async dashbord(req, res) {
         try {
             const user = req.session.user;
-            res.render('adminPages/dashbord', { data: user });
+            const guides = await UserModel.getGuides();
+            console.log(guides);
+            res.render('adminPages/dashbord', { data: user, guides: guides });
         } catch (e) {
             console.log(e);
         }
@@ -59,7 +64,13 @@ class mainController {
                 return res.status(400).json({ errors: errors.array() });
             }
             else {
-                let result = await UserModel.create(req.body);
+                let imgSRC = null;
+                if (req?.files?.imgSRC){
+                    let rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
+                    req.files.imgSRC.mv('public/guideImages/' + rand + req.files.imgSRC.name);
+                    imgSRC = '/public/guideImages/' + rand + req.files.imgSRC.name;
+                }
+                let result = await UserModel.create({...req.body, imgSRC});
                 res.status(200).send(result);
             }
         } catch (e) {
@@ -71,7 +82,7 @@ class mainController {
 
     async createExcursion(req, res) {
         try {
-            console.log(req.body.filesCount);
+            console.log(req.files?.photos);
 
             let errors = validationResult(req);
             if (!errors.isEmpty()) {
@@ -125,7 +136,8 @@ class mainController {
             let result = await ExcursionModel.get(id);
 
             let isSession = req.session?.user ? true : false;
-            console.log(result);
+            console.log(12323456789);
+            console.log(await OrderModel.getFreePlaces(id, 'Wed May 22 2024 00:00:00 GMT+0300 (Москва, стандартное время)'));
 
 
             res.render('excursionPage', { data: result, user: isSession });
@@ -140,7 +152,40 @@ class mainController {
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
             }
-            let result = await OrderModel.create(req.body);
+            let code = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
+            let result = await OrderModel.create({...req.body, code});
+            const transporter = nodemailer.createTransport({
+                service:"gmail",
+                port:465,
+                secure:true,
+                secureConnection:false,
+                auth:{
+                    user: 'wanderlust.bot@gmail.com',
+                    pass: 'culcynsnxlmqywbm'
+                },
+                tls: {
+                    rejectUnAuthorized: true,
+                }
+            });
+    
+            const message = {
+                from: `Wanderlust <wanderlust.bot@gmail.com>`,
+                to: req.body.clientEmail,
+                subject:'Бронирование экскурсии',
+                html: await ejs.renderFile('./Views/email.ejs', {
+                    domain: 'http://localhost:4002',
+                    homeLink: `/excursions/show/${result.excursionId}`,
+                    deleteLink: `/delete/order/${result.id}/${code}`
+                }),
+            };
+    
+            await transporter.sendMail(message, (err, res)=>{
+                if(err){
+                    console.log(err.message);
+                }
+                transporter.close();
+            });
+
             res.status(200).send(result);
 
         } catch (e) {
@@ -231,7 +276,73 @@ class mainController {
         }
     }
 
+    async getFreePlaces(req, res) {
+        try {
+            res.json(await OrderModel.getFreePlaces(+req.params.excursionId, req.params.day));
 
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    async deleteOrder(req, res){
+        try{
+            let order = await OrderModel.get(+req?.params?.id);
+            if (order?.code == +req.params?.code){
+                order.destroy();
+                order.save();
+            }
+            else{
+                res.render('deleteOrder', {status:false});
+            }
+            res.render('deleteOrder', {status:true});
+        }
+        catch (e) {
+            res.render('deleteOrder', {status:false});
+        }
+    }
+
+    async renderGuide(req, res){
+        let guide = await userModel.getGuide(+req.params.id);
+        res.render('guidePages/editePage', {guide: guide});
+    }
+
+    async edite(req, res) {
+        try {
+            const errors = validationResult(req);
+
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
+            else {
+                let imgSRC = undefined;
+                if (req?.files?.imgSRC){
+                    let rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
+                    req.files.imgSRC.mv('public/guideImages/' + rand + req.files.imgSRC.name);
+                    imgSRC = '/public/guideImages/' + rand + req.files.imgSRC.name;
+                }
+                let password = undefined;
+                let salt = undefined;
+                if (req.body?.secondPassword){
+                    salt = Math.round(100 - 0.5 + Math.random() * (1000 - 100 + 1));
+                    password = await bcrypt.hash(req.body.password + salt, 3);
+                }
+                let result = await UserModel.updateGuide({...req.body, imgSRC, salt, password});
+                req.session.user = await UserModel.getGuide(req.body.id);
+                res.status(200).send(result);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+    async deleteUser(req, res) {
+        try {
+            let result = await UserModel.deleteGuide(+req.params.id);
+            res.status(200).json(result);
+        } catch (e) {
+            console.log(e);
+        }
+    }
 }
 
 module.exports = new mainController();

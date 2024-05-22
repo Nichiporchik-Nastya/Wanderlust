@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Удаление бронирования</title>
+    <link rel="stylesheet" href="/public/css/normalize.css">
+    <link rel="stylesheet" href="/public/css/header-style.css">
+    <link rel="stylesheet" href="/public/css/style.css">
+</head>
+<body>
+    <%- include('./partials/header'); %>
+    <div style="display: flex; align-items: center; justify-content: center; flex-direction: column; width: 100%; height: 100%;">
+        <% if (status){%>
+            <h2 class="h2">Бронь успешно удалена</h2>
+        <%} else {%>
+            <h2 class="h2">Данной брони не существует</h2>
+        <%}%>
+        <a href="/" class="btn">На главную</a>
+    </div>
+</body>
+</html>

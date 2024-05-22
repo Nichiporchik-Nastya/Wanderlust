@@ -406,6 +406,7 @@
                                                 <div class="accessible-day selected"></div>
                                                 Выбранный день
                                             </div>
+                                            <div class="free-places"></div>
                                         </div>
 
                                     </div>
@@ -448,7 +449,7 @@
                                                             <input class="client-count__count" name="numberOfAdults"
                                                                 data-maxcount="<%= data.typeData.clientMaxNumber %> "
                                                                 data-cost="<%= data.excursionData.adultCost%>"
-                                                                value="1">
+                                                                value="0">
                                                             <div class="client-count__plus">+</div>
                                                         </div>
                                                     </div>
@@ -488,30 +489,6 @@
                                             </div>
                                         </div>
                                         <div>
-                                            <div>
-                                                <h5>Время начала экскурсии</h5>
-                                                <% data.startTimesData.sort((a, b)=> {
-                                                    if (a.time < b.time) { return -1; } if (a.time> b.time) {
-                                                        return 1;
-                                                        }
-                                                        return 0;
-                                                        }); %>
-                                                        <% data.startTimesData.forEach(item=> { %>
-
-                                                            <div class="radio-input">
-                                                                <input type="radio" name="startTimeId"
-                                                                    id="startTime-<%= item.id %>"
-                                                                    data-sttid="<%= item.id %>" value="<%= item.id %>"
-                                                                    checked>
-                                                                <label for="startTime-<%= item.id; %>">
-                                                                    <% let itemText=item.time.slice(0, -3); %>
-                                                                        <%= itemText %>
-                                                                </label>
-                                                                <div class="box-input__error-text startTimes-error">
-                                                                </div>
-                                                            </div>
-                                                            <% }); %>
-                                            </div>
                                         </div>
                                     </div>
 
@@ -664,10 +641,14 @@
 
                             clientCountPluses.forEach((element, index) => {
                                 element.addEventListener('click', () => {
+                                    if (!document.querySelector('.isOrderDay.selected')){
+                                        countErrors[index].innerText = 'Выберите день'
+                                        return;
+                                    }
                                     countErrors[index].innerText = "";
                                     let num = [clientCountCounts[0].value, 0];
                                     if (clientCountCounts[1]) num[1] = clientCountCounts[1].value;
-
+                                    maxCount = +document.querySelector('.isOrderDay.selected')?.dataset?.orderscount
                                     if (num[0] >= (maxCount - num[1]) || num[1] >= (maxCount - num[0])) {
                                         countErrors[index].innerText = "Достигнут лимит доступных мест"
                                     } else {

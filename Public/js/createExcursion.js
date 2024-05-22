@@ -11,19 +11,7 @@ async function CreateExcursionSubmit(event) {
     try {
         event.preventDefault();
 
-        if(fileErr != ""){
-            input.value = "";
-            preview.innerHTML = "";
-            photoTags.style.visibility = 'hidden';
-        }
-
         let formData = new FormData(event.target);
-
-
-        startTimes.forEach(time => {
-            formData.append("startTimes", time);
-        });
-
         fileList.forEach(file => {
             formData.append("photos", file);
         });

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .mail-container{
+            display: flexbox;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            width: 100%;
+            height: 100%;
+            background-color: #181818;
+            text-align: center;
+        }
+        .text1{
+            text-align: center;
+            font-family: "Segoe UI";
+            font-size: 30px;
+            font-weight: 500;
+            color: white;
+        }
+        .text2{
+            text-align: center;
+            font-family: "Segoe UI";
+            font-size: 20px;
+            color: rgba(255, 255, 255, .5);
+            padding: 0 100px;
+        }
+        .btn{
+            color: #5CA643 !important;
+            text-decoration: none !important;
+        }
+        .btn-delete{
+            text-decoration: none !important;
+            color: rgba(255, 255, 255, .5) !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="mail-container">
+        <img src="https://lh3.googleusercontent.com/a/ACg8ocIKLAdqFq6f98hZdS2H2WqxGm1pQml_ektRE-Y3iYhSucb3yg7RgJH-oogmTp1wtYQRr-kBVQ9YUTQGFpZoIsyn8Sin_94=s150" alt="logo">
+        <div class="text1">Вы забронировали экскурсию</div>
+        <div class="text1">«Знакомство с Минском: обзорная групповая экскурсия»</div>
+        <div class="text2" style="margin-top: 25px;">Для уточнения деталей и подтверждения бронирования в ближайшее время с вами свяжется менеджер.</div>
+        <div class="text2" style="margin-top: 20px;">Подробная информация об экскурсии <a href="<%= domain %><%= homeLink %>" class="btn">на странице экскурсии</a></div>
+        <div style="margin-top: 20px !important;"><a href="<%= domain %><%= deleteLink %>" class="btn-delete text2">Отменить бронирование</a></div>
+    </div>
+</body>
+</html>

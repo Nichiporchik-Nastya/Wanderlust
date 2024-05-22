@@ -58,14 +58,6 @@ class ExcursionModel {
             } else {
                 DaysExcursions.create({ dayNumber: body.dayNumber, excursionId: id });
             }
-
-            if (Array.isArray(body.startTimes)) {
-                await body.startTimes.forEach(time => {
-                    StartTimes.create({ time: time, excursionId: id });
-                });
-            } else {
-                StartTimes.create({ time: body.startTimes, excursionId: id });
-            }
             return true;
 
         } catch (error) {
@@ -114,11 +106,6 @@ class ExcursionModel {
                     excursionId: id,
                 },
             }),
-            startTimesData: await StartTimes.findAll({
-                where: {
-                    excursionId: id,
-                },
-            }),
             daysExcursionsData: await DaysExcursions.findAll({
                 where: {
                     excursionId: id,
@@ -147,18 +134,16 @@ class ExcursionModel {
             const results = await Orders.findAll({
                 attributes: [
                     [Sequelize.literal('DATE(day)'), 'day'],
-                    'startTimeId',
                     [Sequelize.fn('SUM', Sequelize.literal('COALESCE(numberOfAdults, 0) + COALESCE(numberOfChildren, 0)')), 'count']
                 ],
                 where: {
                     excursionId: id
                 },
-                group: ['day', 'startTimeId']
+                group: ['day']
             });
 
             const resultArray = results.map(result => ({
                 day: result.get('day'),
-                startTimeId: result.get('startTimeId'),
                 count: result.get('count')
             }));
 
@@ -345,11 +330,6 @@ class ExcursionModel {
                 StartTimes.create({ time: body.startTimes, excursionId: +body.id });
             }
         }
-        else if (((await StartTimes.findAll({ where: { excursionId: +body.id } })).length == 0 || body.deletedStartTime.length != 0) && (body?.startTimes?.length ?? 0 - body.deletedStartTime.length ?? 0) < 0) {
-            return {
-                errors: [{ type: 'field', value: '', msg: 'Заполните поле', path: 'startTimes', location: 'body' }]
-            };
-        }
         else if (body?.startTimes?.length ?? 0 > 0) {
             if (Array.isArray(body.startTimes)) {
                 await body.startTimes.forEach(time => {
@@ -393,6 +373,7 @@ class ExcursionModel {
             }
         })
     }
+
 
 }
 
