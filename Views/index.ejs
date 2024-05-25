@@ -52,7 +52,7 @@
 
 
                         <div class="container advantages-block">
-                            <h3>Wanderlust minsk — это</h3>
+                            <h2>Wanderlust minsk — это</h2>
                             <div class="slider">
                                 <div class="slider-list" style="height: 400px">
                                     <div class="slider-track">
@@ -107,8 +107,59 @@
                             </div>
                         </div>
 
+                        <div class="container see-more">
+                            <h2>
+                                Экскурсии на любой вкус
+                            </h2>
+                            <div class="excursion-cards__wrapper">
+                            </div>
+                        </div>
 
 
+                        <script>
+                            async function ShowMore() {
+                                // let formData = new FormData();
+                                // formData.append('str', target.value);
+
+                                let response = await fetch('/excursions/search?str=', {
+                                    method: "GET"
+                                });
+
+                                let result = await response.json();
+
+                                
+
+                                let container = document.querySelector('.excursion-cards__wrapper');
+                                container.innerHTML = '';
+
+                                
+
+                                for (let i = 0; i < 4 && i < result.length; i++) {
+                                    let item = result[i];
+
+                                    container.innerHTML += `<a href="/excursions/show/${item?.id}" class="excursion-card">
+                                            <img class="excursion-card__img" src="${item?.images[0]?.imgSRC}" alt="">
+                                            <h4 class="excursion-card__title">${item?.name}</h4>
+
+                                            <!--<p class="excursion-card__format">${item?.format?.name}</p>-->
+
+                                            <div style="display: flex; gap: 8px; align-items:center;">
+                                            <h3 class="excursion-card__cost">${item?.adultCost} Br</h3>
+                                            <p class="excursion-card__type">${item?.type?.name}</p>
+                                            </div>
+                                            
+                                            
+                                            
+                                            <!--<p class="excursion-card__duration">${item?.duration} ч.</p>-->
+                                            
+                                        </a>`;
+
+
+
+                                }
+                            }
+                            ShowMore();
+                        </script>
                         <script src="/public/js/anchorScroll.js"></script>
                         <script src="./index.js"></script>
                         <script src="/Public/js/slider.js"></script>

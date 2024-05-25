@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="/public/css/normalize.css">
     <link rel="stylesheet" href="/public/css/header-style.css">
     <link rel="stylesheet" href="/public/css/style.css">
+    <script
+        src="https://api-maps.yandex.ru/2.1/?apikey=12e3ef71-0ab9-45da-8a9f-c924cf2fd1ae&load=Map&lang=ru_RU"></script>
 </head>
 
 <body>
@@ -397,6 +399,7 @@
                                                 <ul class="days"></ul>
                                             </div>
                                         </div>
+                                        <div class="box-input__error-text day-error"></div>
                                         <div style="display: flex; flex-direction: column; gap: 8px;">
                                             <div class="calendar-help-block">
                                                 <div class="accessible-day"></div>
@@ -409,8 +412,8 @@
                                             <div class="free-places"></div>
                                         </div>
 
+
                                     </div>
-                                    <div class="box-input__error-text day-error"></div>
                                     <div style="display: flex; gap: 40px; width: 100%;">
                                         <div style="display: flex; flex-direction: column; gap: 8px;">
                                             <h5>Введите контактные данные</h5>
@@ -446,7 +449,8 @@
                                                         </div>
                                                         <div class="client-count__item-wrap">
                                                             <div class="client-count__minus">–</div>
-                                                            <input readonly class="client-count__count" name="numberOfAdults"
+                                                            <input readonly class="client-count__count"
+                                                                name="numberOfAdults"
                                                                 data-maxcount="<%= data.typeData.clientMaxNumber %> "
                                                                 data-cost="<%= data.excursionData.adultCost%>"
                                                                 value="0">
@@ -485,7 +489,7 @@
                                                         </div>
                                                         <div class="box-input__error-text count-error"></div>
                                                     </div>
-                                                <% }%>
+                                                    <% }%>
                                             </div>
                                         </div>
                                         <div>
@@ -495,7 +499,8 @@
 
                                     <div class="final-cost">Итого: <span class="final-cost-place">0</span> BYN</div>
                                     <div style="display: flex; column-gap: 12px;">
-                                        <input type="submit" class="btn" id="orderSubmit" value="Забронировать экскурсию">
+                                        <input type="submit" class="btn" id="orderSubmit"
+                                            value="Забронировать экскурсию">
                                         <p class="extra-info" style="max-width: 300px;">Оформляя заказ, вы соглашаетесь
                                             на обработку
                                             персональных
@@ -507,33 +512,8 @@
                                 </form>
                             </div>
                             <div class="second-container-part excursion-aside">
-                                <!-- <div class="share-block">
-                                    <div class="tertiary-btn btn-with-icon share-btn">
-                                        <img src="/Public/icons/share-network.svg">
-                                        Поделиться
-                                    </div>
-
-                                    <div class="social-icons">
-                                        <div class="ya-share2" data-curtain data-shape="normal"
-                                            data-services="vkontakte,odnoklassniki,telegram,viber" data-copy="extraItem"
-                                            data-title="<%= data.excursionData.name %>"
-                                            data-image="<%= data.imagesExcursionsData[0].imgSRC %>"
-                                            data-description="Вот так экскурсия"
-                                            data-url="/excursions/show/<%= data.excursionData.id %>"></div>
-                                    </div>
-                                </div> -->
                                 <aside class="excursion-extra-info">
-
                                     <div class="excursion-extra-info__item">
-                                        <!-- <div class="excursion-extra-info__group"> -->
-                                        <!-- <div class="visitors-number">
-                                                Посетили: <span>75</span> <span>чел.</span>
-                                            </div>
-                                            <div class="reviews-number">
-                                                Отзывы: <img src="/Public/icons/Star.svg" alt="">
-                                                <span>4,7</span> <span class="extra-info">(51)</span>
-                                            </div> -->
-                                        <!-- </div> -->
                                         <div class="excursion-extrainfo">
 
                                             <div class="excursion-extra-info__group">
@@ -549,9 +529,6 @@
                                                     <%= data.excursionData.duration %> ч.
                                                 </h5>
                                             </div>
-
-
-
                                         </div>
                                         <a href="#order-form" onclick="scrollToBlock" class="btn">Забронировать</a>
                                     </div>
@@ -590,11 +567,13 @@
                                         </div>
                                         <div class="btn secondary-btn">Подробнее</div>
                                     </div>
+
+                                    <div id="map-test" class="map"></div>
                                 </aside>
                             </div>
                         </div>
 
-                        <div class="container">
+                        <div class="container see-more">
                             <h2>
                                 Смотрите так же
                             </h2>
@@ -641,7 +620,7 @@
 
                             clientCountPluses.forEach((element, index) => {
                                 element.addEventListener('click', () => {
-                                    if (!document.querySelector('.isOrderDay.selected')){
+                                    if (!document.querySelector('.isOrderDay.selected')) {
                                         countErrors[index].innerText = 'Выберите день'
                                         return;
                                     }
@@ -689,20 +668,31 @@
 
                                 let result = await response.json();
 
+                                
+
                                 let container = document.querySelector('.excursion-cards__wrapper');
                                 container.innerHTML = '';
+
+                                
+
                                 for (let i = 0; i < 4 && i < result.length; i++) {
                                     let item = result[i];
 
                                     container.innerHTML += `<a href="/excursions/show/${item?.id}" class="excursion-card">
                                             <img class="excursion-card__img" src="${item?.images[0]?.imgSRC}" alt="">
                                             <h4 class="excursion-card__title">${item?.name}</h4>
+
+                                            <!--<p class="excursion-card__format">${item?.format?.name}</p>-->
+
+                                            <div style="display: flex; gap: 8px; align-items:center;">
                                             <h3 class="excursion-card__cost">${item?.adultCost} Br</h3>
-
-
                                             <p class="excursion-card__type">${item?.type?.name}</p>
-                                            <p class="excursion-card__format">${item?.format?.name}</p>
-                                            <p class="excursion-card__duration">${item?.duration} ч.</p>
+                                            </div>
+                                            
+                                            
+                                            
+                                            <!--<p class="excursion-card__duration">${item?.duration} ч.</p>-->
+                                            
                                         </a>`;
 
 
@@ -714,7 +704,7 @@
 
 
 
-
+                        <script src="/public/js/map.js"></script>
                         <script src="/public/js/anchorScroll.js"></script>
                         <script src="/public/js/calendar.js"></script>
                         <script src="/public/js/accordion.js"></script>

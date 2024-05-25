@@ -122,6 +122,11 @@
             let result = await response.json();
             const container = document.querySelector('.excursion-cards__wrapper');
             container.innerHTML = '';
+
+            if(!result.length){
+                                    container.innerHTML += `<h2 class="extra-info">Ничего не найдёно</h2>`;
+                                }
+
             result.forEach(el => {
                 let days = el.days.map(el=>el.dayNumber);
                 let dayNow = getLocalDay(new Date());
@@ -129,12 +134,14 @@
                 container.innerHTML += `<a href="/excursions/show/${el.id}" class="excursion-card">
                                             <img class="excursion-card__img" src="${el.images[1].imgSRC}" alt="">
                                             <h4 class="excursion-card__title">${el.name}</h4>
+
+                                            <div style="display: flex; gap: 8px; align-items:center;">
                                             <h3 class="excursion-card__cost">${el.adultCost} Br</h3>
-
-
                                             <p class="excursion-card__type">${el.type.name}</p>
-                                            <p class="excursion-card__format">${el.format.name}</p>
-                                            <p class="excursion-card__duration">${el.duration} часа</p>
+                                            </div>
+
+                                            <!--<p class="excursion-card__format">${el.format.name}</p>
+                                            <p class="excursion-card__duration">${el.duration} часа</p>-->
                                         </a>`;
             });
         }

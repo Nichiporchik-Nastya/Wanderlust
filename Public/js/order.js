@@ -42,17 +42,17 @@ async function OrderSubmit(event) {
             setTimeout(() =>  document.querySelector(".status").classList.remove("show-status"), 2000);
             // setTimeout(() =>  window.location.reload(), 3000);
 
-            // let orderForm = document.querySelector(".order-form"),
-            //     userSelectedDay = document.querySelector(".isOrderDay.selected"),
-            //     errors = document.querySelectorAll(".box-input__error-text");
-            // orderForm.reset();
-            // userSelectedDay.classList.remove("selected");
-            // clientCountCounts[0].innerText = "1";
-            // clientCountCounts[1].innerText = "0";
+            let orderForm = document.querySelector(".order-form"),
+                userSelectedDay = document.querySelector(".isOrderDay.selected"),
+                errors = document.querySelectorAll(".box-input__error-text");
+            orderForm.reset();
+            userSelectedDay.classList.remove("selected");
+            clientCountCounts[0].innerText = "1";
+            clientCountCounts[1].innerText = "0";
 
-            // errors.forEach(err => {
-            //     err.innerText = "";
-            // });
+            errors.forEach(err => {
+                err.innerText = "";
+            });
         }
     } catch (error) {
         console.log(error);
