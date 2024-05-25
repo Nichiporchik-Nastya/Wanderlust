@@ -312,7 +312,7 @@
                     reader.addEventListener('loadend', () => {
                         const item = document.createElement('div');
                         item.classList.add('photo-tag');
-                        item.innerText = file.name;
+                        // item.innerText = file.name;
                         item.setAttribute('data-index', k++);
                         const image = new Image;
                         image.src = `data:${file.type};base64,${btoa(reader.result)}`;

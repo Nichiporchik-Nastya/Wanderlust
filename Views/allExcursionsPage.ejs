@@ -12,14 +12,17 @@
 </head>
 
 <body>
-    <% if(!user) {%>
+    <% if (user?.role == 2) {%>
+        <%- include('./guidePages/partials/header'); %>
+    <% } else if (user?.role == 1) {%>
+        <%- include('./adminPages/partials/header'); %>
+    <%  } else {%>
         <%- include('./partials/header'); %>
-        <% } else {%>
-            <%- include('./guidePages/partials/header'); %>
-           <%  }%>
-        
+    <%  }%>
+
+
         <div class="container two-part-container">
-            
+
 
             <form class="filters-form" id="SearchForm">
                 <h2>Найди именно то, что нужно</h2>

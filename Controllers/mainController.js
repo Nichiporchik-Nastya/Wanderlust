@@ -7,6 +7,7 @@ const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const userModel = require('../Models/userModel');
 const bcrypt = require('bcrypt');
+const {Orders, ImagesExcursions, ThemeExcursions, DaysExcursions, StartTimes, Excursions} = require("../db/models/index");
 
 
 
@@ -37,7 +38,7 @@ class mainController {
 
     async index(req, res) {
         try {
-            let isSession = req.session?.user ? true : false;
+            let isSession = req.session?.user;
             console.log(isSession);
             res.render('index', { data: isSession });
         } catch (e) {
@@ -167,7 +168,7 @@ class mainController {
                     rejectUnAuthorized: true,
                 }
             });
-    
+
             const message = {
                 from: `Wanderlust <wanderlust.bot@gmail.com>`,
                 to: req.body.clientEmail,
@@ -178,7 +179,7 @@ class mainController {
                     deleteLink: `/delete/order/${result.id}/${code}`
                 }),
             };
-    
+
             await transporter.sendMail(message, (err, res)=>{
                 if(err){
                     console.log(err.message);
@@ -304,7 +305,7 @@ class mainController {
 
     async renderGuide(req, res){
         let guide = await userModel.getGuide(+req.params.id);
-        res.render('guidePages/editePage', {guide: guide});
+        res.render('guidePages/editePage', {guide: guide, user: req.session.user});
     }
 
     async edite(req, res) {
@@ -328,7 +329,8 @@ class mainController {
                     password = await bcrypt.hash(req.body.password + salt, 3);
                 }
                 let result = await UserModel.updateGuide({...req.body, imgSRC, salt, password});
-                req.session.user = await UserModel.getGuide(req.body.id);
+                if (req.session.user.id == result.id)
+                    req.session.user = await UserModel.getGuide(req.body.id);
                 res.status(200).send(result);
             }
         } catch (e) {
@@ -337,6 +339,15 @@ class mainController {
     }
     async deleteUser(req, res) {
         try {
+            let excursions = await ExcursionModel.getByUserId(+req.params.id);
+            for (const excursion of excursions) {
+                let id = excursion.id;
+                await Orders.destroy({ where: { excursionId: id } });
+                await ImagesExcursions.destroy({ where: { excursionId: id } });
+                await ThemeExcursions.destroy({ where: { excursionId: id } });
+                await DaysExcursions.destroy({ where: { excursionId: id } });
+                await Excursions.destroy({ where: { id } });
+            }
             let result = await UserModel.deleteGuide(+req.params.id);
             res.status(200).json(result);
         } catch (e) {

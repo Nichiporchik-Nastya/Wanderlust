@@ -446,7 +446,7 @@
                                                         </div>
                                                         <div class="client-count__item-wrap">
                                                             <div class="client-count__minus">–</div>
-                                                            <input class="client-count__count" name="numberOfAdults"
+                                                            <input readonly class="client-count__count" name="numberOfAdults"
                                                                 data-maxcount="<%= data.typeData.clientMaxNumber %> "
                                                                 data-cost="<%= data.excursionData.adultCost%>"
                                                                 value="0">
@@ -495,7 +495,7 @@
 
                                     <div class="final-cost">Итого: <span class="final-cost-place">0</span> BYN</div>
                                     <div style="display: flex; column-gap: 12px;">
-                                        <input type="submit" class="btn" value="Забронировать экскурсию">
+                                        <input type="submit" class="btn" id="orderSubmit" value="Забронировать экскурсию">
                                         <p class="extra-info" style="max-width: 300px;">Оформляя заказ, вы соглашаетесь
                                             на обработку
                                             персональных

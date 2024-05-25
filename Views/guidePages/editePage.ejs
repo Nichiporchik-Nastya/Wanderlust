@@ -16,6 +16,7 @@
     <div class="status">Экскурсия забронирована. Менеджер свяжется с вами в ближайшее время</div>
 
         <form onsubmit="EditeSubmit(event)">
+            <input type="text" disabled hidden id="role" value="<%= user?.role %>">
             <input type="text" name="id" id="guideId" hidden value="<%=  guide.id %>">
             <div class="container two-part-container">
                 <div style="display: flex; flex-direction: column; gap: 20px;">
@@ -81,7 +82,7 @@
 
                     </div>
 
-                    
+
                 </div>
             </div>
         </form>

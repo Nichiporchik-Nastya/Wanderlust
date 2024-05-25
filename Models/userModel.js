@@ -65,7 +65,7 @@ class UserModel {
       },
       attributes:{
           include:[
-              [literal('(SELECT COUNT(*) FROM `excursions` WHERE `excursions`.`guideId` = `users`.`id`)'), 'excursionsCount']
+              [literal('(SELECT COUNT(*) FROM `Excursions` WHERE `Excursions`.`guideId` = `Users`.`id`)'), 'excursionsCount']
           ]
       },
     })
@@ -77,7 +77,7 @@ class UserModel {
       },
     }));
   }
-  
+
   async updateGuide(body){
     return await Users.update(body, {
         where: {
@@ -89,7 +89,6 @@ class UserModel {
     return await Users.destroy( {
         where: {
             id,
-            role: 2
         }
     })
   }

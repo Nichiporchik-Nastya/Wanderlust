@@ -81,7 +81,7 @@ class ExcursionModel {
         await ImagesExcursions.destroy({ where: { excursionId: id } });
         await ThemeExcursions.destroy({ where: { excursionId: id } });
         await DaysExcursions.destroy({ where: { excursionId: id } });
-        await StartTimes.destroy({ where: { excursionId: id } });
+        // await StartTimes.destroy({ where: { excursionId: id } });
 
         //Reviews
         return await Excursions.destroy({ where: { id } });
@@ -317,28 +317,28 @@ class ExcursionModel {
             body.deletedStartTime = [];
         }
 
-        if (body.deletedStartTime.length != 0 && (body?.startTimes?.length ?? 0 - body.deletedStartTime.length ?? 0) >= 0) {
-            for (const time of body.deletedStartTime) {
-                await StartTimes.destroy({ where: { id: +time } })
-            }
-
-            if (Array.isArray(body.startTimes)) {
-                await body.startTimes.forEach(time => {
-                    StartTimes.create({ time: time, excursionId: +body.id });
-                });
-            } else if (body.startTimes) {
-                StartTimes.create({ time: body.startTimes, excursionId: +body.id });
-            }
-        }
-        else if (body?.startTimes?.length ?? 0 > 0) {
-            if (Array.isArray(body.startTimes)) {
-                await body.startTimes.forEach(time => {
-                    StartTimes.create({ time: time, excursionId: +body.id });
-                });
-            } else if (body.startTimes) {
-                StartTimes.create({ time: body.startTimes, excursionId: +body.id });
-            }
-        }
+        // if (body.deletedStartTime.length != 0 && (body?.startTimes?.length ?? 0 - body.deletedStartTime.length ?? 0) >= 0) {
+        //     for (const time of body.deletedStartTime) {
+        //         await StartTimes.destroy({ where: { id: +time } })
+        //     }
+        //
+        //     if (Array.isArray(body.startTimes)) {
+        //         await body.startTimes.forEach(time => {
+        //             StartTimes.create({ time: time, excursionId: +body.id });
+        //         });
+        //     } else if (body.startTimes) {
+        //         StartTimes.create({ time: body.startTimes, excursionId: +body.id });
+        //     }
+        // }
+        // else if (body?.startTimes?.length ?? 0 > 0) {
+        //     if (Array.isArray(body.startTimes)) {
+        //         await body.startTimes.forEach(time => {
+        //             StartTimes.create({ time: time, excursionId: +body.id });
+        //         });
+        //     } else if (body.startTimes) {
+        //         StartTimes.create({ time: body.startTimes, excursionId: +body.id });
+        //     }
+        // }
 
 
         if (body.deletedPhotos && !Array.isArray(body.deletedPhotos)) {

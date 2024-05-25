@@ -36,10 +36,10 @@ async function OrderSubmit(event) {
 
 
         } else {
-            document.querySelector(".status").innerHTML = "Заказ успешно оформлен. Менеджер савяжется с вами в ближайшее время";
+            document.querySelector(".status").innerHTML = "Экскурсия забронирована";
             document.querySelector(".status").classList.add("show-status");
-           
 
+            setTimeout(() =>  document.querySelector(".status").classList.remove("show-status"), 2000);
             // setTimeout(() =>  window.location.reload(), 3000);
 
             // let orderForm = document.querySelector(".order-form"),

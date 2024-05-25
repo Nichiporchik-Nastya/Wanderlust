@@ -75,7 +75,7 @@ const renderCalendar = (value) => {
                 const formattedDate = checkingdate.toISOString().slice(0, 10);
 
                 value.daysResult.forEach(element => {
-                    
+
                     if (formattedDate === element.day) {
                         count = element.count;
                         strtTmId = document.querySelector('input[type="radio"][name="startTimeId"]:checked').dataset.sttid;
@@ -159,6 +159,12 @@ const canSelectday = () => {
             let response = await fetch(`/api/excursions/places/${document.querySelector('#excursionId').value}/${element.dataset.caldate}`);
 
             let result = await response.json();
+            if (result == 0){
+                document.querySelector('#orderSubmit').disabled = true;
+            }
+            else{
+                document.querySelector('#orderSubmit').disabled = false;
+            }
             document.querySelector('.free-places').innerHTML = 'Доступно мест: '+ result;
             element.dataset.orderscount = result;
             document.querySelectorAll('.count-error').forEach(el => {
@@ -177,7 +183,7 @@ const canSelectday = () => {
 
 
             // let startTimesstrs = document.querySelectorAll('label[for^="startTime-"]');
-            // const currentTime = new Date(); 
+            // const currentTime = new Date();
             // const modifiedTime = new Date(currentTime.getTime() - 2 * 60 * 60 * 1000); //бронирование за 2 часа до начала
 
             // startTimesstrs.forEach(element => {

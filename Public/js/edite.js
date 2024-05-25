@@ -6,7 +6,7 @@ async function EditeSubmit(event) {
         // let rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000)), path;
 
         // fileList.forEach(file => {
-        //     formData.append("photos", file); 
+        //     formData.append("photos", file);
         // });
 
         // path = '/public/guideImages/' + rand + formData.get("photos").name;
@@ -14,7 +14,7 @@ async function EditeSubmit(event) {
         // formData.append("imgSRC", path);
 
         for (let [key, value] of formData.entries()) {
-            console.log(key, value); 
+            console.log(key, value);
         }
 
         let response = await fetch('/api/guide/edite/', { //объект отправки и получения запроса, путь прописывается без точки, так как бек и фронт находятся на одном ломене
@@ -39,7 +39,7 @@ async function EditeSubmit(event) {
         } else {
             document.querySelector(".status").innerHTML = "Редактирование прошло успешно";
             document.querySelector(".status").classList.add("show-status");
-            setTimeout(function () { window.location.href = "/dashbord"; }, 2000);
+            setTimeout(function () { window.location.href = document.querySelector("#role").value == "2" ? "/guide-dashbord" : "/dashbord"; }, 2000);
 
         }
     } catch (error) {

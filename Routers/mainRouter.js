@@ -129,7 +129,7 @@ router.get('/excursions/searchfilter', controller.searchFilter);
 
 router.get('/excursions/all', async (req, res) => {
   const data = {};
-  let user = req.session?.user ? true : false;
+  let user = req.session?.user;
   // console.log(user);
   data.types = await excursionModel.getAllTypes();
   data.formats = await excursionModel.getAllFormats();
