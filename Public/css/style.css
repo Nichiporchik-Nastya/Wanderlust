@@ -93,6 +93,10 @@ header {
   font-weight: 600;
 }
 
+.btn:disabled{
+  background-color: var(--light-bg);
+}
+
 .btn:hover {
   background-color: var(--hover-green);
 }
@@ -926,17 +930,29 @@ label {
   /* row-gap: 40px; */
 }
 
+/* .accordion__text-block .btn {
+  margin-top: 40px;
+  margin-bottom: 60px;
+} */
+
 
 
 .accordion__title,
 h4 {
   font-size: 21px;
-  /* bottom: 0; */
   padding: 2% 0% 2% 0%;
   pointer-events: none;
   text-transform: uppercase;
-  font-weight: 600;
+
   line-height: 135%;
+}
+
+h4{
+  font-weight: 600;
+}
+
+h6 {
+  margin-top: 20px;
 }
 
 h3 {
@@ -1526,6 +1542,9 @@ aside {
     gap: 20px;
   }
 
+  .two-part-container{
+    column-gap: 20px;
+  }
 
 }
 
@@ -1597,9 +1616,35 @@ aside {
     display: none;
   }
 
-  .container {
-    padding: 0 8px;
+  /* .second-container-part{
+    display: none;
+  } */
+
+  .soderj{
+    position: fixed;
+    top: 55px;
+    padding: 12px 0;
+    left: 0;
+    margin-bottom: 20px;
+    flex-direction: row;
+    background-color: #fff;
+    font-size: 16px;
+    width: 100%;
+    overflow: scroll;
+    align-items: center;
   }
+
+  .soderj::-webkit-scrollbar {
+    display: none;
+  }
+
+  .soderj a{
+    white-space: nowrap;
+  }
+
+  /* .container {
+    padding: 0 80px;
+  } */
 
   .menu-more__block {
     flex-direction: column;

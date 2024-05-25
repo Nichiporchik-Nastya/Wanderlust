@@ -131,3 +131,14 @@
     gap: 20px;
 }
 
+#map-test{
+    width: 100%;
+    height: 300px;
+}
+.preview{
+    display: flex;
+}
+
+.map-btn{
+    margin-top: 40px;
+}

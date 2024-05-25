@@ -30,13 +30,13 @@
                     <li class="accordion__item long-field">
                         <div class="accordion__title-block" id="allInfo">
                             <div class="accordion__title-content">
-                                <h3 class="accordion__title">Основная информация</h3>
+                                <h4 class="accordion__title">Основная информация</h4>
                                 <img class="accordion__arrow" src="/Public/icons/arrow.svg">
                             </div>
                         </div>
                         <div class="accordion__text-block">
                             <div class="input-wrap">
-                                <h4 class="box-input__title">Название экскурсии</h4>
+                                <h6 class="box-input__title">Название экскурсии</h6>
                                 <div class="box-input">
                                     <input type="text" name="name" placeholder=" "
                                         value="<%= excursion.excursionData.name %>">
@@ -47,7 +47,7 @@
                             </div>
 
                             <div class="input-wrap">
-                                <h4 class="box-input__title">Описание экскурсии</h4>
+                                <h6 class="box-input__title">Описание экскурсии</h6>
                                 <div class="box-input">
                                     <textarea name="description"
                                         placeholder=" "><%= excursion.excursionData.description %></textarea>
@@ -61,7 +61,7 @@
                             </div>
 
                             <div class="input-wrap">
-                                <h4 class="box-input__title">Дополнительная информация</h4>
+                                <h6 class="box-input__title">Дополнительная информация</h6>
                                 <div class="box-input">
                                     <textarea name="extraInfo"
                                         placeholder=" "><%= excursion.excursionData.extraInfo %></textarea>
@@ -71,7 +71,7 @@
                             </div>
 
                             <div class="input-wrap">
-                                <h4 class="box-input__title">Место начала экскурсии</h4>
+                                <h6 class="box-input__title">Место начала экскурсии</h6>
                                 <div class="box-input">
                                     <input type="text" name="startLocation" placeholder=" "
                                         value="<%= excursion.excursionData.startLocation %>">
@@ -83,7 +83,7 @@
                             </div>
 
                             <div class="input-wrap">
-                                <h4 class="box-input__title">Место окончания экскурсии</h4>
+                                <h6 class="box-input__title">Место окончания экскурсии</h6>
                                 <div class="box-input">
                                     <input type="text" name="endLocation" placeholder=" "
                                         value="<%= excursion.excursionData.endLocation %>">
@@ -95,22 +95,23 @@
                             </div>
 
                             <div class="input-wrap">
-                                <h4 class="box-input__title">Длительность экскурсии</h4>
+                                <h6 class="box-input__title">Длительность экскурсии</h6>
                                 <div class="box-input">
-                                    
 
-                                                <input type="time" id="duration" name="duration" placeholder=" "
-                                                    data-dur="<%= excursion.excursionData.duration %>" value="" step="300" min="00:30" max="12:00">
-                                                <label>Длительность экскурсии</label>
-                                                <div class="box-input__error-text duration-error"></div>
-                                                <p class="input-help-text">Введите длительность экскурсии</p>
+
+                                    <input type="time" id="duration" name="duration" placeholder=" "
+                                        data-dur="<%= excursion.excursionData.duration %>" value="" step="300"
+                                        min="00:30" max="12:00">
+                                    <label>Длительность экскурсии</label>
+                                    <div class="box-input__error-text duration-error"></div>
+                                    <p class="input-help-text">Введите длительность экскурсии</p>
                                 </div>
                             </div>
 
                             <div class="many-fields__wrap">
 
                                 <div class="input-wrap">
-                                    <h4 class="box-input__title">Формат</h4>
+                                    <h6 class="box-input__title">Формат</h6>
                                     <% data.formats.forEach(item=> { %>
                                         <%if (excursion.excursionData.formatId===item.id){%>
                                             <div class="radio-input">
@@ -134,7 +135,7 @@
                                                     <% }); %>
                                 </div>
                                 <div class="input-wrap">
-                                    <h4 class="box-input__title">Тип</h4>
+                                    <h6 class="box-input__title">Тип</h6>
                                     <% data.types.forEach(item=> { %>
 
                                         <%if (excursion.excursionData.typeId===item.id){%>
@@ -159,7 +160,7 @@
                                                     <% }); %>
                                 </div>
                                 <div class="input-block-wrap">
-                                    <h4 class="box-input__title">Тема</h4>
+                                    <h6 class="box-input__title">Тема</h6>
                                     <div class="many-inputs__wrap">
                                         <% data.themes.forEach(item=> { %>
                                             <%if (themes.includes(item.id)){%>
@@ -200,7 +201,7 @@
                         <div class="accordion__text-block">
 
                             <div class="input-block-wrap">
-                                <h4 class="box-input__title">Дни недели</h4>
+                                <h6 class="box-input__title">Дни недели</h6>
                                 <div class="many-inputs__wrap" id="weekdays">
                                     <%for(let i=1; i < 8; i++){%>
                                         <%if (excursionDaysWeek.includes(i)){%>
@@ -257,8 +258,8 @@
                                     <div class="preview">
                                         <% excursion.imagesExcursionsData.forEach(item=> { %>
                                             <div class="photo-tag" data-exindex="<%=item.id%>">
-                                                <%=item.imgSRC.slice(item.imgSRC.lastIndexOf(' /')+1)%>
-                                                    <img src="<%=item.imgSRC%>">
+                                                <!-- <%=item.imgSRC.slice(item.imgSRC.lastIndexOf(' /')+1)%> -->
+                                                <img src="<%=item.imgSRC%>">
                                             </div>
                                             <% }); %>
                                     </div>
@@ -267,6 +268,43 @@
                                 <div class="box-input__error-text photos-error"></div>
 
                             </div>
+                        </div>
+                    </li>
+                    <li class="accordion__item long-field" data-accitemindex="1">
+                        <div class="accordion__title-block" id="route">
+                            <div class="accordion__title-content">
+                                <h4 class="accordion__title">Маршрут</h4>
+                                <img class="accordion__arrow" src="/Public/icons/arrow.svg">
+                            </div>
+                            <p class="input-help-text">
+                                Выберите точку на карте, введите название и загрузите картинку. Задайте минимум 2 точки
+                                маршрута
+                            </p>
+                        </div>
+
+                        <div class="accordion__text-block">
+                            <div id="map-test" class="map"></div>
+                            <script
+                                src="https://api-maps.yandex.ru/2.1/?apikey=12e3ef71-0ab9-45da-8a9f-c924cf2fd1ae&load=Map&lang=ru_RU"></script>
+
+                            <div class="input-wrap">
+                                <h6 class="box-input__title">Название точки маршрута</h6>
+                                <div class="box-input">
+                                    <input type="text" name="name" placeholder=" " value="">
+                                    <label>Достопримечательность, парк и т.п.</label>
+                                    <div class="box-input__error-text name-error"></div>
+                                </div>
+                            </div>
+
+                            <div class="btn map-btn">Добавить точку</div>
+
+                            <h6 class="box-input__title">Добавленные точки:</h6>
+                            <div class="tags-wrap routepoint-tags">
+                                <div class="preview"></div>
+                                <div class="btn secondary-btn clear-file-input">Очистить выбор</div>
+                            </div>
+                            <div class="box-input__error-text photos-error"></div>
+
                         </div>
                     </li>
                     <li class="accordion__item">
@@ -284,7 +322,7 @@
 
 
                             <div class="input-wrap">
-                                <h4 class="box-input__title">Взрослый</h4>
+                                <h6 class="box-input__title">Взрослый</h6>
                                 <div class="box-input">
                                     <input type="number" name="adultCost" min="1" placeholder=" "
                                         value="<%= excursion.excursionData.adultCost %>">
@@ -294,7 +332,7 @@
                             </div>
 
                             <div class="input-wrap">
-                                <h4 class="box-input__title">Детский</h4>
+                                <h6 class="box-input__title">Детский</h6>
                                 <div class="box-input">
                                     <input type="number" name="childCost" placeholder=" " min="0"
                                         value="<%= excursion.excursionData.childCost %>">
@@ -314,7 +352,7 @@
             <div class="soderj_wrapper second-container-part">
                 <ol class="soderj">
                     <a href="#allInfo" onclick="scrollToBlock">Общая информация</a>
-                    <!-- <a href="#allInfo" onclick="scrollToBlock">Маршрут</li> -->
+                    <a href="#route" onclick="scrollToBlock">Маршрут</a>
                     <a href="#timeTable" onclick="scrollToBlock">Расписание</a>
                     <a href="#Photos" onclick="scrollToBlock">Фотографии</a>
                     <a href="#Cost" onclick="scrollToBlock">Стоимость</a>
@@ -357,7 +395,7 @@
 
             durationInput.value = convertToTimeFormat(durationInput.dataset.dur);
 
-            
+
             timeTags.forEach(tag => {
                 tag.addEventListener('click', () => {
                     tag.remove();
@@ -420,7 +458,7 @@
                     reader.addEventListener('loadend', () => {
                         const item = document.createElement('div');
                         item.classList.add('photo-tag');
-                        item.innerText = file.name;
+                        // item.innerText = file.name;
                         item.setAttribute('data-index', k++);
                         const image = new Image;
                         image.src = `data:${file.type};base64,${btoa(reader.result)}`;
@@ -450,6 +488,7 @@
             });
 
         </script>
+        <script src="/public/js/map.js"></script>
         <script src="/public/js/anchorScroll.js"></script>
         <script src="/Public/js/accordion.js"></script>
         <script src="/public/js/editExcursion.js"></script>
