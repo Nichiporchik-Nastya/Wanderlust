@@ -54,6 +54,7 @@ module.exports = (sequelize, DataTypes) => {
     extraInfo: DataTypes.STRING,
     startLocation: DataTypes.STRING,
     endLocation: DataTypes.STRING,
+    points: DataTypes.TEXT('long'),
   }, {
     sequelize,
     modelName: 'Excursions',

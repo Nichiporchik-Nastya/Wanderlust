@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="/public/css/header-style.css">
     <link rel="stylesheet" href="/public/css/style.css">
     <link rel="stylesheet" href="/public/css/dashbord.css">
+
+
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=12e3ef71-0ab9-45da-8a9f-c924cf2fd1ae"></script>
+    <script src="/public/js/mapCreateEx.js"></script>
 </head>
 
 <body>
@@ -219,24 +223,22 @@
 
                         <div class="accordion__text-block">
                             <div id="map-test" class="map"></div>
-                            <script
-                                src="https://api-maps.yandex.ru/2.1/?apikey=12e3ef71-0ab9-45da-8a9f-c924cf2fd1ae&load=Map&lang=ru_RU"></script>
 
                             <div class="input-wrap">
                                 <h6 class="box-input__title">Название точки маршрута</h6>
                                 <div class="box-input">
-                                    <input type="text" name="name" placeholder=" " value="">
+                                    <input type="text" id="markName" placeholder=" " value="">
                                     <label>Достопримечательность, парк и т.п.</label>
-                                    <div class="box-input__error-text name-error"></div>
+                                    <div class="box-input__error-text point-error"></div>
                                 </div>
                             </div>
 
-                            <div class="btn map-btn">Добавить точку</div>
+                            <div class="btn map-btn" onclick="AddMark()">Добавить точку</div>
 
                             <h6 class="box-input__title">Добавленные точки:</h6>
                             <div class="tags-wrap routepoint-tags">
-                                <div class="preview"></div>
-                                <div class="btn secondary-btn clear-file-input">Очистить выбор</div>
+                                <div class="routepoint-preview"></div>
+                                <div class="btn secondary-btn clear-file-input" onclick="clearPoint()">Очистить выбор</div>
                             </div>
                             <div class="box-input__error-text photos-error"></div>
 
@@ -378,8 +380,46 @@
                 });
             });
 
+            function AddMark(){
+                let name = document.querySelector("#markName");
+                if(name.value.length != 0 && myPlacemark){
+                    let point = {name: name.value, coords: myPlacemark.geometry._coordinates};
+                    Placemarks.push(point);
+                    name.value = "";
+                    myPlacemark = null;
+                    myMap.geoObjects.removeAll();
+                    reloadPoint()
+                }
+                console.log(Placemarks);
+            }
+
+            function deletePoint(e){
+                Placemarks.splice(+e.target.dataset.index, 1);
+                reloadPoint()
+            }
+
+            function clearPoint(){
+                document.querySelector('.routepoint-preview').innerHTML = "";
+                Placemarks = [];
+            }
+
+            function reloadPoint() {
+                document.querySelector('.routepoint-preview').innerHTML = "";
+                for (let i = 0; i < Placemarks.length; i++) {
+                    const item = document.createElement('div');
+                    let imgX = document.createElement('img');
+                    imgX.src = "/public/icons/lil-x.svg";
+                    imgX.addEventListener('click', deletePoint);
+                    imgX.setAttribute('data-index', i);
+                    item.classList.add('photo-tag');
+                    item.classList.add('routepoint-tag');
+                    item.innerText = Placemarks[i].name;
+                    item.setAttribute('data-index', i);
+                    item.appendChild(imgX);
+                    document.querySelector('.routepoint-preview').appendChild(item);
+                }
+            }
         </script>
-        <script src="/public/js/map.js"></script>
         <script src="/public/js/anchorScroll.js"></script>
         <script src="/Public/js/accordion.js"></script>
         <script src="/public/js/createExcursion.js"></script>

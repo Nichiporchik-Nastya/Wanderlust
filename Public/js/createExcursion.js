@@ -5,7 +5,7 @@ function timeStringToNumber(timeString) {
     var decimalTime = hours + (minutes / 60);
     return decimalTime;
   }
-  
+
 
 async function CreateExcursionSubmit(event) {
     try {
@@ -38,8 +38,16 @@ async function CreateExcursionSubmit(event) {
             formData.append("duration", timeStringToNumber(durationInput.value));
         }
 
+        if (Placemarks.length < 2) {
+            document.querySelector('.point-error').innerHTML = "Создайте минимум 2 точки";
+            return;
+        }
+        else{
+            formData.append("points", JSON.stringify(Placemarks));
+        }
+
         for (let [key, value] of formData.entries()) {
-            console.log(key, value); 
+            console.log(key, value);
         }
 
         // return;

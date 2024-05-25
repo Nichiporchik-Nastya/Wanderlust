@@ -12,10 +12,6 @@ async function EditExcursionSubmit(event) {
 
         let formData = new FormData(event.target);
 
-        startTimes.forEach(time => {
-            formData.append("startTimes", time);
-        });
-
         deletedStartTime.forEach(time => {
             formData.append("deletedStartTime", time);
         });
@@ -43,6 +39,14 @@ async function EditExcursionSubmit(event) {
         if (formData.get("duration")) {
             formData.delete("duration");
             formData.append("duration", timeStringToNumber(durationInput.value));
+        }
+
+        if (Placemarks.length < 2) {
+            document.querySelector('.point-error').innerHTML = "Создайте минимум 2 точки";
+            return;
+        }
+        else{
+            formData.append("points", JSON.stringify(Placemarks));
         }
 
         for (let [key, value] of formData.entries()) {

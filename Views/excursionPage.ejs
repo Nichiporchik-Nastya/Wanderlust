@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="/public/css/normalize.css">
     <link rel="stylesheet" href="/public/css/header-style.css">
     <link rel="stylesheet" href="/public/css/style.css">
-    <script
-        src="https://api-maps.yandex.ru/2.1/?apikey=12e3ef71-0ab9-45da-8a9f-c924cf2fd1ae&load=Map&lang=ru_RU"></script>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=12e3ef71-0ab9-45da-8a9f-c924cf2fd1ae"></script>
+    <script src="/public/js/map.js"></script>
 </head>
 
 <body>
@@ -44,7 +44,7 @@
                         </div> -->
 
                         <div class="status">Экскурсия забронирована. Менеджер свяжется с вами в ближайшее время</div>
-
+                        <input type="text" disabled hidden value="<%= data.excursionData.points %>" id="points">
                         <div class="main-images__wrapper container">
                             <% for(i=0; i < 4; i++) {%>
                                 <img class="main-images__item main-images__item<%= i %>"
@@ -668,12 +668,12 @@
 
                                 let result = await response.json();
 
-                                
+
 
                                 let container = document.querySelector('.excursion-cards__wrapper');
                                 container.innerHTML = '';
 
-                                
+
 
                                 for (let i = 0; i < 4 && i < result.length; i++) {
                                     let item = result[i];
@@ -688,11 +688,11 @@
                                             <h3 class="excursion-card__cost">${item?.adultCost} Br</h3>
                                             <p class="excursion-card__type">${item?.type?.name}</p>
                                             </div>
-                                            
-                                            
-                                            
+
+
+
                                             <!--<p class="excursion-card__duration">${item?.duration} ч.</p>-->
-                                            
+
                                         </a>`;
 
 
@@ -704,7 +704,6 @@
 
 
 
-                        <script src="/public/js/map.js"></script>
                         <script src="/public/js/anchorScroll.js"></script>
                         <script src="/public/js/calendar.js"></script>
                         <script src="/public/js/accordion.js"></script>

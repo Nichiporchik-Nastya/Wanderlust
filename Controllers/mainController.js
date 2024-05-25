@@ -83,8 +83,6 @@ class mainController {
 
     async createExcursion(req, res) {
         try {
-            console.log(req.files?.photos);
-
             let errors = validationResult(req);
             if (!errors.isEmpty()) {
                 return res.status(400).json({ errors: errors.array() });
@@ -155,6 +153,7 @@ class mainController {
             }
             let code = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
             let result = await OrderModel.create({...req.body, code});
+            let excursion = await ExcursionModel.get(result.excursionId);
             const transporter = nodemailer.createTransport({
                 service:"gmail",
                 port:465,
@@ -176,7 +175,8 @@ class mainController {
                 html: await ejs.renderFile('./Views/email.ejs', {
                     domain: 'http://localhost:4002',
                     homeLink: `/excursions/show/${result.excursionId}`,
-                    deleteLink: `/delete/order/${result.id}/${code}`
+                    deleteLink: `/delete/order/${result.id}/${code}`,
+                    title: excursion.excursionData.name,
                 }),
             };
 
