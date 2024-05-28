@@ -15,12 +15,12 @@
     <%- include('./partials/header'); %>
     <div class="status">Экскурсия забронирована. Менеджер свяжется с вами в ближайшее время</div>
 
-        <form onsubmit="EditeSubmit(event)">
+        <form onsubmit="EditeSubmit(event)" class="guide-form">
             <input type="text" disabled hidden id="role" value="<%= user?.role %>">
             <input type="text" name="id" id="guideId" hidden value="<%=  guide.id %>">
             <div class="container two-part-container">
                 <div style="display: flex; flex-direction: column; gap: 20px;">
-                    <h2>Редактирование сотрудника</h2>
+                    <h2 class="h2">Редактирование профиля</h2>
                     <div class="box-input">
                         <input type="text" name="name" id="name" class="input" placeholder=" " value="<%=  guide.name %>">
                         <label>Полное имя</label>
@@ -57,7 +57,7 @@
                         <div class="box-input">
                             <textarea name="description" rows="2"
                                 placeholder=" "><%=  guide.description %></textarea>
-                            <label>Описание гида</label>
+                            <label>Описание</label>
                             <div class="box-input__error-text description-error"></div>
                         </div>
                     </div>
@@ -67,7 +67,7 @@
                         <label class="btn secondary-btn btn-with-icon">
                             <input name="imgSRC" type="file" hidden class="input__file" accept="image/*" />
                             <img src="/Public/icons/pic.svg">
-                            Выбрать изображение
+                            Заменить изображение
                         </label>
 
                         <div style="visibility: visible;" class="tags-wrap photo-tags">
@@ -78,7 +78,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="box-input__error-text photos-error"></div>
+                        <div class="box-input__error-text imgSRC-error"></div>
 
                     </div>
 

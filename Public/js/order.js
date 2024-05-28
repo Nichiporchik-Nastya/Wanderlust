@@ -44,11 +44,13 @@ async function OrderSubmit(event) {
 
             let orderForm = document.querySelector(".order-form"),
                 userSelectedDay = document.querySelector(".isOrderDay.selected"),
-                errors = document.querySelectorAll(".box-input__error-text");
+                errors = document.querySelectorAll(".box-input__error-text"),
+                freePlaces = document.querySelector(".free-places");
             orderForm.reset();
             userSelectedDay.classList.remove("selected");
             clientCountCounts[0].innerText = "1";
             clientCountCounts[1].innerText = "0";
+            freePlaces.innerHTML = "";
 
             errors.forEach(err => {
                 err.innerText = "";

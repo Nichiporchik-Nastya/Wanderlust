@@ -7,7 +7,7 @@ const nodemailer = require('nodemailer');
 const ejs = require('ejs');
 const userModel = require('../Models/userModel');
 const bcrypt = require('bcrypt');
-const {Orders, ImagesExcursions, ThemeExcursions, DaysExcursions, StartTimes, Excursions} = require("../db/models/index");
+const { Orders, ImagesExcursions, ThemeExcursions, DaysExcursions, StartTimes, Excursions } = require("../db/models/index");
 
 
 
@@ -18,8 +18,27 @@ class mainController {
         try {
             const user = req.session.user;
             const guides = await UserModel.getGuides();
-            console.log(guides);
-            res.render('adminPages/dashbord', { data: user, guides: guides });
+            // console.log(guides);
+
+            let data = await UserModel.getUsersExcursions();
+            
+
+            let countOfBookingOfExcursionsOfGuides = [];
+
+            // data.forEach(obj => {
+            for (const obj of data) {
+
+
+                let bookingCount = await OrderModel.countOrdersByGuideId(obj.user.id);
+                console.log("==============", bookingCount);
+                countOfBookingOfExcursionsOfGuides.push({ guideId: obj.user.id, array: bookingCount });
+
+            }
+            // let excursions = await ExcursionModel.getByUserId(user.id);
+            // let ordersCount = await OrderModel.countOrdersByGuideId(user.id);
+            res.render('adminPages/dashbord', { data: data, bookingCount: countOfBookingOfExcursionsOfGuides });
+
+
         } catch (e) {
             console.log(e);
         }
@@ -29,8 +48,12 @@ class mainController {
         try {
             const user = req.session.user;
             let excursions = await ExcursionModel.getByUserId(user.id);
-            console.log(excursions);
-            res.render('guidePages/dashbord', { user: user, excursions: excursions });
+
+
+            let ordersCount = await OrderModel.countOrdersByGuideId(user.id);
+            // console.log(excursions);
+            // console.log(ordersCount);
+            res.render('guidePages/dashbord', { user: user, excursions: excursions, ordersCount: ordersCount });
         } catch (e) {
             console.log(e);
         }
@@ -46,7 +69,7 @@ class mainController {
         }
     }
 
-    async allInfo(req, res){
+    async allInfo(req, res) {
         try {
             let data = await UserModel.getUsersExcursions();
             res.render('allInfo', { data: data });
@@ -66,12 +89,12 @@ class mainController {
             }
             else {
                 let imgSRC = null;
-                if (req?.files?.imgSRC){
+                if (req?.files?.imgSRC) {
                     let rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
                     req.files.imgSRC.mv('public/guideImages/' + rand + req.files.imgSRC.name);
                     imgSRC = '/public/guideImages/' + rand + req.files.imgSRC.name;
                 }
-                let result = await UserModel.create({...req.body, imgSRC});
+                let result = await UserModel.create({ ...req.body, imgSRC });
                 res.status(200).send(result);
             }
         } catch (e) {
@@ -152,14 +175,14 @@ class mainController {
                 return res.status(400).json({ errors: errors.array() });
             }
             let code = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
-            let result = await OrderModel.create({...req.body, code});
+            let result = await OrderModel.create({ ...req.body, code });
             let excursion = await ExcursionModel.get(result.excursionId);
             const transporter = nodemailer.createTransport({
-                service:"gmail",
-                port:465,
-                secure:true,
-                secureConnection:false,
-                auth:{
+                service: "gmail",
+                port: 465,
+                secure: true,
+                secureConnection: false,
+                auth: {
                     user: 'wanderlust.bot@gmail.com',
                     pass: 'culcynsnxlmqywbm'
                 },
@@ -171,7 +194,7 @@ class mainController {
             const message = {
                 from: `Wanderlust <wanderlust.bot@gmail.com>`,
                 to: req.body.clientEmail,
-                subject:'Бронирование экскурсии',
+                subject: 'Бронирование экскурсии',
                 html: await ejs.renderFile('./Views/email.ejs', {
                     domain: 'http://localhost:4002',
                     homeLink: `/excursions/show/${result.excursionId}`,
@@ -180,8 +203,8 @@ class mainController {
                 }),
             };
 
-            await transporter.sendMail(message, (err, res)=>{
-                if(err){
+            await transporter.sendMail(message, (err, res) => {
+                if (err) {
                     console.log(err.message);
                 }
                 transporter.close();
@@ -286,26 +309,27 @@ class mainController {
         }
     }
 
-    async deleteOrder(req, res){
-        try{
+    async deleteOrder(req, res) {
+        try {
             let order = await OrderModel.get(+req?.params?.id);
-            if (order?.code == +req.params?.code){
+
+            if (order?.code == +req.params?.code) {
                 order.destroy();
                 order.save();
             }
-            else{
-                res.render('deleteOrder', {status:false});
+            else {
+                res.render('deleteOrder', { status: false });
             }
-            res.render('deleteOrder', {status:true});
+            res.render('deleteOrder', { status: true });
         }
         catch (e) {
-            res.render('deleteOrder', {status:false});
+            res.render('deleteOrder', { status: false });
         }
     }
 
-    async renderGuide(req, res){
+    async renderGuide(req, res) {
         let guide = await userModel.getGuide(+req.params.id);
-        res.render('guidePages/editePage', {guide: guide, user: req.session.user});
+        res.render('guidePages/editePage', { guide: guide, user: req.session.user });
     }
 
     async edite(req, res) {
@@ -317,20 +341,21 @@ class mainController {
             }
             else {
                 let imgSRC = undefined;
-                if (req?.files?.imgSRC){
+                if (req?.files?.imgSRC) {
                     let rand = (Math.floor(Math.random() * (9999 - 1000 + 1) + 1000));
                     req.files.imgSRC.mv('public/guideImages/' + rand + req.files.imgSRC.name);
                     imgSRC = '/public/guideImages/' + rand + req.files.imgSRC.name;
                 }
                 let password = undefined;
                 let salt = undefined;
-                if (req.body?.secondPassword){
+                if (req.body?.secondPassword) {
                     salt = Math.round(100 - 0.5 + Math.random() * (1000 - 100 + 1));
                     password = await bcrypt.hash(req.body.password + salt, 3);
                 }
-                let result = await UserModel.updateGuide({...req.body, imgSRC, salt, password});
-                if (req.session.user.id == result.id)
-                    req.session.user = await UserModel.getGuide(req.body.id);
+                let result = await UserModel.updateGuide({ ...req.body, imgSRC, salt, password });
+                // if (req.session.user.id == result.id)
+                req.session.user = await UserModel.getGuide(req.body.id);
+
                 res.status(200).send(result);
             }
         } catch (e) {

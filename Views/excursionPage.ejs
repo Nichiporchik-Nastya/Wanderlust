@@ -86,11 +86,12 @@
                                 <div class="accordeon-tabs__wrapper">
                                     <a href="#description" onclick="scrollToBlock()"
                                         class="accordeon-tabs__tab">Описание</a>
-                                    <!-- <a href="#route" onclick="scrollToBlock()" class="accordeon-tabs__tab">маршрут</a> -->
                                     <a href="#gallery" onclick="scrollToBlock()"
                                         class="accordeon-tabs__tab">фотографии</a>
-                                    <!-- <a href="#testimonials" onclick="scrollToBlock()"
-                                        class="accordeon-tabs__tab">отзывы</a> -->
+                                    <!-- <a href="#route-on-map" onclick="scrollToBlock()" class="accordeon-tabs__tab">Маршрут</a>
+                                    <a href="#order-form" onclick="scrollToBlock()"
+                                        class="accordeon-tabs__tab secondary-btn">Забронировать</a> -->
+
                                 </div>
                                 <ul class="accordion__list">
                                     <li class="accordion__item" id="description">
@@ -162,7 +163,7 @@
                                         </div>
 
                                     </li>
-                                    <!-- <li class="accordion__item" id="route">
+                                    <!-- <li class="accordion__item">
                                         <div class="accordion__title-block">
                                             <div class="accordion__title-content">
                                                 <h4 class="accordion__title">Подробный маршрут</h4>
@@ -409,7 +410,7 @@
                                                 <div class="accessible-day selected"></div>
                                                 Выбранный день
                                             </div>
-                                            <div class="free-places"></div>
+                                            <h5 class="free-places"></h5>
                                         </div>
 
 
@@ -477,7 +478,7 @@
                                                             </div>
                                                             <div class="client-count__item-wrap">
                                                                 <div class="client-count__minus">–</div>
-                                                                <input class="client-count__count"
+                                                                <input readonly class="client-count__count"
                                                                     name="numberOfChildren"
                                                                     data-maxcount=" <%= data.typeData.clientMaxNumber %> "
                                                                     data-cost="<%=data.excursionData.childCost%>"
@@ -498,7 +499,7 @@
 
 
                                     <div class="final-cost">Итого: <span class="final-cost-place">0</span> BYN</div>
-                                    <div style="display: flex; column-gap: 12px;">
+                                    <div class="window-btns">
                                         <input type="submit" class="btn" id="orderSubmit"
                                             value="Забронировать экскурсию">
                                         <p class="extra-info" style="max-width: 300px;">Оформляя заказ, вы соглашаетесь
@@ -517,7 +518,7 @@
                                         <div class="excursion-extrainfo">
 
                                             <div class="excursion-extra-info__group">
-                                                <p>Взрослый билет</p>
+                                                <p>Стоимость</p>
                                                 <h5 class="h5 cost">
                                                     <%= data.excursionData.adultCost %> Br
                                                 </h5>
@@ -525,7 +526,7 @@
 
                                             <div class="excursion-extra-info__group">
                                                 <p>Длительность</p>
-                                                <h5 class="h5">
+                                                <h5 class="h5 cost">
                                                     <%= data.excursionData.duration %> ч.
                                                 </h5>
                                             </div>
@@ -567,8 +568,9 @@
                                         </div>
                                         <div class="btn secondary-btn">Подробнее</div>
                                     </div>
-
-                                    <div id="map-test" class="map"></div>
+                                    <div id="route-on-map" class="accordion__item">
+                                        <div id="map-test" class="map"></div>
+                                    </div>
                                 </aside>
                             </div>
                         </div>
@@ -675,7 +677,7 @@
 
 
 
-                                for (let i = 0; i < 4 && i < result.length; i++) {
+                                for (let i = 0; i < 3 && i < result.length; i++) {
                                     let item = result[i];
 
                                     container.innerHTML += `<a href="/excursions/show/${item?.id}" class="excursion-card">

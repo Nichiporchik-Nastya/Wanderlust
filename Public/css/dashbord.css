@@ -1,6 +1,7 @@
 .dashbord__guide-img {
     border-radius: 100%;
-    width: 150px;
+    width: 200px;
+    height: 200px;
 }
 
 .excursion-block__header {
@@ -13,12 +14,13 @@
 .excursion-block__data-wrap {
     display: flex;
     gap: 8px;
-    align-items: center;
+    /* align-items: center; */
+    white-space: nowrap;
 }
 
 .excursion-block__body {
     display: flex;
-    gap: 100px;
+    gap: 20px;
     margin-bottom: 8px;
 }
 
@@ -32,7 +34,8 @@
     position: relative;
     display: flex;
     gap: 20px;
-    width: calc(100% / 3 - 40px);
+    margin-bottom: 20px;
+    /* width: calc(100% / 3 - 40px); */
 }
 
 .guide-cards__wrapper{
@@ -41,19 +44,30 @@
     row-gap: 40px;
     flex-wrap: wrap;
     padding-top: 24px;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     border-top: 1px solid var(--border-color);
 }
 
 .admin-dashboard{
     display: flex;
     flex-direction: column;
-    gap: 60px;
+    /* gap: 60px; */
+    margin-bottom: 80px;
 }
 
 .admin-dashboard__header{
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.admin-dashboard .guide-card{
+    min-width: 300px;
+    width: 100%;
+}
+
+.admin-dashboard .two-part-container{
+   margin-top: 40px;
 }
 
 .guide-card__img{
@@ -121,7 +135,8 @@
 
 .dashbord__header{
     display: flex;
-    gap: 40px;
+    gap: 12px;
+    min-width: 450px;
     align-items: center;
 }
 

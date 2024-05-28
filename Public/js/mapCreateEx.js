@@ -35,12 +35,23 @@ function init() {
 
     // Создание метки.
     function createPlacemark(coords) {
+        var circleLayout = ymaps.templateLayoutFactory.createClass('<div class="placemark_layout_container"><div class="circle_layout"></div></div>');
         return new ymaps.Placemark(coords, {
             iconCaption: 'поиск...'
         }, {
-            preset: 'islands#violetDotIconWithCaption',
+            iconLayout: circleLayout,
+            // Описываем фигуру активной области "Круг".
+            iconShape: {
+                type: 'Circle',
+                // Круг описывается в виде центра и радиуса
+                coordinates: [0, 0],
+                radius: 25
+            },
             draggable: true
         });
+        
+
+        
     }
 
     // Определяем адрес по координатам (обратное геокодирование).

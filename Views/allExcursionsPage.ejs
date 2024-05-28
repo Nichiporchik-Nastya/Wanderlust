@@ -25,7 +25,7 @@
 
 
             <form class="filters-form" id="SearchForm">
-                <h2>Найди именно то, что нужно</h2>
+                <h2 class="h2">Найди именно то, что нужно</h2>
                 <div class="search-bar">
                     <label for="search">
                         <img src="/public/icons/search.svg" />
@@ -36,7 +36,7 @@
 
                     <div class="input-wrap">
                         <h4 class="box-input__title">Цена</h4>
-                        <div class="box-input">
+                        <div class="box-input cost-input">
                             <input type="number" oninput="SubmitSearch()" name="startCost" placeholder=" " min="0">
                             <label>от</label>
                             <div class="box-input__error-text startCost-error"></div>
@@ -100,6 +100,7 @@
             </form>
 
         </div>
+
 
         <div class="container">
             <div class="excursion-cards__wrapper">

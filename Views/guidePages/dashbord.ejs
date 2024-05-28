@@ -33,14 +33,14 @@
                 <div class="dashbord__header">
                     <img class="dashbord__guide-img" src="<%= user.imgSRC %>" alt="">
                     <div class="dashobord__info">
-                        <h2 style="margin-bottom: 0;">
+                        <h2 class="h2" style="margin-bottom: 0;">
                             <%= user.name %>
                         </h2>
                         <p class="paragraph">
                             <%= user.description %>
                         </p>
                         <a class="btn" href="/excursions/create">Добавить экскурсию</a>
-                        <a class="btn btn-secondary" href="/guide/edite/<%= user.id %>">Редактировать профиль</a>
+                        <a class="btn secondary-btn" href="/guide/edite/<%= user.id %>">Редактировать профиль</a>
                     </div>
                 </div>
             </div>
@@ -89,6 +89,15 @@
                                             </p>
 
                                         </div>
+
+                                        <div class="excursion-block__data-wrap">
+                                            <p class="extra-info">Всего забронировано</p>
+                                            <p class="excursion-block__type excursion-block__data">
+                                                <% let count = ordersCount.find(i => i.excursionId === item.id); %>
+                                                <%=count.bookingCount %>
+                                            </p>
+
+                                        </div>
                                         <!-- <div class="excursion-block__data-wrap">
                                     <p class="excursion-block__type excursion-block__data">4,2</p>
                                     <p class="extra-info">Рейтинг</p>
@@ -98,7 +107,7 @@
                                         <div class="excursion-block__data-wrap">
                                             <p class="extra-info">Длительность</p>
                                             <p class="excursion-block__type excursion-block__data">
-                                                <%=item.duration%> часа
+                                                <%=item.duration%>&nbsp;ч.
                                             </p>
 
                                         </div>
@@ -116,7 +125,10 @@
                                     </div>
                                 </div>
                             </div>
-                            <% }); }%>
+                    <% }); } else {%>
+
+                        <h2 class="extra-info">Здесь пока пусто</h2>
+                    <% }%>
 
                 </div>
             </div>

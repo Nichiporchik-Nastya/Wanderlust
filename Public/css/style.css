@@ -98,7 +98,7 @@ header {
 }
 
 .btn:disabled{
-  background-color: var(--light-bg);
+  background-color: var(--light-green);
 }
 
 .btn:hover {
@@ -210,6 +210,10 @@ p .link {
   background-color: var(--blue-bg);
 }
 
+.hero-title{
+  width: 500px;
+}
+
 .advantages-block {
   padding-top: 80px;
   padding-bottom: 80px;
@@ -270,6 +274,7 @@ p .link {
   justify-content: space-between;
   margin-top: 120px;
   width: 100%;
+  /* row-gap: 40px; */
 }
 
 h2,
@@ -322,11 +327,13 @@ p {
   text-align: center;
   align-items: center;
   margin: 120px 0;
+  width: 100%;
 }
 
 .about-block img {
   border-radius: var(--radius);
   width: 80%;
+  object-fit: cover;
 }
 
 /* 
@@ -371,6 +378,9 @@ header nav {
   align-items: center;
 } */
 
+.search-results__item-info span{
+  white-space: nowrap;
+}
 
 
 /*Формы*/
@@ -438,6 +448,10 @@ textarea {
   width: 600px;
 }
 
+.info-title{
+  width: 500px;
+}
+
 .long-field input,
 .long-field textarea,
 .long-field .box-input {
@@ -462,6 +476,7 @@ textarea {
   font-size: 14px;
   top: -24px;
   padding: 6px;
+  padding-bottom: 0;
   color: var(--black);
 }
 
@@ -566,8 +581,8 @@ label {
 .slide-img {
   pointer-events: none;
   object-fit: cover;
-  max-height: 100%;
-  max-width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .slider {
@@ -709,7 +724,7 @@ label {
 .info-window {
   width: fit-content;
   max-width: 500px;
-  height: 150px;
+  /* height: 150px; */
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -931,7 +946,7 @@ label {
 
   display: flex;
   flex-direction: column;
-  /* row-gap: 40px; */
+  row-gap: 40px;
 }
 
 /* .accordion__text-block .btn {
@@ -1009,6 +1024,7 @@ h3 {
   gap: 20px;
   padding: 16px 0px 4px;
   border-bottom: 1px solid var(--border-color);
+  /* overflow-x: scroll; */
 }
 
 .accordeon-tabs__tab {
@@ -1033,6 +1049,7 @@ h3 {
 .many-fields__wrap {
   display: flex;
   column-gap: 80px;
+  row-gap: 20px;
   flex-wrap: wrap;
 }
 
@@ -1384,7 +1401,7 @@ aside {
   border-bottom: 2px solid var(--border-color);
   display: flex;
   gap: 20px;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   align-items: center;
 }
 
@@ -1459,13 +1476,19 @@ aside {
   gap: 12px;
 }
 
-.excursion-card {
-  width: calc(100% / 3 - 10px * 2);
+/* .excursion-card {
+  min-width: calc(100% / 2.8 - 10px);
+  width: 100%;
+} */
+
+
+.excursion-card__cost{
+  white-space: nowrap;
 }
 
 .excursion-card__img {
   width: 100%;
-  max-height: 200px;
+  height: 50%;
   object-fit: cover;
   border-radius: var(--radius);
 }
@@ -1486,9 +1509,15 @@ aside {
 
 
 .excursion-cards__wrapper {
-  display: flex;
+  /* display: flex; */
   gap: 10px;
-  flex-wrap: wrap;
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-auto-rows: 300px;
+  /* flex-wrap: wrap; */
+  /* overflow-x: scroll; */
+  /* justify-content: space-between; */
 }
 
 .status {
@@ -1526,13 +1555,18 @@ aside {
   display: flex;
   gap: 10px;
   margin: 80px 0 -40px;
-  width: 1240px;
+  max-width: 100vw;
+  overflow-x: hidden;
+  /* width: fit-container; */
 }
 
 .images-404__wrapper img {
   border-radius: var(--radius);
   object-fit: cover;
-  width: 100%;
+  flex-grow: 1;
+  max-width: 100%;
+  max-height: 300px;
+  /* width: calc(100% / 5 ); */
 }
 
 #map-test{
@@ -1549,6 +1583,33 @@ aside {
   margin-bottom: 160px;
 }
 
+.circle_layout {
+  background-color: white;
+  position: absolute;
+  /* left: -23px;
+  top: -23px; */
+  width: 26px;
+  height: 26px;
+  border: 3px solid var(--main-green);
+  color: var(--main-green);
+  line-height: 46px;
+  /* Это CSS свойство не будет работать в Internet Explorer 8 */
+  border-radius: 50px;
+}
+
+.routepoint-tag img{
+width: 15px;
+height: 15px;
+object-fit: cover;
+}
+
+.routepoint-tag{
+  align-items: center;
+  display: flex;
+}
+
+
+
 @media (max-width: 1160px) {
 
   .container {
@@ -1563,6 +1624,14 @@ aside {
     column-gap: 20px;
   }
 
+  .dashbord__guide-img{
+    width: 100px;
+    height: 100px;
+  }
+.dashbord__header{
+  flex-direction: column;
+  align-items: start;
+}
 }
 
 
@@ -1614,6 +1683,17 @@ aside {
     justify-content: start;
   }
 
+  .excursion-cards__wrapper{
+    display: flex;
+    overflow-x: scroll;
+  }
+
+  .excursion-card {
+    min-width: calc(100% / 2.5 - 10px);
+    height: 300px;
+    /* width: 100%; */
+  }
+
   .excursion-aside {
     display: flex;
     flex-direction: row-reverse;
@@ -1626,11 +1706,67 @@ aside {
   .calendar-wrapper-block {
     flex-direction: row;
   }
+  
+  .two-part-container{
+    margin-top: 80px;
+  }
+
+  .info-title{
+    width: 300px;
+  }
 }
 
 @media (max-width: 768px) {
   .nav-menu {
     display: none;
+  }
+
+  .calendar-wrapper-block {
+
+    flex-direction: column;
+  }
+
+    .excursion-card {
+    min-width: calc(100% / 1.8 - 10px);
+  }
+
+  .hero-title + .btn{
+    margin-bottom: 40px;
+  }
+
+  .hero-title{
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .two-part-container{
+    flex-direction: column;
+  }
+
+
+  .guide-form .two-part-container{
+    row-gap: 40px;
+  }
+
+  h4{
+    font-size: 16px;
+  }
+
+  .info-title{
+    width: 100%;
+  }
+
+  .about-block img {
+    width: 100%;
+  }
+
+  .createex-form{
+    margin-top: 50px;
+  }
+
+  .dashbord__header{
+    flex-direction: row;
+    margin-bottom: 20px;
   }
 
   /* .second-container-part{
@@ -1651,7 +1787,10 @@ aside {
     align-items: center;
   }
 
-  .soderj::-webkit-scrollbar {
+  .soderj::-webkit-scrollbar,
+  .accordeon-tabs__wrapper::-webkit-scrollbar,
+  .excursion-cards__wrapper::-webkit-scrollbar,
+  .images-404__wrapper::-webkit-scrollbar{
     display: none;
   }
 
@@ -1674,7 +1813,7 @@ aside {
     height: 95vh;
     overflow-y: scroll;
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
   }
 
   .guides-info {
@@ -1687,13 +1826,122 @@ aside {
     flex-direction: column;
   }
 
-
   .vr {
     display: none;
   }
+
+  .dashobord__info{
+    gap: 10px;
+  }
+
+  .dashobord__info .paragraph{
+    margin-bottom: 0;
+  }
+
+  .main-images__wrapper {
+    display: flex;
+    gap: 10px;
+    justify-content: stretch;
+    width: 100%;
+    overflow-x: scroll;
+    /* justify-items: stretch; */
+    /* align-items: stretch; */
+    /* place-items: stretch end; */
+  }
+
+  .main-images__item{
+    max-width: 400px;
+  }
+
 }
 
 
-@media (max-width: 480px) {}
+@media (max-width: 480px) {
+  .many-inputs__wrap .radio-input {
+    width: 100%;
+  }
 
-@media (max-width: 360px) {}
+  .main-images__item {
+    width: 70%;
+  }
+
+  .window-btns{
+    flex-direction: column;
+    row-gap: 10px;
+  }
+
+  .container {
+    padding: 0 12px;
+  }
+
+  .h3{
+    font-size: 20px;
+    line-height: 120%;
+  }
+
+  .h2{
+    font-size: 24px;
+  }
+
+  .about-block img{
+    height: 200px;
+  }
+
+  .about-block{
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+
+  .excursion-card {
+    min-width: calc(100% / 1.2 - 10px);
+  }
+
+  .two-part-container{
+    column-gap: 0px;
+  }
+
+  .dashbord__header{
+    /* flex-direction: column; */
+    min-width: 100%;
+  }
+
+  .admin-dashboard__header{
+    gap: 12px;
+  }
+.excursion-block__data-wrap{
+  white-space: wrap;
+}
+
+.tags-wrap{
+  flex-direction: column;
+  row-gap: 20px;
+}
+  .box-input{
+    min-width: 100%;
+  }
+
+  .login-form {
+    width: 100%;
+  }
+
+  .form-wrapper{
+    width: 100%;
+    padding-right: 10px;
+    padding-left: 10px;
+  }
+  .excursion-block__body{
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 360px) {
+
+  .dashbord__header{
+    flex-direction: column;
+  }
+}
+
+/* .cost-input{
+  min-width: 200px !important;
+} */

@@ -34,6 +34,12 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: 'RESTRICT',
         onUpdate: 'RESTRICT'
       });
+      this.hasMany(models.Orders, {
+        // as: 'orders',
+        foreignKey: 'excursionId',
+        onDelete: 'RESTRICT',
+        onUpdate: 'RESTRICT'
+      });
       this.belongsTo(models.Users, {
         as: 'guide',
         foreignKey: 'guideId',

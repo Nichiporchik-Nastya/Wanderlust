@@ -36,7 +36,13 @@ async function CreateExcursionSubmit(event) {
         if (formData.get("duration")) {
             formData.delete("duration");
             formData.append("duration", timeStringToNumber(durationInput.value));
+            // console.log(duration);
         }
+
+        // for (let [key, value] of formData.entries()) {
+        //     console.log(key, value); // проверим, что у нас получилось
+        // }
+
 
         if (Placemarks.length < 2) {
             document.querySelector('.point-error').innerHTML = "Создайте минимум 2 точки";

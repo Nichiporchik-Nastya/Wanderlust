@@ -15,10 +15,10 @@
     <%- include('./partials/header'); %>
     <div class="status">Экскурсия забронирована. Менеджер свяжется с вами в ближайшее время</div>
 
-        <form onsubmit="RegistrationSubmit(event)">
+        <form onsubmit="RegistrationSubmit(event)" class="guide-form">
             <div class="container two-part-container">
                 <div style="display: flex; flex-direction: column; gap: 20px;">
-                    <h2>Регистрация нового сотрудника</h2>
+                    <h2 class="h2">Регистрация нового сотрудника</h2>
                     <div class="box-input">
                         <input type="text" name="name" id="name" class="input" placeholder=" " value="">
                         <label>Полное имя</label>
@@ -73,7 +73,7 @@
                             <div class="preview"></div>
                             <div class="btn secondary-btn clear-file-input">Очистить выбор</div>
                         </div>
-                        <div class="box-input__error-text photos-error"></div>
+                        <div class="box-input__error-text imgSRC-error"></div>
 
                     </div>
 

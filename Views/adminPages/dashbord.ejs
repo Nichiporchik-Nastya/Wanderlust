@@ -30,46 +30,114 @@
 
             <div class="admin-dashboard">
                 <div class="admin-dashboard__header">
-                    <h2>Административная панель</h2>
+                    <h2 class="h2">Административная панель</h2>
                     <a class="btn" href="/admin/registration">Добавить гида</a>
                 </div>
 
-                <div class="guide-cards__wrapper">
-                    
-                    <% guides.forEach(item=> { %>
-                        <div class="guide-card guide-card-<%= item.id %>">
-                            <div class="action-menu">
-                                <a href="#" class="action-menu__item">
-                                    <img src="/Public/icons/Eye.svg" alt="">
-                                    Посмотреть
-                                </a>
-                                <a href="/guide/edite/<%= item.id %>" class="action-menu__item">
-                                    <img src="/Public/icons/PencilSimpleLine.svg" alt="">
-                                    Редактировать
-                                </a>
-                                <span class="action-menu__item remove-excursion__btn" data-exname="<%= item.name %>" data-exid="<%= item.id %>">
-                                    <img src="/Public/icons/Trash.svg" alt="">
-                                    Удалить
-                                </span>
-                            </div>
-                            <img src="<%= item.imgSRC %>" alt="" class="guide-card__img">
-    
-                            <div>
-                                <div class="excursion-block__header">
-                                    <h5 class="guide-card__name"><%= item.name %></h5>
-                                    <img class="excursion-block__dots" src="/Public/icons/DotsThreeVertical.svg" alt="">
+                <% data.forEach(item=> { %>
+
+                    <% if(item.user.name != "Администатор") {%>
+
+                        <div class="two-part-container">
+
+                            <div class="first-part-container">
+                                <div class="guide-card guide-card-<%= item.user.id %>">
+                                    <div class="action-menu">
+                                        <span class="action-menu__item remove-excursion__btn"
+                                            data-exname="<%= item.user.name %>" data-exid="<%= item.user.id %>">
+                                            <img src="/Public/icons/Trash.svg" alt="">
+                                            Удалить
+                                        </span>
+                                    </div>
+                                    <img src="<%= item.user.imgSRC %>" alt="" class="guide-card__img">
+
+                                    <div>
+                                        <div class="excursion-block__header">
+                                            <h5 class="guide-card__name">
+                                                <%= item.user.name %>
+                                            </h5>
+                                            <img class="excursion-block__dots" src="/Public/icons/DotsThreeVertical.svg"
+                                                alt="">
+                                        </div>
+                                        <p class="paragraph">
+                                            <%= item.user.description %>
+                                        </p>
+
+                                    </div>
                                 </div>
-                                <p class="paragraph"><%= item.description %></p>
-                                <div class="excursion-block__data-wrap">
-                                    <p class="extra-info">Экскурсий: </p>
-                                    <p class="excursion-block__type excursion-block__data"><%= item.dataValues.excursionsCount %></p>
-                                </div>
                             </div>
+
+                            <div class="excursion-blocks first-container-part">
+
+                                <% item.excursions.forEach(excursion=> { %>
+
+                                    <a href="/excursions/show/<%=excursion.id%>" class="excursion-block"
+                                        id="excursion-<%=excursion.id%>">
+
+                                        <div class="excursion-block__header">
+                                            <h5 class="excursion-name">
+                                                <%=excursion.name%>
+                                            </h5>
+                                        </div>
+
+                                        <div class="excursion-block__body">
+                                            <div>
+                                                <div class="excursion-block__data-wrap">
+                                                    <p class="extra-info">Формат</p>
+                                                    <p class="excursion-block__format excursion-block__data">
+                                                        <%=excursion.format.name%>
+                                                    </p>
+
+                                                </div>
+                                                <div class="excursion-block__data-wrap">
+                                                    <p class="extra-info">Тип</p>
+                                                    <p class="excursion-block__type excursion-block__data">
+                                                        <%=excursion.type.name%>
+                                                    </p>
+
+                                                </div>
+                                                <div class="excursion-block__data-wrap">
+                                                    <p class="extra-info">Всего забронировано</p>
+                                                    <p class="excursion-block__type excursion-block__data">
+                                                        <% let count=bookingCount.find(i=> i.guideId ===
+                                                            excursion.guideId); %>
+                                                            <% count=count.array.find(i=> i.excursionId ===
+                                                                excursion.id);%>
+                                                                <%=count.bookingCount %>
+                                                    </p>
+
+                                                </div>
+                                            </div>
+                                            <div>
+                                                <div class="excursion-block__data-wrap">
+                                                    <p class="extra-info">Длительность</p>
+                                                    <p class="excursion-block__type excursion-block__data">
+                                                        <%=excursion.duration%> часа
+                                                    </p>
+
+                                                </div>
+                                                <div class="excursion-block__data-wrap">
+                                                    <p class="extra-info">Стоимость</p>
+                                                    <p class="excursion-block__type excursion-block__data">
+                                                        <%=excursion.adultCost%> Br
+                                                    </p>
+
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                    <%}); %>
+
+                            </div>
+
                         </div>
 
-                    <%}); %>
-                
-                </div>
+                        <%}%>
+                            <%});%>
+
+
             </div>
 
         </div>
@@ -118,8 +186,9 @@
                 });
 
                 let result = await response.json();
-                if (result){
-                    document.querySelector('.guide-card-' + event.target.dataset.exid).remove();
+                if (result) {
+                    // document.querySelector('.guide-card-' + event.target.dataset.exid).remove();
+                    setTimeout(() =>  window.location.reload(), 0);
                 }
                 document.querySelector('.info-window__wrapper').classList.toggle('show-info-window');
             }

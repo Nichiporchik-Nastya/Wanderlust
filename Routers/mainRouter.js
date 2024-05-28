@@ -29,7 +29,9 @@ router.post('/api/admin/registration', [
     }
     return true;
   }),
+  body('description').not().isEmpty().withMessage('Заполните поле'),
   body('description').isLength({ min: 10 }).withMessage('Описание должно содержать не менее 10 символов'),
+  // body('imgSRC').not().isEmpty().withMessage('Выберите изображение'),
 ], controller.registration);
 
 router.get('/admin/registration', (req, res) => {
@@ -143,6 +145,7 @@ router.get('/delete/order/:id/:code', controller.deleteOrder);
 router.get('/guide/edite/:id', middlewareController.checkSession, controller.renderGuide);
 router.post('/api/guide/edite/', [
   body('name').isLength({ min: 5 }).withMessage('Имя пользователя должно содержать не менее 5 символов'),
+  body('description').not().isEmpty().withMessage('Заполните поле'),
   body('description').isLength({ min: 10 }).withMessage('Описание должно содержать не менее 10 символов'),
   body('email').isEmail().withMessage('Введите корректный адрес электронной почты'),
   body('secondPassword').custom((value, { req }) => {
@@ -153,7 +156,6 @@ router.post('/api/guide/edite/', [
       if (value !== req.body.password) {
         throw new Error('Пароли должны совпадать');
       }
-
     }
     return true;
   })

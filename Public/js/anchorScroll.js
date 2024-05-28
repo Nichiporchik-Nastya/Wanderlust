@@ -7,8 +7,10 @@ function scrollToBlock(event) {
 
   const targetElement = document.querySelector(
     event.target.getAttribute('href')
-  ); 
+  );
+  
   const offset = targetElement.offsetTop - 160; 
+
 
   window.scrollTo({
     top: offset,

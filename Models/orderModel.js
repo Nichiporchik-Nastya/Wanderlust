@@ -17,7 +17,7 @@ const Types = require("../db/models/index").Types;
 
 class OrderModel {
     async create(body) {
-        try {            
+        try {
             return await Orders.create(body);
         } catch (error) {
             console.log(error);
@@ -25,9 +25,40 @@ class OrderModel {
         }
     }
 
-    async getFreePlaces(excursionId, day){
+    // async countOrdersByUserId(userId) {
+    //     const count = await Orders.count({
+    //       include: [{
+    //         model: Excursions,
+    //         where: { userId: userId }
+    //       }]
+    //     });
+
+    //     return count;
+    //   }
+
+    async  countOrdersByGuideId(guideId) {
+        const excursions = await Excursions.findAll({
+            where: { guideId: guideId }
+          });
+        
+          const result = [];
+          for (const excursion of excursions) {
+            const count = await Orders.count({
+              where: { excursionId: excursion.id }
+            });
+        
+            result.push({
+              excursionId: excursion.id,
+              bookingCount: count
+            });
+          }
+        
+          return result;
+      }
+
+    async getFreePlaces(excursionId, day) {
         let excursion = await Excursions.findOne({
-            where:{id: excursionId},
+            where: { id: excursionId },
             include: [
                 {
                     model: Types,
@@ -36,23 +67,23 @@ class OrderModel {
             ],
         })
         let orders = await Orders.findOne({
-            where:{
+            where: {
                 excursionId,
                 day
             },
             attributes: [
-              'excursionId',
-              [fn('sum', col('numberOfChildren')), 'total_children'],
-              [fn('sum', col('numberOfAdults')), 'total_adults'],
+                'excursionId',
+                [fn('sum', col('numberOfChildren')), 'total_children'],
+                [fn('sum', col('numberOfAdults')), 'total_adults'],
             ],
             group: ['excursionId'],
         });
         return excursion.type.clientMaxNumber - (+orders?.dataValues?.total_children || 0) - (+orders?.dataValues?.total_adults || 0);
     }
 
-    async get(id){
+    async get(id) {
         return await Orders.findOne({
-            where:{
+            where: {
                 id
             }
         });

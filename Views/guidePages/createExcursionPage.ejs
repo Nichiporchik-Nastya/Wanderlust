@@ -23,9 +23,9 @@
 
         <div class="container two-part-container">
 
-            <form onsubmit="CreateExcursionSubmit(event)" class="first-container-part">
+            <form onsubmit="CreateExcursionSubmit(event)" class="first-container-part createex-form">
                 <input type="number" name="guideId" hidden value="<%= user %>">
-                <h2>Создание новой экскурсии</h2>
+                <h2 class="h2">Создание новой экскурсии</h2>
 
 
 
@@ -99,7 +99,7 @@
                                         min="00:30" max="12:00">
                                     <label>Длительность экскурсии</label>
                                     <div class="box-input__error-text duration-error"></div>
-                                    <p class="input-help-text">Введите длительность экскурсии</p>
+                                    <p class="input-help-text">Введите длительность экскурсии с шагом в полчаса</p>
                                 </div>
                             </div>
 
@@ -287,11 +287,10 @@
             <div class="soderj_wrapper second-container-part">
                 <div class="soderj">
                     <a href="#allInfo" onclick="scrollToBlock">Общая информация</a>
-                    <a href="#route" onclick="scrollToBlock">Маршрут</a>
                     <a href="#timeTable" onclick="scrollToBlock">Расписание</a>
                     <a href="#Photos" onclick="scrollToBlock">Фотографии</a>
+                    <a href="#route" onclick="scrollToBlock">Маршрут</a>
                     <a href="#Cost" onclick="scrollToBlock">Стоимость</a>
-                    <!-- <a href="#extraInfo" onclick="scrollToBlock">Дополнительно</li> -->
                 </div>
 
             </div>

@@ -22,11 +22,11 @@
 
         <div class="container two-part-container">
 
-            <form onsubmit="EditExcursionSubmit(event)" class="first-container-part">
+            <form onsubmit="EditExcursionSubmit(event)" class="first-container-part createex-form">
                 <input type="text" disabled hidden value="<%= excursion.excursionData.points %>" id="points">
                 <!-- <input type="number" name="guideId" hidden value="<%= user %>"> -->
                 <input type="number" name="id" hidden value="<%= excursion.excursionData.id %>">
-                <h2>Редактирование экскурсии</h2>
+                <h2 class="h2">Редактирование экскурсии</h2>
 
 
                 <!-- <div class="accordion__wrap"> -->
@@ -108,7 +108,7 @@
                                         min="00:30" max="12:00">
                                     <label>Длительность экскурсии</label>
                                     <div class="box-input__error-text duration-error"></div>
-                                    <p class="input-help-text">Введите длительность экскурсии</p>
+                                    <p class="input-help-text">Введите длительность экскурсии с шагом в полчаса</p>
                                 </div>
                             </div>
 

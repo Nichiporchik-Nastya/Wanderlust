@@ -157,13 +157,16 @@ const canSelectday = () => {
             element.classList.add("selected");
 
             let response = await fetch(`/api/excursions/places/${document.querySelector('#excursionId').value}/${element.dataset.caldate}`);
+            
 
             let result = await response.json();
             if (result == 0){
                 document.querySelector('#orderSubmit').disabled = true;
+                document.querySelector('.free-places').style.color = "red";
             }
             else{
                 document.querySelector('#orderSubmit').disabled = false;
+                document.querySelector('.free-places').style.color = "black";
             }
             document.querySelector('.free-places').innerHTML = 'Доступно мест: '+ result;
             element.dataset.orderscount = result;

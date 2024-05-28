@@ -9,11 +9,30 @@ function init() {
     });
 
     for (const point of points) {
+        // map.geoObjects.add(new ymaps.Placemark(point.coords, {
+        //     balloonContentBody: point.name
+        // }, {
+        //     preset: 'islands#greenDotIcon'
+        // }));
+
+        // Создание метки с круглой активной областью.
+        var circleLayout = ymaps.templateLayoutFactory.createClass('<div class="placemark_layout_container"><div class="circle_layout"></div></div>');
+
         map.geoObjects.add(new ymaps.Placemark(point.coords, {
-            balloonContentBody: point.name
+            hintContent: point.name
         }, {
-            preset: 'islands#greenDotIcon'
+            iconLayout: circleLayout,
+            // Описываем фигуру активной области "Круг".
+            iconShape: {
+                type: 'Circle',
+                // Круг описывается в виде центра и радиуса
+                coordinates: [0, 0],
+                radius: 25
+            }
         }));
+
+        
+        // map.geoObjects.add(circlePlacemark);
     }
 }
 
