@@ -71,7 +71,7 @@ li{
   line-height: 130%;
 }
 
-/* 
+/*
 header {
   display: flex;
   position: fixed;
@@ -336,7 +336,7 @@ p {
   object-fit: cover;
 }
 
-/* 
+/*
 header nav {
   display: flex;
   align-items: center;
@@ -1590,6 +1590,34 @@ aside {
   top: -23px; */
   width: 26px;
   height: 26px;
+  border: 3px solid yellow;
+  color: var(--main-green);
+  line-height: 46px;
+  /* Это CSS свойство не будет работать в Internet Explorer 8 */
+  border-radius: 50px;
+}
+
+.circle_layout_start {
+  background-color: white;
+  position: absolute;
+  /* left: -23px;
+  top: -23px; */
+  width: 26px;
+  height: 26px;
+  border: 3px solid red;
+  color: var(--main-green);
+  line-height: 46px;
+  /* Это CSS свойство не будет работать в Internet Explorer 8 */
+  border-radius: 50px;
+}
+
+.circle_layout_end {
+  background-color: white;
+  position: absolute;
+  /* left: -23px;
+  top: -23px; */
+  width: 26px;
+  height: 26px;
   border: 3px solid var(--main-green);
   color: var(--main-green);
   line-height: 46px;
@@ -1706,7 +1734,7 @@ object-fit: cover;
   .calendar-wrapper-block {
     flex-direction: row;
   }
-  
+
   .two-part-container{
     margin-top: 80px;
   }

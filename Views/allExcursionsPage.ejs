@@ -17,7 +17,7 @@
     <% } else if (user?.role == 1) {%>
         <%- include('./adminPages/partials/header'); %>
     <%  } else {%>
-        <%- include('./partials/header'); %>
+        <%- include('./partials/header', {guides:guides}); %>
     <%  }%>
 
 

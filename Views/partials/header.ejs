@@ -101,11 +101,9 @@
                 </h5>
                 <div class="menu-more__links guides">
                     <div class="guides-imgs__wrapper">
-                        <img src="/Public/guideImages/guide1.jpg" alt="" class="guides-imgs__img">
-                        <img src="/Public/guideImages/image 2185.png" alt="" class="guides-imgs__img">
-                        <img src="/Public/guideImages/image 510.png" alt="" class="guides-imgs__img">
-                        <img src="/Public/guideImages/image 511.png" alt="" class="guides-imgs__img">
-                        <img src="/Public/guideImages/image 512.png" alt="" class="guides-imgs__img">
+                        <% guides.forEach(item=> { %>
+                            <img src="<%= item.imgSRC%>" alt="" class="guides-imgs__img">
+                        <% }); %>
                     </div>
                     <div class="guides-text__wrapper">
                         <p class="extra-info" style="width: 190px;">

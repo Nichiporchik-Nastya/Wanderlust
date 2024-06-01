@@ -3,6 +3,7 @@ const router = new Router();
 const controller = require('../Controllers/authController');
 const { body } = require('express-validator');
 const UserModel = require("../Models/userModel");
+const userModel = require("../Models/userModel");
 
 // router.post('/registration', [
 //     body('name').not().isEmpty().withMessage('Заполните поле'),
@@ -25,7 +26,7 @@ const UserModel = require("../Models/userModel");
 //         return true;
 //     }),
 //     body('secondPassword').custom(async (value, { req }) => {
-        
+
 //         if (body('password') != value) {
 //             throw new Error('Пароли не совпадают');
 //         }
@@ -33,8 +34,9 @@ const UserModel = require("../Models/userModel");
 //     }),
 // ], controller.registration);
 
-router.get('/registration', (req, res)=>{
-    res.render('registrationPage');
+router.get('/registration', async(req, res)=>{
+    let guides = await userModel.getAllGuide();
+    res.render('registrationPage', {guides: guides});
 });
 
 router.post('/api/login', [
@@ -58,8 +60,9 @@ router.post('/api/login', [
     }),
 ], controller.login);
 
-router.get('/login', (req, res) => {
-    res.render('loginPage');
+router.get('/login', async (req, res) => {
+    let guides = await userModel.getAllGuide();
+    res.render('loginPage', {guides: guides});
 });
 
 

@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <%- include('./partials/header'); %>
+    <%- include('./partials/header', {guides:guides}); %>
     <div class="status">Экскурсия забронирована. Менеджер свяжется с вами в ближайшее время</div>
 
         <form onsubmit="EditeSubmit(event)" class="guide-form">

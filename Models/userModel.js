@@ -92,6 +92,15 @@ class UserModel {
         }
     })
   }
+
+  async getAllGuide(){
+    return await Users.findAll( {
+      where: {
+        role: 2
+      },
+      limit: 5
+    })
+  }
 }
 
 module.exports = new UserModel();

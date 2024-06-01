@@ -37,14 +37,16 @@ app.use(session({
 
 const authRouter = require('./Routers/authRouter');
 const mainRouter = require('./Routers/mainRouter');
+const userModel = require("./Models/userModel");
 
 app.use("/auth", authRouter);
 app.use("/", mainRouter);
 
-app.get('/*', function (req, res) {
+app.get('/*', async function (req, res) {
     res.status(404);
     const user = req.session.user;
-    res.render('404', { data: user });
+    let guides = await userModel.getAllGuide();
+    res.render('404', { data: user, guides:guides });
 });
 
 

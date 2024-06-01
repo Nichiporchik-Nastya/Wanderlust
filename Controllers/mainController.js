@@ -17,11 +17,9 @@ class mainController {
     async dashbord(req, res) {
         try {
             const user = req.session.user;
-            const guides = await UserModel.getGuides();
-            // console.log(guides);
-
             let data = await UserModel.getUsersExcursions();
-            
+
+            let guides = await userModel.getAllGuide();
 
             let countOfBookingOfExcursionsOfGuides = [];
 
@@ -36,7 +34,7 @@ class mainController {
             }
             // let excursions = await ExcursionModel.getByUserId(user.id);
             // let ordersCount = await OrderModel.countOrdersByGuideId(user.id);
-            res.render('adminPages/dashbord', { data: data, bookingCount: countOfBookingOfExcursionsOfGuides });
+            res.render('adminPages/dashbord', { data: data, bookingCount: countOfBookingOfExcursionsOfGuides, guides: guides });
 
 
         } catch (e) {
@@ -53,7 +51,8 @@ class mainController {
             let ordersCount = await OrderModel.countOrdersByGuideId(user.id);
             // console.log(excursions);
             // console.log(ordersCount);
-            res.render('guidePages/dashbord', { user: user, excursions: excursions, ordersCount: ordersCount });
+            let guides = await userModel.getAllGuide();
+            res.render('guidePages/dashbord', { user: user, excursions: excursions, ordersCount: ordersCount, guides:guides });
         } catch (e) {
             console.log(e);
         }
@@ -62,8 +61,9 @@ class mainController {
     async index(req, res) {
         try {
             let isSession = req.session?.user;
+            let guides = await userModel.getAllGuide();
             console.log(isSession);
-            res.render('index', { data: isSession });
+            res.render('index', { data: isSession, guides: guides });
         } catch (e) {
             console.log(e);
         }
@@ -72,7 +72,8 @@ class mainController {
     async allInfo(req, res) {
         try {
             let data = await UserModel.getUsersExcursions();
-            res.render('allInfo', { data: data });
+            let guides = await userModel.getAllGuide();
+            res.render('allInfo', { data: data, guides:guides });
         } catch (error) {
             console.log(error);
         }
@@ -161,8 +162,9 @@ class mainController {
             console.log(12323456789);
             console.log(await OrderModel.getFreePlaces(id, 'Wed May 22 2024 00:00:00 GMT+0300 (Москва, стандартное время)'));
 
+            let guides = await userModel.getAllGuide();
 
-            res.render('excursionPage', { data: result, user: isSession });
+            res.render('excursionPage', { data: result, user: isSession, guides: guides });
         } catch (e) {
             console.log(e);
         }
@@ -293,7 +295,7 @@ class mainController {
     async randomExcursion(req, res) {
         try {
             let result = await ExcursionModel.getIds();
-            let id = (Math.floor(Math.random() * (result.max - result.min) + result.min));
+            let id = (Math.round(Math.random() * (result.max - result.min) + result.min));
             res.redirect(`/excursions/show/${id}`);
         } catch (e) {
             console.log(e);
@@ -310,26 +312,58 @@ class mainController {
     }
 
     async deleteOrder(req, res) {
+        let guides = await userModel.getAllGuide();
         try {
             let order = await OrderModel.get(+req?.params?.id);
 
             if (order?.code == +req.params?.code) {
-                order.destroy();
-                order.save();
+                let excursion = await ExcursionModel.get(order.excursionId);
+                let guide = await UserModel.getGuide(excursion.excursionData.guideId);
+                const message = {
+                    from: `Wanderlust <wanderlust.bot@gmail.com>`,
+                    to: guide.email,
+                    subject: ' Отмена Бронирование экскурсии',
+                    html: `Пользователь ${order.clientName} (${order.clientPhone}, ${order.clientEmail}) отменил бронь на ${(new Date(order.day)).getDate() < 10 ? '0' + (new Date(order.day)).getDate() : (new Date(order.day)).getDate()}.${(new Date(order.day)).getMonth()+1 < 10 ? '0' + ((new Date(order.day)).getMonth()+1) : (new Date(order.day)).getMonth()+1}.${(new Date(order.day)).getFullYear()}`
+                };
+                await order.destroy();
+                await order.save();
+
+                const transporter = nodemailer.createTransport({
+                    service: "gmail",
+                    port: 465,
+                    secure: true,
+                    secureConnection: false,
+                    auth: {
+                        user: 'wanderlust.bot@gmail.com',
+                        pass: 'culcynsnxlmqywbm'
+                    },
+                    tls: {
+                        rejectUnAuthorized: true,
+                    }
+                });
+
+                await transporter.sendMail(message, (err, res) => {
+                    if (err) {
+                        console.log(err.message);
+                    }
+                    transporter.close();
+                });
             }
             else {
-                res.render('deleteOrder', { status: false });
+                res.render('deleteOrder', { status: false, guides: guides });
             }
-            res.render('deleteOrder', { status: true });
+            res.render('deleteOrder', { status: true, guides:guides });
         }
         catch (e) {
-            res.render('deleteOrder', { status: false });
+            console.log(e)
+            res.render('deleteOrder', { status: false, guides: guides });
         }
     }
 
     async renderGuide(req, res) {
         let guide = await userModel.getGuide(+req.params.id);
-        res.render('guidePages/editePage', { guide: guide, user: req.session.user });
+        let guides = await userModel.getAllGuide();
+        res.render('guidePages/editePage', { guide: guide, user: req.session.user, guides:guides });
     }
 
     async edite(req, res) {

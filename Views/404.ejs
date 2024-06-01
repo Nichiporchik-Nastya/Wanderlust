@@ -14,7 +14,7 @@
 <body>
 
     <% if(!data) {%>
-        <%- include('./partials/header'); %>
+        <%- include('./partials/header', {guides:guides}); %>
             <% } else {%>
                 <%- include('./guidePages/partials/header'); %>
                     <% }%>

@@ -18,7 +18,7 @@
 <% } else if (data?.role == 1) {%>
     <%- include('./adminPages/partials/header'); %>
 <%  } else {%>
-    <%- include('./partials/header'); %>
+    <%- include('./partials/header', {guides: guides}); %>
 <%  }%>
                         <img class="hero-img" src="/Public/images/main.png" alt="">
 
@@ -127,12 +127,12 @@
 
                                 let result = await response.json();
 
-                                
+
 
                                 let container = document.querySelector('.excursion-cards__wrapper');
                                 container.innerHTML = '';
 
-                                
+
 
                                 for (let i = 0; i < 4 && i < result.length; i++) {
                                     let item = result[i];
@@ -147,11 +147,11 @@
                                             <h3 class="excursion-card__cost">${item?.adultCost} Br</h3>
                                             <p class="excursion-card__type">${item?.type?.name}</p>
                                             </div>
-                                            
-                                            
-                                            
+
+
+
                                             <!--<p class="excursion-card__duration">${item?.duration} ч.</p>-->
-                                            
+
                                         </a>`;
 
 

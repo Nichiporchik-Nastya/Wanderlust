@@ -5,6 +5,7 @@ const middlewareController = require('../Controllers/middlewareController');
 const { body } = require('express-validator');
 const UserModel = require("../Models/userModel");
 const excursionModel = require('../Models/excursionModel');
+const userModel = require("../Models/userModel");
 
 router.get('/dashbord', middlewareController.checkSession, middlewareController.checkAdmin, controller.dashbord);
 router.get('/', controller.index);
@@ -68,7 +69,8 @@ router.get('/excursions/create', middlewareController.checkSession, middlewareCo
   // excursionStructure.push('guideId', req.session.user.id);
   // console.log(excursionStructure);
   // console.log(session);
-  res.render('guidePages/createExcursionPage', { data: excursionStructure, user: req.session.user.id }); //, guideId: req.session.user.id
+    let guides = await userModel.getAllGuide();
+  res.render('guidePages/createExcursionPage', { data: excursionStructure, user: req.session.user.id, guides:guides }); //, guideId: req.session.user.id
 });
 
 router.get('/excursions/edit/:id', async (req, res) => {
@@ -136,6 +138,7 @@ router.get('/excursions/all', async (req, res) => {
   data.types = await excursionModel.getAllTypes();
   data.formats = await excursionModel.getAllFormats();
   data.user = user;
+  data.guides = await userModel.getAllGuide();
   res.render('allExcursionsPage', data);
 });
 
