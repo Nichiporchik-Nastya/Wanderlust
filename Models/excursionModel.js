@@ -1,6 +1,7 @@
 // const { where, Op} = require("sequelize");
 
 const { Sequelize, Op } = require('sequelize');
+const { extensions } = require('sequelize/lib/utils/validator-extras');
 const sequelize = new Sequelize('Wanderlust', 'root', 'root', {
     host: 'localhost',
     dialect: 'mysql'
@@ -178,10 +179,7 @@ class ExcursionModel {
 
 
     async getIds() {
-        return {
-            max: await Excursions.max('id'),
-            min: await Excursions.min('id')
-        }
+        return await Excursions.findAll();
     }
 
     async search(str = '') {//имя поля и направление сортировки

@@ -5,7 +5,7 @@ function init() {
     let points = JSON.parse(document.querySelector("#points").value);
     map = new ymaps.Map("map-test", {
         center: [53.901390, 27.556757],
-        zoom: 10,
+        zoom: 12,
     });
 
     for (let i = 0; i < points.length; i++) {
@@ -13,7 +13,7 @@ function init() {
         var circleLayoutStart = ymaps.templateLayoutFactory.createClass('<div class="placemark_layout_container"><div class="circle_layout_start"></div></div>');
         var circleLayoutEnd = ymaps.templateLayoutFactory.createClass('<div class="placemark_layout_container"><div class="circle_layout_end"></div></div>');
 
-        if (i == 0){
+        if (i == 0) {
             map.geoObjects.add(new ymaps.Placemark(points[i].coords, {
                 hintContent: `${points[i].name} (Начало)`
             }, {
@@ -27,7 +27,7 @@ function init() {
                 }
             }));
         }
-        else if (i == points.length-1){
+        else if (i == points.length - 1) {
             map.geoObjects.add(new ymaps.Placemark(points[i].coords, {
                 hintContent: `${points[i].name} (Конец)`
             }, {
@@ -41,7 +41,7 @@ function init() {
                 }
             }));
         }
-        else{
+        else {
             map.geoObjects.add(new ymaps.Placemark(points[i].coords, {
                 hintContent: points[i].name
             }, {
@@ -78,6 +78,11 @@ function init() {
         wayPointVisible: false,
         viaPointVisible: false,
         routeOpenBalloonOnClick: false,
+
+        routeActiveStrokeWidth: 6,
+        routeActiveStrokeStyle: 'solid',
+        routeActiveStrokeColor: "#5CA643",
+        pinVisible:false,
     });
     map.geoObjects.add(multiRoute);
 }

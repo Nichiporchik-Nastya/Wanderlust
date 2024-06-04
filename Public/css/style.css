@@ -67,7 +67,7 @@ ul.custom-ul {
   margin-bottom: 16px;
 }
 
-li{
+li {
   line-height: 130%;
 }
 
@@ -97,7 +97,7 @@ header {
   font-weight: 600;
 }
 
-.btn:disabled{
+.btn:disabled {
   background-color: var(--light-green);
 }
 
@@ -210,7 +210,7 @@ p .link {
   background-color: var(--blue-bg);
 }
 
-.hero-title{
+.hero-title {
   width: 500px;
 }
 
@@ -236,15 +236,19 @@ p .link {
 
 .tags-wrap {
   display: flex;
-  column-gap: 24px;
+  
+  gap: 24px;
   align-items: baseline;
   margin-top: 16px;
   /* border-top: 1px solid var(--border-color); */
   padding-top: 12px;
 }
 
-.tags {
+.tags,
+.preview,
+.routepoint-preview {
   display: flex;
+  flex-wrap: wrap;
   gap: 12px;
   align-items: center;
 }
@@ -378,7 +382,7 @@ header nav {
   align-items: center;
 } */
 
-.search-results__item-info span{
+.search-results__item-info span {
   white-space: nowrap;
 }
 
@@ -448,7 +452,7 @@ textarea {
   width: 600px;
 }
 
-.info-title{
+.info-title {
   width: 500px;
 }
 
@@ -639,6 +643,21 @@ label {
   height: 50%;
 }
 
+.slide-card_lil {
+  width: 365px;
+  padding: 32px;
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-between; */
+  gap: 16px;
+}
+
+.slide-card_lil img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .slide:hover .img-open-btn {
   opacity: 1;
 }
@@ -650,6 +669,7 @@ label {
   cursor: pointer;
   opacity: 0;
   transition: display .2s ease-out;
+  display: none;
 }
 
 .slider-arrows {
@@ -946,7 +966,7 @@ label {
 
   display: flex;
   flex-direction: column;
-  row-gap: 40px;
+  row-gap: 20px;
 }
 
 /* .accordion__text-block .btn {
@@ -966,7 +986,7 @@ h4 {
   line-height: 135%;
 }
 
-h4{
+h4 {
   font-weight: 600;
 }
 
@@ -1391,7 +1411,7 @@ aside {
   margin-right: 12px;
 }
 
-.excursion-extra-info {
+.calendar-wrapper {
   display: flex;
   flex-direction: column;
 }
@@ -1482,7 +1502,7 @@ aside {
 } */
 
 
-.excursion-card__cost{
+.excursion-card__cost {
   white-space: nowrap;
 }
 
@@ -1569,16 +1589,16 @@ aside {
   /* width: calc(100% / 5 ); */
 }
 
-#map-test{
+#map-test {
   width: 100%;
   height: 300px;
 }
 
-.free-places{
+.free-places {
   margin-top: 40px;
 }
 
-.see-more{
+.see-more {
   margin-top: 80px;
   margin-bottom: 160px;
 }
@@ -1590,7 +1610,7 @@ aside {
   top: -23px; */
   width: 26px;
   height: 26px;
-  border: 3px solid yellow;
+  border: 3px solid var(--light-green);
   color: var(--main-green);
   line-height: 46px;
   /* Это CSS свойство не будет работать в Internet Explorer 8 */
@@ -1604,7 +1624,7 @@ aside {
   top: -23px; */
   width: 26px;
   height: 26px;
-  border: 3px solid red;
+  border: 3px solid var(--hover-green);
   color: var(--main-green);
   line-height: 46px;
   /* Это CSS свойство не будет работать в Internet Explorer 8 */
@@ -1625,18 +1645,24 @@ aside {
   border-radius: 50px;
 }
 
-.routepoint-tag img{
-width: 15px;
-height: 15px;
-object-fit: cover;
+.routepoint-tag img {
+  width: 15px;
+  height: 15px;
+  object-fit: cover;
 }
 
-.routepoint-tag{
+.routepoint-tag {
   align-items: center;
   display: flex;
 }
 
 
+.links {
+  gap: 20px;
+  font-size: 1.4em;
+  align-items: start;
+  flex-direction: column;
+}
 
 @media (max-width: 1160px) {
 
@@ -1648,18 +1674,24 @@ object-fit: cover;
     gap: 20px;
   }
 
-  .two-part-container{
+  .two-part-container {
     column-gap: 20px;
   }
 
-  .dashbord__guide-img{
+  .dashbord__guide-img {
     width: 100px;
     height: 100px;
   }
-.dashbord__header{
-  flex-direction: column;
-  align-items: start;
-}
+
+  .dashbord__header {
+    flex-direction: column;
+    align-items: start;
+  }
+
+  .advantages-block {
+    padding-top: 80px;
+    padding-bottom: 80px;
+  }
 }
 
 
@@ -1667,6 +1699,21 @@ object-fit: cover;
 
   .container {
     padding: 0 20px;
+  }
+
+  .advantages-block {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+
+  .slide-card_lil {
+    width: 40%;
+    padding-bottom: 40px;
+  }
+
+
+  .links {
+    font-size: 1em;
   }
 
   .menu-more__block {
@@ -1699,7 +1746,7 @@ object-fit: cover;
 
   .excursion-extra-info {
     flex-direction: row;
-    justify-content: space-between;
+    /* justify-content: space-between; */
   }
 
   .excursion-extra-info__item {
@@ -1711,7 +1758,7 @@ object-fit: cover;
     justify-content: start;
   }
 
-  .excursion-cards__wrapper{
+  .excursion-cards__wrapper {
     display: flex;
     overflow-x: scroll;
   }
@@ -1722,9 +1769,13 @@ object-fit: cover;
     /* width: 100%; */
   }
 
-  .excursion-aside {
+
+
+  .excursion-extra-info{
     display: flex;
-    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    column-gap: 40px;
+    row-gap: 12px;
   }
 
   .first-container-part {
@@ -1735,11 +1786,11 @@ object-fit: cover;
     flex-direction: row;
   }
 
-  .two-part-container{
+  .two-part-container {
     margin-top: 80px;
   }
 
-  .info-title{
+  .info-title {
     width: 300px;
   }
 }
@@ -1754,33 +1805,38 @@ object-fit: cover;
     flex-direction: column;
   }
 
-    .excursion-card {
+  .excursion-card {
     min-width: calc(100% / 1.8 - 10px);
   }
 
-  .hero-title + .btn{
+  .hero-title+.btn {
     margin-bottom: 40px;
   }
 
-  .hero-title{
+  .hero-title {
     width: 100%;
     margin-bottom: 20px;
   }
 
-  .two-part-container{
+  .two-part-container {
     flex-direction: column;
   }
 
+  .slide-card_lil {
+    width: 70%;
+    height: 360px;
+    padding: 20px;
+  }
 
-  .guide-form .two-part-container{
+  .guide-form .two-part-container {
     row-gap: 40px;
   }
 
-  h4{
+  h4 {
     font-size: 16px;
   }
 
-  .info-title{
+  .info-title {
     width: 100%;
   }
 
@@ -1788,11 +1844,11 @@ object-fit: cover;
     width: 100%;
   }
 
-  .createex-form{
+  .createex-form {
     margin-top: 50px;
   }
 
-  .dashbord__header{
+  .dashbord__header {
     flex-direction: row;
     margin-bottom: 20px;
   }
@@ -1801,7 +1857,7 @@ object-fit: cover;
     display: none;
   } */
 
-  .soderj{
+  .soderj {
     position: fixed;
     top: 55px;
     padding: 12px 0;
@@ -1818,11 +1874,11 @@ object-fit: cover;
   .soderj::-webkit-scrollbar,
   .accordeon-tabs__wrapper::-webkit-scrollbar,
   .excursion-cards__wrapper::-webkit-scrollbar,
-  .images-404__wrapper::-webkit-scrollbar{
+  .images-404__wrapper::-webkit-scrollbar {
     display: none;
   }
 
-  .soderj a{
+  .soderj a {
     white-space: nowrap;
   }
 
@@ -1858,11 +1914,11 @@ object-fit: cover;
     display: none;
   }
 
-  .dashobord__info{
+  .dashobord__info {
     gap: 10px;
   }
 
-  .dashobord__info .paragraph{
+  .dashobord__info .paragraph {
     margin-bottom: 0;
   }
 
@@ -1877,7 +1933,7 @@ object-fit: cover;
     /* place-items: stretch end; */
   }
 
-  .main-images__item{
+  .main-images__item {
     max-width: 400px;
   }
 
@@ -1889,11 +1945,21 @@ object-fit: cover;
     width: 100%;
   }
 
+  .calendar-wrapper {
+    width: 100%;
+  }
+  
+
+  .slide-card_lil {
+    width: 100%;
+    padding: 12px;
+  }
+
   .main-images__item {
     width: 70%;
   }
 
-  .window-btns{
+  .window-btns {
     flex-direction: column;
     row-gap: 10px;
   }
@@ -1902,20 +1968,20 @@ object-fit: cover;
     padding: 0 12px;
   }
 
-  .h3{
+  .h3 {
     font-size: 20px;
     line-height: 120%;
   }
 
-  .h2{
+  .h2 {
     font-size: 24px;
   }
 
-  .about-block img{
+  .about-block img {
     height: 200px;
   }
 
-  .about-block{
+  .about-block {
     margin-top: 60px;
     margin-bottom: 60px;
   }
@@ -1924,27 +1990,29 @@ object-fit: cover;
     min-width: calc(100% / 1.2 - 10px);
   }
 
-  .two-part-container{
+  .two-part-container {
     column-gap: 0px;
   }
 
-  .dashbord__header{
+  .dashbord__header {
     /* flex-direction: column; */
     min-width: 100%;
   }
 
-  .admin-dashboard__header{
+  .admin-dashboard__header {
     gap: 12px;
   }
-.excursion-block__data-wrap{
-  white-space: wrap;
-}
 
-.tags-wrap{
-  flex-direction: column;
-  row-gap: 20px;
-}
-  .box-input{
+  .excursion-block__data-wrap {
+    white-space: wrap;
+  }
+
+  .tags-wrap {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .box-input {
     min-width: 100%;
   }
 
@@ -1952,12 +2020,13 @@ object-fit: cover;
     width: 100%;
   }
 
-  .form-wrapper{
+  .form-wrapper {
     width: 100%;
     padding-right: 10px;
     padding-left: 10px;
   }
-  .excursion-block__body{
+
+  .excursion-block__body {
     flex-direction: column;
     gap: 10px;
   }
@@ -1965,7 +2034,7 @@ object-fit: cover;
 
 @media (max-width: 360px) {
 
-  .dashbord__header{
+  .dashbord__header {
     flex-direction: column;
   }
 }

@@ -295,8 +295,8 @@ class mainController {
     async randomExcursion(req, res) {
         try {
             let result = await ExcursionModel.getIds();
-            let id = (Math.round(Math.random() * (result.max - result.min) + result.min));
-            res.redirect(`/excursions/show/${id}`);
+            let id = (Math.round(Math.random() * ((result.length - 1) - 0) + 0));
+            res.redirect(`/excursions/show/${result[id].dataValues.id}`);
         } catch (e) {
             console.log(e);
         }
@@ -322,8 +322,8 @@ class mainController {
                 const message = {
                     from: `Wanderlust <wanderlust.bot@gmail.com>`,
                     to: guide.email,
-                    subject: ' Отмена Бронирование экскурсии',
-                    html: `Пользователь ${order.clientName} (${order.clientPhone}, ${order.clientEmail}) отменил бронь на ${(new Date(order.day)).getDate() < 10 ? '0' + (new Date(order.day)).getDate() : (new Date(order.day)).getDate()}.${(new Date(order.day)).getMonth()+1 < 10 ? '0' + ((new Date(order.day)).getMonth()+1) : (new Date(order.day)).getMonth()+1}.${(new Date(order.day)).getFullYear()}`
+                    subject: ' Отмена бронирования экскурсии',
+                    html: `Пользователь ${order.clientName} (${order.clientPhone}, ${order.clientEmail}) отменил бронирование экскурсии ${excursion.excursionData.name} на ${(new Date(order.day)).getDate() < 10 ? '0' + (new Date(order.day)).getDate() : (new Date(order.day)).getDate()}.${(new Date(order.day)).getMonth()+1 < 10 ? '0' + ((new Date(order.day)).getMonth()+1) : (new Date(order.day)).getMonth()+1}.${(new Date(order.day)).getFullYear()}`
                 };
                 await order.destroy();
                 await order.save();

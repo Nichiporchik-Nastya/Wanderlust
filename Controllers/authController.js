@@ -51,15 +51,16 @@ class authController {
     }
 
     async logout(req, res) {
+        let guides = await UserModel.getAllGuide();
         try {
             if (req.session.user) {
                 req.session.user = null;
                 let isSession = req.session.user ? true : false;
-                res.render('index', { data: isSession });
+                res.render('index', { data: isSession, guides: guides});
             }
             else {
                 let isSession = req.session.user ? true : false;
-                res.render('index', { data: isSession });
+                res.render('index', { data: isSession, guides: guides});
             }
         } catch (e) {
             console.log(e);

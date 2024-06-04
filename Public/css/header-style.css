@@ -113,7 +113,7 @@ header nav {
 }
 
 .menu-more__item:hover {
-  font-weight: 600;
+  color: var(--main-color);
 }
 
 .guides-imgs__img {
@@ -185,6 +185,7 @@ header nav {
   height: 45px;
   border-radius: var(--radius);
   margin-right: 16px;
+  object-fit: cover;
 }
 
 .search-results__item {

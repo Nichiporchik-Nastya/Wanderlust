@@ -151,15 +151,33 @@
                                 </div> -->
                                             </div>
                                             <%}%>
-                                                <div class="excursion-type-block">
-                                                    <img src="/Public/icons/group.svg">
-                                                    <p class="paragraph">
-                                                        <strong>
-                                                            <%= data.typeData.name %>
-                                                        </strong> –
-                                                        <%= data.typeData.description %>
-                                                    </p>
-                                                </div>
+                                                <% if(data.excursionData.extraInfo) {%>
+
+                                                    <div class="paragraph-wrap">
+                                                        <% let array=data.excursionData.extraInfo.split("."), size=3,
+                                                            subarrays=[]; %>
+                                                            <!-- <% console.log(array) %> -->
+                                                            <% for (let i=0; i < Math.ceil(array.length / size); i++) {
+                                                                %>
+                                                                <% subarrays[i]=array.slice(i * size, i * size + size);
+                                                                    %>
+                                                                    <% } %>
+                                                                        <% subarrays.forEach(arr=> { %>
+                                                                            <p class="paragraph">
+                                                                                <%= arr.join(". ") %> </p>
+                                            <% }); %>
+                                    </p>
+                                </div>
+                                <%}%>
+                                                <div class=" excursion-type-block">
+                                                                                    <img src="/Public/icons/group.svg">
+                                                                                    <p class="paragraph">
+                                                                                        <strong>
+                                                                                            <%= data.typeData.name %>
+                                                                                        </strong> –
+                                                                                        <%= data.typeData.description %>
+                                                                                    </p>
+                                                    </div>
                                         </div>
 
                                     </li>
@@ -410,7 +428,7 @@
                                                 <div class="accessible-day selected"></div>
                                                 Выбранный день
                                             </div>
-                                            <h5 class="free-places"></h5>
+                                            <h4 class="free-places"></h4>
                                         </div>
 
 
@@ -566,7 +584,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="btn secondary-btn">Подробнее</div>
+                                        <!-- <div class="btn secondary-btn">Подробнее</div> -->
                                     </div>
                                     <div id="route-on-map" class="accordion__item">
                                         <div id="map-test" class="map"></div>

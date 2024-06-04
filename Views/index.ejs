@@ -13,131 +13,199 @@
 
 <body>
 
-<% if (data?.role == 2) {%>
-    <%- include('./guidePages/partials/header'); %>
-<% } else if (data?.role == 1) {%>
-    <%- include('./adminPages/partials/header'); %>
-<%  } else {%>
-    <%- include('./partials/header', {guides: guides}); %>
-<%  }%>
-                        <img class="hero-img" src="/Public/images/main.png" alt="">
+    <% if (data?.role==2) {%>
+        <%- include('./guidePages/partials/header'); %>
+            <% } else if (data?.role==1) {%>
+                <%- include('./adminPages/partials/header'); %>
+                    <% } else {%>
+                        <%- include('./partials/header', {guides: guides}); %>
+                            <% }%>
+                                <img class="hero-img" src="/Public/images/main.png" alt="">
 
 
-                        <div class="container two-part-container hero-header"
-                            style="padding-top: 40px; padding-bottom: 40px; margin: 0;">
-                            <div class="first-container-part">
-                                <h1 class="h2 hero-title">Новая серия туристических маршрутов&nbsp;по Минску</h1>
-                                <a href="/excursions/all" class="btn">Выбрать экскурсию</a>
-                            </div>
-                            <div class="second-container-part">
-                                <h5>Мы предлагаем разнообразные виды экскурсий, включая: </h5>
-                                <ul class="custom-ul">
-                                    <li>программы для детей и учащихся</li>
-                                    <li>пешеходные экскурсии выходного дня</li>
-                                    <li>возможность организации индивидуальных, групповых экскурсий и мини-групп</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                        <div class="container about-block">
-                            <h3 class="h3"><span class="colored-text">Команда страстных путешественников</span>
-                                и опытных гидов с радостью проведёт вас в удивительное путешествие по сердцу Беларуси:
-                            </h3>
-                            <img src="/Public/images/about.png" alt="Фонтан в парке Якуба Коласа">
-                            <h3 class="h3">От старинных улочек до архитектурных шедевров нового времени, <span
-                                    class="colored-text">покажет вам своеобразие Минска в его неповторимой
-                                    атмосфере</span></h3>
-                        </div>
-
-
-
-                        <!-- <div class="container advantages-block">
-                            <h2>Wanderlust minsk — это</h2>
-                            <div class="slider">
-                                <div class="slider-list" style="height: 400px">
-                                    <div class="slider-track">
-                                        <div class="slide slide-card">
-                                            <div class="slide-card__top">
-                                                <h4 class="slide-card__title">Опытные экскурсоводы</h4>
-                                                <p class="slide-card__text paragraph">
-                                                    Профессиональные гиды с опытом работы от 3-х лет
-                                                </p>
-                                            </div>
-                                            <div class="slide-card__bottom"></div>
-                                        </div>
-                                        <div class="slide slide-card">
-                                            <div class="slide-card__top">
-                                                <h4 class="slide-card__title">Маршрут на карте</h4>
-                                                <p class="slide-card__text paragraph">
-                                                    Большое количество фотографий и отмеченный на карте маршрут
-                                                    позволяют точно понять, что вас ждёт
-                                                </p>
-                                            </div>
-                                            <div class="slide-card__bottom"></div>
-                                        </div>
-                                        <div class="slide slide-card">
-                                            <div class="slide-card__top">
-                                                <h4 class="slide-card__title">удобная классификация</h4>
-                                                <p class="slide-card__text paragraph">
-                                                    С категориями на сайте можно быстро найти то, что нужно именно вам
-                                                </p>
-                                            </div>
-                                            <div class="slide-card__bottom"></div>
-                                        </div>
-                                        <div class="slide slide-card">
-                                            <div class="slide-card__top">
-                                                <h4 class="slide-card__title">Регистрация не нужна!</h4>
-                                                <p class="slide-card__text paragraph">
-                                                    Для бронирования экскурсии не нужно регистрироваться и вносить
-                                                    предоплату
-                                                </p>
-                                            </div>
-                                            <div class="slide-card__bottom">
-                                                <img src="/Public/images/advantages.png" alt="Инфографика преимущества">
-                                            </div>
-                                        </div>
+                                <div class="container two-part-container hero-header"
+                                    style="padding-top: 40px; padding-bottom: 40px; margin: 0;">
+                                    <div class="first-container-part">
+                                        <h1 class="h2 hero-title">Новая серия туристических маршрутов&nbsp;по Минску
+                                        </h1>
+                                        <a href="/excursions/all" class="btn">Выбрать экскурсию</a>
+                                    </div>
+                                    <div class="second-container-part">
+                                        <h5>Мы предлагаем разнообразные виды экскурсий, включая: </h5>
+                                        <ul class="custom-ul">
+                                            <li>программы для детей и учащихся</li>
+                                            <li>пешеходные экскурсии выходного дня</li>
+                                            <li>возможность организации индивидуальных, групповых экскурсий и мини-групп
+                                            </li>
+                                        </ul>
                                     </div>
                                 </div>
 
-                                <div class="slider-arrows">
-                                    <div type="button" class="prev disabled"> </div>
-                                    <div type="button" class="next"> </div>
+                                <div class="container about-block">
+                                    <h3 class="h3"><span class="colored-text">Команда страстных путешественников</span>
+                                        и опытных гидов с радостью проведёт вас в удивительное путешествие по сердцу
+                                        Беларуси:
+                                    </h3>
+                                    <img src="/Public/images/about.png" alt="Фонтан в парке Якуба Коласа">
+                                    <h3 class="h3">От старинных улочек до архитектурных шедевров нового времени, <span
+                                            class="colored-text">покажет вам своеобразие Минска в его неповторимой
+                                            атмосфере</span></h3>
                                 </div>
 
-                            </div>
-                        </div> -->
-
-                        <div class="container see-more">
-                            <h2 class="h2">
-                                Экскурсии на любой вкус
-                            </h2>
-                            <div class="excursion-cards__wrapper">
-                            </div>
-                        </div>
 
 
-                        <script>
-                            async function ShowMore() {
-                                // let formData = new FormData();
-                                // formData.append('str', target.value);
+                                <div class="container advantages-block">
+                                    <h2>Wanderlust minsk — это</h2>
+                                    <div class="slider">
+                                        <div class="slider-list" style="height: 400px">
+                                            <div class="slider-track">
+                                                <div class="slide slide-card slide-card_lil">
+                                                    <div class="slide-card__top">
+                                                        <h4 class="slide-card__title">удобная классификация</h4>
+                                                        <p class="slide-card__text paragraph">
+                                                            С категориями на сайте можно быстро найти то, что нужно
+                                                            именно вам
+                                                        </p>
+                                                    </div>
+                                                    <div class="slide-card__bottom" style="display: flex; gap: 20px;">
+                                                        <div class="guides-info links">
+                                                            <a href="/excursions/all" class="link">
+                                                                Форматы
+                                                                <img src="/Public/icons/btn-arrow.svg">
+                                                            </a>
+                                                            <a href="/excursions/all" class="link">
+                                                                Типы
+                                                                <img src="/Public/icons/btn-arrow.svg">
+                                                            </a>
+                                                            <a href="/excursions/all" class="link">
+                                                                Темы
+                                                                <img src="/Public/icons/btn-arrow.svg">
+                                                            </a>
+                                                            <a href="/excursions/all" class="link">
+                                                                Кухня
+                                                                <img src="/Public/icons/btn-arrow.svg">
+                                                            </a>
+                                                        </div>
+                                                        <div class="guides-info links">
+                                                            <a href="/excursions/all" class="link">
+                                                                Панорамы
+                                                                <img src="/Public/icons/btn-arrow.svg">
+                                                            </a>
+                                                            <a href="/excursions/all" class="link">
+                                                                Музеи
+                                                                <img src="/Public/icons/btn-arrow.svg">
+                                                            </a>
+                                                            <a href="/excursions/all" class="link">
+                                                                История
+                                                                <img src="/Public/icons/btn-arrow.svg">
+                                                            </a>
+                                                            <a href="/excursions/all" class="link">
+                                                                Храмы
+                                                                <img src="/Public/icons/btn-arrow.svg">
+                                                            </a>
+                                                        </div>
 
-                                let response = await fetch('/excursions/search?str=', {
-                                    method: "GET"
-                                });
+                                                    </div>
+                                                </div>
 
-                                let result = await response.json();
+                                                <div class="slide slide-card slide-card_lil">
+                                                    <div class="slide-card__top">
+                                                        <h4 class="slide-card__title">Маршрут на карте</h4>
+                                                        <p class="slide-card__text paragraph">
+                                                            Большое количество фотографий и отмеченный на карте маршрут
+                                                            позволяют точно понять, что вас ждёт
+                                                        </p>
+                                                    </div>
+                                                    <div class="slide-card__bottom">
+                                                        <img src="/Public/images/map.png" alt="">
+                                                    </div>
+                                                </div>
+
+                                                <div class="slide slide-card slide-card_lil">
+                                                    <div class="slide-card__top">
+                                                        <h4 class="slide-card__title">Регистрация не нужна!</h4>
+                                                        <p class="slide-card__text paragraph">
+                                                            Для бронирования экскурсии не нужно регистрироваться
+                                                            и вносить
+                                                            предоплату
+                                                        </p>
+                                                    </div>
+                                                    <div class="slide-card__bottom">
+                                                        <img src="/Public/images/advantages.png"
+                                                            alt="Инфографика преимущества">
+                                                    </div>
+                                                </div>
+                                                <div class="slide slide-card slide-card_lil">
+                                                    <div class="slide-card__top">
+                                                        <h4 class="slide-card__title">Опытные экскурсоводы</h4>
+                                                        <p class="slide-card__text paragraph">
+                                                            Профессиональные гиды с опытом работы от 3-х лет
+                                                        </p>
+                                                    </div>
+                                                    <div class="slide-card__bottom">
 
 
 
-                                let container = document.querySelector('.excursion-cards__wrapper');
-                                container.innerHTML = '';
+                                                        <div class="guides-info"
+                                                            style=" display: flex; flex-direction: column; align-items: start; gap: 12px;">
+                                                            <p class="extra-info" style="width: 190px;">
+                                                                Ещё больше маршрутов от наших гидов
+                                                            </p>
+                                                            <a href="/excursions/all" class="link">
+                                                                Смотреть
+                                                                <img src="/Public/icons/btn-arrow.svg">
+                                                            </a>
+                                                        </div>
+                                                        <!-- <div class="guides-imgs__wrapper">
+                                                            <% guides.forEach(item=> { %>
+                                                                <img src="<%= item.imgSRC%>" alt=""
+                                                                    class="guides-imgs__img">
+                                                                <% }); %>
+                                                        </div> -->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="slider-arrows">
+                                            <div type="button" class="prev disabled"> </div>
+                                            <div type="button" class="next"> </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="container see-more">
+                                    <h2 class="h2">
+                                        Экскурсии на любой вкус
+                                    </h2>
+                                    <div class="excursion-cards__wrapper">
+                                    </div>
+                                </div>
+
+
+                                <script>
+                                    async function ShowMore() {
+                                        // let formData = new FormData();
+                                        // formData.append('str', target.value);
+
+                                        let response = await fetch('/excursions/search?str=', {
+                                            method: "GET"
+                                        });
+
+                                        let result = await response.json();
 
 
 
-                                for (let i = 0; i < 4 && i < result.length; i++) {
-                                    let item = result[i];
+                                        let container = document.querySelector('.excursion-cards__wrapper');
+                                        container.innerHTML = '';
 
-                                    container.innerHTML += `<a href="/excursions/show/${item?.id}" class="excursion-card">
+
+
+                                        for (let i = 0; i < result.length; i++) {
+                                            let item = result[i];
+
+                                            container.innerHTML += `<a href="/excursions/show/${item?.id}" class="excursion-card">
                                             <img class="excursion-card__img" src="${item?.images[0]?.imgSRC}" alt="">
                                             <h4 class="excursion-card__title">${item?.name}</h4>
 
@@ -156,13 +224,13 @@
 
 
 
-                                }
-                            }
-                            ShowMore();
-                        </script>
-                        <script src="/public/js/anchorScroll.js"></script>
-                        <script src="./index.js"></script>
-                        <script src="/Public/js/slider.js"></script>
+                                        }
+                                    }
+                                    ShowMore();
+                                </script>
+                                <script src="/public/js/anchorScroll.js"></script>
+                                <script src="./index.js"></script>
+                                <script src="/Public/js/slider.js"></script>
 </body>
 
 </html>

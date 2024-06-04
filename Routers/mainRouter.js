@@ -35,8 +35,9 @@ router.post('/api/admin/registration', [
   // body('imgSRC').not().isEmpty().withMessage('Выберите изображение'),
 ], controller.registration);
 
-router.get('/admin/registration', (req, res) => {
-  res.render('adminPages/registrationPage');
+router.get('/admin/registration', async (req, res) => {
+  let guides = await userModel.getAllGuide();
+  res.render('adminPages/registrationPage', { guides: guides });
 });
 
 // router.get('/allInfo', (req, res) => {
@@ -69,14 +70,15 @@ router.get('/excursions/create', middlewareController.checkSession, middlewareCo
   // excursionStructure.push('guideId', req.session.user.id);
   // console.log(excursionStructure);
   // console.log(session);
-    let guides = await userModel.getAllGuide();
-  res.render('guidePages/createExcursionPage', { data: excursionStructure, user: req.session.user.id, guides:guides }); //, guideId: req.session.user.id
+  let guides = await userModel.getAllGuide();
+  res.render('guidePages/createExcursionPage', { data: excursionStructure, user: req.session.user.id, guides: guides }); //, guideId: req.session.user.id
 });
 
 router.get('/excursions/edit/:id', async (req, res) => {
   let excursionStructure = await excursionModel.getStructure();
   let excursion = await excursionModel.get(+req.params?.id);
   let themes = excursion.themesData.map(el => el.themeId);
+  let guides = await userModel.getAllGuide();
   const daysWeek = {
     1: "понедельник",
     2: "вторник",
@@ -91,6 +93,7 @@ router.get('/excursions/edit/:id', async (req, res) => {
     data: excursionStructure, user: 1,
     excursion: excursion, themes: themes,
     daysWeek: daysWeek, excursionDaysWeek: excursionDaysWeek,
+    guides:guides
   });
 });
 
@@ -152,8 +155,8 @@ router.post('/api/guide/edite/', [
   body('description').isLength({ min: 10 }).withMessage('Описание должно содержать не менее 10 символов'),
   body('email').isEmail().withMessage('Введите корректный адрес электронной почты'),
   body('secondPassword').custom((value, { req }) => {
-    if (req.body?.secondPassword){
-      if (!req.body?.password || req.body?.password?.length < 6 ) {
+    if (req.body?.secondPassword) {
+      if (!req.body?.password || req.body?.password?.length < 6) {
         throw new Error('Пароль должен содержать не менее 6 символов');
       }
       if (value !== req.body.password) {
